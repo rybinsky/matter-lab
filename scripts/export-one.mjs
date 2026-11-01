@@ -7,6 +7,7 @@ import { createSoundtrack } from './soundtrack.mjs';
 import { acquireRenderLock } from './render-lock.mjs';
 import { createSocialDelivery } from './social-delivery.mjs';
 import { downloadableProject, exportMetadata } from '../src/export-artifacts.js';
+import { finalAudioPlan } from '../src/final-audio.js';
 import { cacheDir, mediaDir as out, renderBinary as binary } from '../runtime-paths.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -34,8 +35,9 @@ try{
  const nativeProgress=line=>{const m=/FRAME (\d+)\/(\d+)/.exec(line);if(m)progress(15+Number(m[1])/Number(m[2])*79,`Рендер: ${Math.round(Number(m[1])/Number(m[2])*100)}%`);};
  try{await run(binary,[cache,silent],{onLine:nativeProgress});}catch(error){if(data.width<2160)throw error;progress(15,'Повторная сборка совместимым кодировщиком');await run(binary,[cache,silent],{env:{...process.env,MATTER_LAB_ENCODER:'software'},onLine:nativeProgress});}
  progress(95,'Звук и сборка MP4');
- await writeFile(wav,createSoundtrack(data));
- await run('ffmpeg',['-hide_banner','-loglevel','error','-i',silent,'-i',wav,'-c:v','copy','-af','loudnorm=I=-16:TP=-1.5:LRA=9','-ar','48000','-c:a','aac','-b:a','192k','-shortest','-movflags','+faststart','-y',video]);
+ const soundtrack=createSoundtrack(data),audioPlan=finalAudioPlan(soundtrack);
+ await writeFile(wav,soundtrack);
+ await run('ffmpeg',['-hide_banner','-loglevel','error','-i',silent,'-i',wav,'-c:v','copy',...audioPlan.filterArgs,'-ar','48000','-c:a','aac','-b:a','192k','-shortest','-movflags','+faststart','-y',video]);
  await run('ffmpeg',['-hide_banner','-loglevel','error','-ss','1','-i',video,'-frames:v','1','-pix_fmt','yuvj420p','-q:v','3','-y',path.join(out,name+'.jpg')]);
  await writeFile(path.join(out,name+'.project.json'),JSON.stringify(downloadableProject(project,{title:data.title}),null,2));
  await writeFile(path.join(out,name+'.json'),JSON.stringify(exportMetadata(project,data,{id,name,created:new Date().toISOString()}),null,2));
