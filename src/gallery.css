@@ -27,12 +27,36 @@
 .spatial-studio .gallery .reel-card:hover{transform:none;border-color:color-mix(in srgb,var(--sub) 25%,transparent);box-shadow:0 8px 25px #00000024}
 .spatial-studio .gallery .reel-card:focus-within{border-color:color-mix(in srgb,var(--accent) 65%,transparent)}
 .spatial-studio .gallery .reel-preview{
- position:relative;flex:0 0 auto;isolation:isolate;aspect-ratio:1;
+ display:block;position:relative;flex:0 0 auto;isolation:isolate;aspect-ratio:1;
  max-block-size:360px;min-block-size:260px;overflow:hidden;
- background:#0c1017;border-bottom:1px solid var(--border);
+ background:#0c1017;border-bottom:1px solid var(--border);color:#f7fafc;text-decoration:none;
 }
-.spatial-studio .gallery .reel-preview:after{content:none;display:none}
-.spatial-studio .gallery .reel-preview video{display:block;width:100%;height:100%;aspect-ratio:9/16;object-fit:contain;background:#0c1017}
+.spatial-studio .gallery .reel-preview>a{display:block;position:absolute;inset:0;color:inherit;text-decoration:none}
+.spatial-studio .gallery .reel-preview:after{
+ content:'';display:block;position:absolute;inset:0;z-index:1;pointer-events:none;
+ background:linear-gradient(180deg,transparent 65%,#06101ba6 100%);opacity:.7;transition:opacity .18s;
+}
+.spatial-studio .gallery .reel-preview :is(img,video){position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#0c1017}
+.spatial-studio .gallery .reel-preview:is(:hover,:focus-within):after{opacity:1}
+.spatial-studio .gallery .reel-preview:focus-visible,.spatial-studio .gallery .reel-preview>a:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.spatial-studio .gallery .reel-play{
+ position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;
+ width:48px;height:48px;transform:translate(-50%,-50%);border:1px solid #ffffff55;border-radius:50%;
+ background:#0c1723bf;color:#fff;box-shadow:0 4px 16px #00000026;pointer-events:none;
+ transition:background .18s,border-color .18s;
+}
+.spatial-studio .gallery .reel-play svg{display:block;width:20px;height:20px;margin-left:2px}
+.spatial-studio .gallery .reel-preview:is(:hover,:focus-within) .reel-play{background:#0c1723eb;border-color:#ffffffb3}
+.spatial-studio .gallery .reel-duration{
+ position:absolute;left:14px;bottom:14px;z-index:2;display:inline-flex;align-items:center;
+ min-height:25px;padding:0 7px;border:1px solid #ffffff26;border-radius:5px;
+ background:#08111dbf;color:#f7fafc;font-size:11px;font-weight:550;line-height:1;
+ font-variant-numeric:tabular-nums;letter-spacing:.15px;pointer-events:none;
+}
+.spatial-studio .gallery .reel-preview-caption{
+ position:absolute;right:15px;bottom:14px;z-index:2;display:inline-flex;align-items:center;
+ min-height:25px;color:#f7fafc;font-size:12px;font-weight:550;line-height:1;letter-spacing:.1px;pointer-events:none;
+}
 .spatial-studio .gallery .reel-info{display:flex;flex-direction:column;flex:1;min-width:0;padding:16px 18px 15px}
 .spatial-studio .gallery .reel-info>h3{
  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;
@@ -86,4 +110,4 @@
  .spatial-studio .gallery .reel-grid{gap:22px;grid-template-columns:minmax(0,1fr)}
  .spatial-studio .gallery .reel-info{padding:16px 16px 15px}
 }
-@media(prefers-reduced-motion:reduce){.spatial-studio .gallery .reel-card{transition:none}}
+@media(prefers-reduced-motion:reduce){.spatial-studio .gallery :is(.reel-card,.reel-play,.reel-preview:after){transition:none}}

@@ -6,6 +6,7 @@ import { captureFilm } from './capture-film.mjs';
 import { createSoundtrack } from './soundtrack.mjs';
 import { acquireRenderLock } from './render-lock.mjs';
 import { createSocialDelivery } from './social-delivery.mjs';
+import { downloadableProject, exportMetadata } from '../src/export-artifacts.js';
 import { cacheDir, mediaDir as out, renderBinary as binary } from '../runtime-paths.mjs';
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -36,8 +37,8 @@ try{
  await writeFile(wav,createSoundtrack(data));
  await run('ffmpeg',['-hide_banner','-loglevel','error','-i',silent,'-i',wav,'-c:v','copy','-af','loudnorm=I=-16:TP=-1.5:LRA=9','-ar','48000','-c:a','aac','-b:a','192k','-shortest','-movflags','+faststart','-y',video]);
  await run('ffmpeg',['-hide_banner','-loglevel','error','-ss','1','-i',video,'-frames:v','1','-pix_fmt','yuvj420p','-q:v','3','-y',path.join(out,name+'.jpg')]);
- await writeFile(path.join(out,name+'.project.json'),JSON.stringify({version:1,name:data.title,settings:project.settings,objects:project.objects||[],edits:project.edits||{},...(project.film?{film:project.film}:{})},null,2));
- await writeFile(path.join(out,name+'.json'),JSON.stringify({jobId:id,experiment:data.experiment,title:data.title,duration:data.duration,width:data.width,height:data.height,fps:data.fps,showcase:!!project.showcase,collection:project.collection||(project.settings.scenarioKit?'studio':undefined),revision:data.revision,editing:data.editing,camera:data.cameraMode,music:data.audioPreset,musicTrack:data.musicTrack,environment:data.environment,soundDesign:data.soundDesign,sourceProjectName:name+'.project.json',story:data.story,film:data.film,analysis:data.analysis,takes:data.takes.map(t=>({label:t.label,detail:t.detail,settings:t.settings,experiment:t.experiment,clipId:t.clipId,clipIndex:t.clipIndex,start:t.start,duration:t.duration,observationTime:t.observationTime,negativeControl:t.negativeControl})),models:data.models||{orbit:'Central gravity / velocity Verlet',thermal:'Lumped heat balance / melt enthalpy',flow:'Clavet-style Double Density Relaxation'}[data.experiment]||'Rapier 0.21',created:new Date().toISOString()},null,2));
+ await writeFile(path.join(out,name+'.project.json'),JSON.stringify(downloadableProject(project,{title:data.title}),null,2));
+ await writeFile(path.join(out,name+'.json'),JSON.stringify(exportMetadata(project,data,{id,name,created:new Date().toISOString()}),null,2));
  if(data.width>=2160){progress(98,'Готовим версию для публикации');await createSocialDelivery(video,JSON.parse(await readFile(path.join(out,name+'.json'),'utf8')));}
  progress(100,'Готово: '+video);
 }catch(e){console.error(e.stack||e);process.exitCode=1;}finally{await renderLock.release();}

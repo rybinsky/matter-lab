@@ -351,9 +351,25 @@ async function refreshGallery(){
  const pending=jobs.filter(job=>job.status!=='done').slice(0,8);queue.hidden=!pending.length;
  const statusNames={queued:'В очереди',running:'Рендер',error:'Не завершён',interrupted:'Прерван'};
  queue.innerHTML=pending.map(job=>`<article class="export-job"><div class="export-job-heading"><strong>${escape(job.title||'Экспорт ролика')}</strong><span>${statusNames[job.status]||'Ожидает'}${job.status==='running'?' · '+Math.round(job.progress||0)+'%':''}</span></div><div class="export-job-progress" role="progressbar" aria-label="${escape(job.title||'Экспорт')}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.max(0,Math.min(100,job.progress||0))}"><span style="width:${Math.max(0,Math.min(100,job.progress||0))}%"></span></div><p>${escape(job.message||'Подготовка ролика')}</p></article>`).join('');
- const signature=visible.map(r=>r.name+':'+r.modified).join('|');
- if(signature===gallerySignature||[...document.querySelectorAll('#reels video')].some(v=>!v.paused&&!v.ended))return;gallerySignature=signature;
- const cards=list=>list.map(reel=>`<article class="reel-card"><div class="reel-preview"><video controls playsinline muted preload="metadata" poster="${reel.poster||''}" src="${reel.url}?v=${Math.round(reel.modified)}"></video></div><div class="reel-info"><h3 title="${escape(reel.title||'Мой эксперимент')}">${escape(reel.title||'Мой эксперимент')}</h3><p title="${escape(reel.takes?.map(t=>t.label).join(' · ')||'Авторская сцена')}">${escape(reel.takes?.map(t=>t.label).join(' · ')||'Авторская сцена')}</p><div class="reel-meta"><span>${Math.round(reel.duration)} с · ${reel.width>=2160?'4K':reel.width>=1080?'Full HD':'HD'} · ${reel.fps} кадр/с</span><a href="${reel.url}" download>${icon('download')}MP4</a>${reel.masterName?`<a href="/media/${encodeURIComponent(reel.masterName)}" download>4K</a>`:''}${reel.sourceProjectName?`<button type="button" data-edit-reel="${escape(reel.sourceProjectName)}" aria-label="Редактировать ${escape(reel.title||'ролик')}">Редактировать</button><a href="/media/${encodeURIComponent(reel.sourceProjectName)}" download aria-label="Скачать проект ${escape(reel.title||'ролика')}">Сцена</a>`:''}</div></div></article>`).join('');
+ const signature=visible.map(r=>[r.name,r.modified,r.title,r.description,r.sourceProjectName,r.poster,r.masterName].join(':')).join('|');
+ if(signature===gallerySignature)return;gallerySignature=signature;
+ const cards=list=>list.map(reel=>{
+  const title=reel.title||'Мой эксперимент';
+  const description=reel.description||reel.takes?.map(t=>t.label).join(' · ')||'';
+  const seconds=Math.max(0,Math.round(reel.duration)||0),duration=`${Math.floor(seconds/60).toString().padStart(2,'0')}:${(seconds%60).toString().padStart(2,'0')}`;
+  return `<article class="reel-card">
+   <a class="reel-preview" href="/watch.html?v=${encodeURIComponent(reel.name)}" target="_blank" rel="noopener" aria-label="Смотреть ${escape(title)}">
+    ${reel.poster?`<img src="${escape(reel.poster)}?v=${Math.round(reel.modified)}" alt="${escape(title)}" loading="lazy" decoding="async"/>`:'<span class="reel-no-poster">Видео</span>'}
+    <span class="reel-play" aria-hidden="true">${icon('play')}</span><span class="reel-duration">${duration}</span><span class="reel-preview-caption" aria-hidden="true">Смотреть</span>
+   </a>
+   <div class="reel-info"><h3 title="${escape(title)}">${escape(title)}</h3><p title="${escape(description)}">${escape(description)}</p>
+    <div class="reel-meta"><span>${seconds} с · ${reel.width>=2160?'4K':reel.width>=1080?'Full HD':'HD'} · ${reel.fps} кадр/с</span>
+     <a href="${escape(reel.url)}" download>${icon('download')}MP4</a>${reel.masterName?`<a href="/media/${encodeURIComponent(reel.masterName)}" download>4K</a>`:''}
+     ${reel.sourceProjectName?`<button type="button" data-edit-reel="${escape(reel.sourceProjectName)}" aria-label="Редактировать ${escape(title)}">Редактировать</button><a href="/media/${encodeURIComponent(reel.sourceProjectName)}" download aria-label="Скачать проект ${escape(title)}">Сцена</a>`:''}
+    </div>
+   </div>
+  </article>`;
+ }).join('');
  $('#reels').innerHTML=visible.length?cards(visible):'<div class="exports-empty"><h2>Нет экспортов</h2><button type="button" class="toolbar-button" data-open-export-projects>Открыть проекты</button></div>';refreshIcons();
 }
 $('#reels').addEventListener('click',async event=>{

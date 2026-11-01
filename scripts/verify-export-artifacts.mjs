@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {downloadableProject,exportMetadata} from '../src/export-artifacts.js';
+const runtime={jobId:'job',outputName:'out',preview:true,previewDuration:3,previewFps:24};
+const child={version:1,name:'Child',description:'Child scientific description',height:720,series:true,...runtime,settings:{experiment:'blank',futurePhysicalLaw:{matrix:[1,2,3],preview:7,outputName:'physical field'}},objects:[{id:'x',futureMaterial:{strength:12}}],edits:{x:{unknownContact:.6}},futureTopLevelPhysics:{coefficients:[.2,.4]}};
+const project={...structuredClone(child),name:'Authored name',description:'Подъём с вращением, не устойчивый подъём',height:2160,film:{version:1,enabled:true,clips:[{id:'child',customClipData:{heat:42},project:child}]}};
+const before=structuredClone(project),saved=downloadableProject(project,{title:'Rendered title'}),roundtrip=JSON.parse(JSON.stringify(saved));
+assert.deepEqual(project,before);assert.equal(roundtrip.name,'Authored name');assert.equal(roundtrip.description,project.description);assert.equal(roundtrip.height,2160);assert.equal(roundtrip.series,true);
+for(const node of [roundtrip,roundtrip.film.clips[0].project])for(const key of Object.keys(runtime))assert(!Object.hasOwn(node,key));
+assert.deepEqual(roundtrip.settings.futurePhysicalLaw,project.settings.futurePhysicalLaw);assert.deepEqual(roundtrip.objects,project.objects);assert.deepEqual(roundtrip.edits,project.edits);assert.deepEqual(roundtrip.futureTopLevelPhysics,project.futureTopLevelPhysics);
+assert.deepEqual(roundtrip.film.clips[0].customClipData,{heat:42});assert.equal(roundtrip.film.clips[0].project.description,child.description);
+saved.settings.futurePhysicalLaw.matrix[0]=99;assert.equal(project.settings.futurePhysicalLaw.matrix[0],1);
+const provenance={version:1,models:[{id:'penetration',limitations:['1D, not calibrated fracture'],takeIndices:[0]}],takes:[{takeIndex:0,models:[{id:'penetration',parameters:{mass:2}}]}]};
+const data={title:'Rendered title',experiment:'film',duration:1,width:1080,height:1920,fps:60,models:['Rapier 0.21','1D axial model'],modelProvenance:provenance,takes:[{label:'Trial',settings:project.settings,modelProvenance:provenance.takes[0],frames:[{doNotPersist:'large runtime frame'}]}]},dataBefore=structuredClone(data);
+const metadata=exportMetadata(project,data,{id:'job',name:'out',created:'2026-11-01T00:00:00.000Z'}),json=JSON.parse(JSON.stringify(metadata));
+assert.deepEqual(json.modelProvenance,provenance);assert.deepEqual(json.takes[0].modelProvenance,provenance.takes[0]);assert.deepEqual(json.models,data.models);assert.equal(json.description,project.description);assert.equal(json.sourceProjectName,'out.project.json');assert(!Object.hasOwn(json.takes[0],'frames'));
+assert.deepEqual(data,dataBefore);metadata.modelProvenance.models[0].limitations.push('Changed copy');assert.deepEqual(data,dataBefore);
+console.log('Export artifacts passed: immutable full authoring roundtrip, nested runtime stripping without unknown physical-field loss, description/height/series and exact root/take provenance persistence. No GPU.');
