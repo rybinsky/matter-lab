@@ -2,6 +2,66 @@
   "version": 1,
   "templates": [
     {
+      "id": "balloon-chair",
+      "title": "Почему стул перевернулся?",
+      "teaser": "Те же 80 шаров и тот же стул. Меняем точки подвеса и сравниваем устойчивость.",
+      "tags": [
+        "45 секунд",
+        "Подъёмная сила",
+        "Подвес"
+      ],
+      "projectUrl": "/projects/balloon-chair.project.json",
+      "posterUrl": "/projects/posters/balloon-chair.jpg"
+    },
+    {
+      "id": "rail-sorter",
+      "title": "2 см — и один лоток пуст?",
+      "teaser": "Цвет не меняет маршрут. Зазор между рельсами меняет распределение тех же девяти шаров.",
+      "tags": [
+        "47 секунд",
+        "Геометрия",
+        "Сортировка"
+      ],
+      "projectUrl": "/projects/rail-sorter.project.json",
+      "posterUrl": "/projects/posters/rail-sorter.jpg"
+    },
+    {
+      "id": "longer-faster",
+      "title": "Короче — значит быстрее?",
+      "teaser": "Два одинаковых шара, один перепад высоты. Сравниваем прямой и более длинный изогнутый желоб.",
+      "tags": [
+        "47 секунд",
+        "Гравитация",
+        "Гонка"
+      ],
+      "projectUrl": "/projects/longer-faster.project.json",
+      "posterUrl": "/projects/posters/longer-faster.jpg"
+    },
+    {
+      "id": "crane-balance",
+      "title": "Груз легче крана. Почему кран падает?",
+      "teaser": "Вылет стрелы, противовес, раскачивание и ширина опоры: четыре изменения одного опыта.",
+      "tags": [
+        "45 секунд",
+        "Равновесие",
+        "Рычаг"
+      ],
+      "projectUrl": "/projects/crane-balance.project.json",
+      "posterUrl": "/projects/posters/crane-balance.jpg"
+    },
+    {
+      "id": "growing-domino",
+      "title": "43 грамма против холодильника",
+      "teaser": "Семь растущих домино запускают падение холодильника. Непрерывный каскад и энергия гравитации.",
+      "tags": [
+        "47 секунд",
+        "Каскад",
+        "Энергия"
+      ],
+      "projectUrl": "/projects/growing-domino.project.json",
+      "posterUrl": "/projects/posters/growing-domino.jpg"
+    },
+    {
       "id": "heated-cylinder",
       "title": "1000 °C против метра льда",
       "teaser": "Удар, холодный контроль и последующее плавление. Осевая модель с редактируемыми коэффициентами.",

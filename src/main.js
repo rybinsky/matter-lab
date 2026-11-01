@@ -33,6 +33,7 @@ import { mountInteractionEditor } from './interaction-editor.js';
 import { mountContextViewEditor } from './context-view-editor.js';
 import {mountToolbarOverflow,mountScrollCue} from './toolbar-overflow.js';
 import {mountSceneAnnotationEditor} from './scene-annotation-editor.js';
+import {mountTrackBuilderEditor} from './track-builder-editor.js';
 import './authoring.css';
 import './gallery.css';
 
@@ -556,6 +557,18 @@ const contextViewEditor=mountContextViewEditor({getState:project,getCamera:()=>(
 $('#context-view-open').onclick=()=>contextViewEditor.open();
 const annotationEditor=mountSceneAnnotationEditor({getState:project,getEntities:()=>[...lab.entities,...lab.softs],getSelected:()=>selected,commitAnnotations:value=>{remember();settings.annotations=value;lab.settings.annotations=value;persist();},notify:toast,icons:refreshIcons});
 $('.scene-tools').insertAdjacentHTML('beforeend',`<button id="scene-annotations-open" aria-label="Подписи в пространстве" title="Подписи и шкалы в сцене">${icon('type')}</button>`);$('#scene-annotations-open').onclick=()=>annotationEditor.open();
+const trackBuilderEditor=mountTrackBuilderEditor({getState:project,getSelected:()=>selected,commitProject:p=>{
+ const before=project(),previous=new Map(before.objects.map(o=>[o.id,{...o,...before.edits?.[o.id]}])),previousSelection=selected;
+ const target=p.objects.find(o=>o.track&&JSON.stringify({...o,...p.edits?.[o.id]})!==JSON.stringify(previous.get(o.id)))?.id||previousSelection;
+ // applyProject validates and constructs the replacement world before adding
+ // one undo entry or touching the live scene. A failed draft stays isolated.
+ applyProject(p,{rememberCurrent:true});if(target&&lab.find(target))select(target);
+},notify:toast,icons:refreshIcons});
+$('.scene-tools').insertAdjacentHTML('beforeend',`<button id="track-builder-open" aria-label="Желоб" title="Построить или изменить кривой желоб">${icon('route')}<span class="studio-tool-label">Желоб</span></button>`);
+$('#track-builder-open').onclick=async()=>{
+ try{if(cameraStudio?.recording)await cameraStudio.stop();if(rehearsal?.active)rehearsal.close();setPlaying(false);trackBuilderEditor.open();}
+ catch(error){toast(error?.message||'Не удалось открыть конструктор желоба.');}
+};
 refreshIcons();
 mountScenePicker({select:$('#experiment-select')});
 mountToolbarOverflow({container:$('.scene-tools')});
