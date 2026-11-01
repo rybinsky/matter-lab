@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {createSoundtrack} from './soundtrack.mjs';
+import {normalizeSoundDesign,selectSoundEvents,soundActivitySegments} from '../src/sound-design.js';
+import {TRACKS} from '../src/tracks.js';
+
+const target=process.argv.find(a=>a.startsWith('--fixtures='));
+const directory=path.resolve(target?target.slice('--fixtures='.length):'.cache/audio-qa/fixtures');
+await mkdir(directory,{recursive:true});
+const sr=32000,fps=24,report={note:'Objective signal checks only. These files have not been judged by listening.',sampleRate:sr,fixtures:[],checks:[]};
+const frames=(duration,extra=()=>({}))=>Array.from({length:Math.round(duration*fps)},(_,i)=>({sourceTime:i/fps,stats:{time:i/fps,moving:1,energy:1},...extra(i/fps,i)}));
+const base=(duration=5)=>({duration,fps,experiment:'blank',audioPreset:'none',takes:[{settings:{material:'wood'},frames:frames(duration),impacts:[]}]});
+function decode(wav){assert.equal(wav.toString('ascii',0,4),'RIFF');assert.equal(wav.readUInt16LE(22),2);assert.equal(wav.readUInt32LE(24),sr);const n=(wav.length-44)/4,left=new Float32Array(n),right=new Float32Array(n),mono=new Float32Array(n);for(let i=0;i<n;i++){left[i]=wav.readInt16LE(44+i*4)/32768;right[i]=wav.readInt16LE(46+i*4)/32768;mono[i]=(left[i]+right[i])/2;}return{left,right,mono};}
+function rms(samples,start=0,end=samples.length/sr){let e=0,count=0;for(let i=Math.max(0,Math.ceil(start*sr));i<Math.min(samples.length,Math.floor(end*sr));i++){e+=samples[i]*samples[i];count++;}return Math.sqrt(e/Math.max(1,count));}
+function stats(pcm){let peak=0,zero=0;for(let i=0;i<pcm.left.length;i++){peak=Math.max(peak,Math.abs(pcm.left[i]),Math.abs(pcm.right[i]));if(pcm.left[i]===0&&pcm.right[i]===0)zero++;}const level=Math.sqrt((rms(pcm.left)**2+rms(pcm.right)**2)/2);return{duration:pcm.left.length/sr,peak,rms:level,rmsDbFS:level?20*Math.log10(level):null,digitalSilence:level===0,zeroFraction:zero/Math.max(1,pcm.left.length)};}
+function spectrum(samples,start,window=2048){
+ const real=new Float64Array(window),imag=new Float64Array(window),begin=Math.floor(start*sr);
+ for(let i=0;i<window;i++)real[i]=(samples[begin+i]||0)*(.5-.5*Math.cos(2*Math.PI*i/(window-1)));
+ for(let i=1,j=0;i<window;i++){let bit=window>>1;for(;j&bit;bit>>=1)j^=bit;j^=bit;if(i<j)[real[i],real[j]]=[real[j],real[i]];}
+ for(let length=2;length<=window;length<<=1){const angle=-2*Math.PI/length,wr0=Math.cos(angle),wi0=Math.sin(angle);for(let offset=0;offset<window;offset+=length){let wr=1,wi=0;for(let j=0;j<length/2;j++){const even=offset+j,odd=even+length/2,tr=wr*real[odd]-wi*imag[odd],ti=wr*imag[odd]+wi*real[odd];real[odd]=real[even]-tr;imag[odd]=imag[even]-ti;real[even]+=tr;imag[even]+=ti;const next=wr*wr0-wi*wi0;wi=wr*wi0+wi*wr0;wr=next;}}}
+ let power=0,weighted=0,high=0;for(let k=1;k<window/2;k++){const energy=real[k]**2+imag[k]**2,frequency=k*sr/window;power+=energy;weighted+=energy*frequency;if(frequency>4000)high+=energy;}
+ return{centroidHz:power?weighted/power:0,above4kFraction:power?high/power:0};
+}
+async function fixture(name,data){const wav=createSoundtrack(data),pcm=decode(wav),metrics=stats(pcm);await writeFile(path.join(directory,name+'.wav'),wav);assert.equal(metrics.duration,data.duration);assert.ok(metrics.peak<=.8801,'Output must keep headroom and avoid clipping');report.fixtures.push({name,...metrics});return{wav,pcm,metrics};}
+
+const silence=await fixture('01-silence-none',{...base(4),experiment:'flow',musicTrack:'pulse-2'});assert.equal(silence.metrics.rms,0);report.checks.push('none overrides selected music; a flow scene without contact/activity is digital silence');
+const materialData=base(8),materials=['wood','rubber','clay','metal','ceramic'];materialData.takes[0].impacts=materials.map((material,i)=>({t:.4+i*1.4,strength:.8,material,participants:['hero',material]}));
+const materialFixture=await fixture('02-material-cues',materialData),centroids={};for(let i=0;i<materials.length;i++)centroids[materials[i]]=spectrum(materialFixture.pcm.mono,.405+i*1.4).centroidHz;
+assert.ok(centroids.metal>centroids.wood*1.7);assert.ok(centroids.ceramic>centroids.metal*1.4);assert.ok(centroids.rubber>centroids.clay*1.2);assert.ok(materialFixture.metrics.zeroFraction>.75);report.materialCentroidsHz=centroids;report.checks.push('five distinct modal timbres; at least 75% of the material fixture stays exactly silent');
+const storm=base(5);storm.takes[0].impacts=Array.from({length:240},(_,i)=>({t:1+i/120,strength:.8,material:'wood',participants:['box','floor']}));const selected=selectSoundEvents(storm);assert.ok(selected.length<=5);const stormFixture=await fixture('03-contact-storm-reduced',storm);assert.equal(rms(stormFixture.pcm.mono,.1,.9),0);assert.equal(rms(stormFixture.pcm.mono,3.5,4.8),0);report.contactReduction={raw:240,selected:selected.length};
+const activityData={...base(5),experiment:'flow',soundDesign:{ambience:'activity'}};activityData.takes[0].frames=frames(5,t=>({audioActivity:{kind:'flow',level:t>=1&&t<2.3?1:0}}));const activity=await fixture('04-explicit-flow-activity',activityData);assert.equal(rms(activity.pcm.mono,.1,.9),0);assert.ok(rms(activity.pcm.mono,1.2,2.1)>0);assert.equal(rms(activity.pcm.mono,2.5,4.8),0);assert.ok(spectrum(activity.pcm.mono,1.4).above4kFraction<.001);report.checks.push('optional ambience is explicit, time-gated and has less than 0.1% energy above 4 kHz');
+const frozen={...activityData,takes:[{...activityData.takes[0],frames:frames(5,()=>({sourceTime:1,audioActivity:{kind:'flow',level:1}}))}]};assert.ok(soundActivitySegments(frozen).every(s=>s.end-s.start<=1/fps+1e-9));
+const scoreData={...base(8),audioPreset:'auto',musicTrack:'pulse-2'};const score=await fixture('05-score-without-noise-hats',scoreData);let high=0;for(const t of [.4,1.2,2.1,3.6,4.7,6.3])high+=spectrum(score.pcm.mono,t).above4kFraction;high/=6;assert.ok(high<.01,'Score high-frequency bed must not recreate noise hats');report.scoreAbove4kFraction=high;
+const mixedData={...scoreData,takes:[{...scoreData.takes[0],impacts:[{t:.85,strength:1,material:'wood'},{t:3.4,strength:.8,material:'metal'},{t:6.2,strength:.8,material:'rubber'}]}]};await fixture('06-score-and-event-mix',mixedData);
+const ducked=decode(createSoundtrack({...mixedData,soundDesign:{effectsGain:0,ducking:.7}}));assert.ok(rms(ducked.mono,.85,1.02)<rms(score.pcm.mono,.85,1.02)*.8);assert.ok(activity.metrics.rms<score.metrics.rms*.08);report.checks.push('contact ducking opens a pocket in the score; optional activity remains at least 22 dB below music');
+const early={...base(1),soundDesign:{effectsGain:1}};early.takes[0].impacts=[{t:.03,strength:1,material:'ceramic'}];const earlyPCM=decode(createSoundtrack(early));assert.ok(rms(earlyPCM.mono,.035,.09)>.03,'The opening contact must not be buried under a global 1.2-second fade');
+const quiet={...early,soundDesign:{effectsGain:.2}};assert.ok(rms(decode(createSoundtrack(quiet)).mono,.035,.09)<rms(earlyPCM.mono,.035,.09)*.21,'Quiet effects must not be automatically amplified back up');
+const unequal={duration:2,fps,experiment:'blank',audioPreset:'none',takes:[{frames:frames(.25),impacts:[]},{frames:frames(1.25),impacts:[]},{frames:frames(.5),impacts:[{t:1.6,strength:1,material:'wood'}]}]};const unequalPCM=decode(createSoundtrack(unequal));assert.equal(rms(unequalPCM.mono,0,1.59),0);assert.ok(rms(unequalPCM.mono,1.61,1.75)>.01);report.checks.push('absolute movie-clock cues survive unequal take lengths; opening impacts are audible in the signal; no gain-up of quiet effects');
+assert.equal(normalizeSoundDesign().ambience,'off');assert.equal(TRACKS.length,36);const procedural=TRACKS.filter(track=>!track.recording);assert.equal(procedural.length,32);const hashes=new Set();for(const track of procedural){assert.equal(track.url,`/music/${track.id}.mp3`);const wav=createSoundtrack({duration:1.5,fps,experiment:'music',musicTrack:track.id,audioPreset:track.mood,takes:[{frames:[],impacts:[]}]});hashes.add(createHash('sha256').update(wav).digest('hex'));}assert.equal(hashes.size,32);report.checks.push('all 32 track IDs/URLs retain distinct deterministic compositions');
+try{const before=decode(await readFile('.cache/audio-qa/before-flow-default.wav'));report.defaultFlowBeforeAfter={beforeRMS:stats(before).rms,afterRMS:silence.metrics.rms};}catch{}
+await writeFile(path.join(directory,'signal-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify({fixtures:directory,materialCentroidsHz:centroids,contactReduction:report.contactReduction,scoreAbove4kFraction:high,checks:report.checks.length,defaultFlowBeforeAfter:report.defaultFlowBeforeAfter},null,2));

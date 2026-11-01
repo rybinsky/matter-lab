@@ -1,0 +1,28 @@
+{
+  "name": "matter-lab",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.mjs",
+    "dev": "node --env-file-if-exists=.env scripts/dev.mjs",
+    "build": "vite build",
+    "check": "node scripts/check.mjs",
+    "render": "node scripts/export-series.mjs",
+    "package:release": "node scripts/package-release.mjs",
+    "test": "node scripts/check.mjs",
+    "check:models": "node scripts/verify.mjs",
+    "package:source": "node scripts/package-source.mjs"
+  },
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.21.0",
+    "three": "0.180.0",
+    "lucide": "0.468.0"
+  },
+  "devDependencies": {
+    "vite": "7.3.7"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

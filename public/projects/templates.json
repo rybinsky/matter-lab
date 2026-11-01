@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "heated-cylinder",
+      "title": "1000 °C против метра льда",
+      "teaser": "Удар, холодный контроль и последующее плавление. Осевая модель с редактируемыми коэффициентами.",
+      "tags": [
+        "45 секунд",
+        "60 кадров/с",
+        "Осевая модель"
+      ],
+      "projectUrl": "/projects/heated-cylinder.project.json",
+      "posterUrl": "/projects/posters/heated-cylinder.jpg"
+    },
+    {
+      "id": "arch-key",
+      "title": "Арка без клея",
+      "teaser": "Узкий замок выходит — свод держится. Широкий открывает брешь и запускает обвал.",
+      "tags": [
+        "Конструкции",
+        "Равновесие",
+        "Разрушение"
+      ],
+      "projectUrl": "/projects/arch-key.project.json",
+      "posterUrl": "/projects/posters/arch-key.jpg"
+    },
+    {
+      "id": "pearl-deflector",
+      "title": "90 жемчужин. Один поворот.",
+      "teaser": "Одна направляющая уводит поток вправо, влево или распределяет его по трём карманам.",
+      "tags": [
+        "Поток частиц",
+        "Столкновения",
+        "Распределение"
+      ],
+      "projectUrl": "/projects/pearl-deflector.project.json",
+      "posterUrl": "/projects/posters/pearl-deflector.jpg"
+    },
+    {
+      "id": "pendulum-wave",
+      "title": "Из строя — в волну",
+      "teaser": "18 грузов стартуют вместе. Разные длины меняют рисунок, а через 20 секунд движения строй возвращается.",
+      "tags": [
+        "Колебания",
+        "Ритм",
+        "Кинетическая скульптура"
+      ],
+      "projectUrl": "/projects/pendulum-wave.project.json",
+      "posterUrl": "/projects/posters/pendulum-wave.jpg"
+    }
+  ]
+}

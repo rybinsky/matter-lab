@@ -1,0 +1,1122 @@
+{
+  "version": 1,
+  "name": "Одна стена. Четыре скорости.",
+  "edits": {},
+  "settings": {
+    "experiment": "blank",
+    "variant": 0,
+    "gravity": 9.81,
+    "speed": 3,
+    "azimuth": 180,
+    "elevation": 0,
+    "material": "rubber",
+    "mass": 12,
+    "friction": 0.5,
+    "restitution": 0.4,
+    "slope": 18,
+    "gap": 0.38,
+    "angle": 55,
+    "depth": 0.9,
+    "slowMotion": 1,
+    "showGrid": true,
+    "showTrails": true,
+    "background": "studio",
+    "theme": "day",
+    "seed": 42,
+    "temperature": 1000,
+    "iceTemperature": -10,
+    "iceHeight": 0.7,
+    "contactH": 1000,
+    "thermalTimeScale": 40,
+    "planet": "moon",
+    "altitude": 100000,
+    "timeScale": 1000,
+    "orbitAsset": "brick",
+    "windSpeed": 0,
+    "cameraMode": "dolly",
+    "renderStyle": "cinematic",
+    "audioPreset": "auto",
+    "dropHeight": 2.4,
+    "connections": [],
+    "emitters": [],
+    "focusId": "comparison-hero-ball",
+    "autoLaunch": true,
+    "generators": [
+      {
+        "id": "comparison-crate-wall",
+        "name": "Стена · 36 ящиков",
+        "pattern": "grid",
+        "count": [
+          6,
+          6,
+          1
+        ],
+        "step": [
+          1.04,
+          1,
+          1
+        ],
+        "origin": [
+          -2.6,
+          0.48,
+          -1
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "turn": [
+          0,
+          0,
+          0
+        ],
+        "extent": [
+          6,
+          6,
+          1
+        ],
+        "radius": 3,
+        "turns": 2,
+        "jitter": 0,
+        "angleJitter": 0,
+        "scaleJitter": 0,
+        "seed": 42,
+        "align": false,
+        "fixed": false,
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "sources": [
+          {
+            "asset": "crate",
+            "name": "Деревянный ящик",
+            "material": "wood",
+            "scale": 1,
+            "mass": 1.2,
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "offset": [
+              0,
+              0,
+              0
+            ]
+          }
+        ]
+      }
+    ],
+    "comparison": {
+      "version": 1,
+      "enabled": true,
+      "field": "speed",
+      "targetId": "comparison-hero-ball",
+      "values": [
+        3,
+        6,
+        15,
+        20
+      ],
+      "labels": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    "story": {
+      "enabled": true,
+      "title": "Сколько ящиков сдвинет шар?",
+      "hook": "Одна стена. Четыре скорости.",
+      "question": "Меняем только скорость шара",
+      "takeaway": "",
+      "heroId": "comparison-hero-ball",
+      "duration": 60,
+      "metric": "moved",
+      "theme": "contrast",
+      "accent": "#D8FF5F",
+      "camera": "auto",
+      "tempo": "fast",
+      "opening": "event",
+      "labels": {
+        "setup": "36 ящиков. Один стальной шар.",
+        "action": "Смотрим на движение стены",
+        "result": "Сколько ящиков сдвинулось?"
+      },
+      "effects": {
+        "slowMotion": true,
+        "heroOutline": true,
+        "eventPulse": true,
+        "trail": true,
+        "reference": true
+      }
+    }
+  },
+  "objects": [
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-0-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-1-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-2-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-3-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-4-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-5-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        0.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-6-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-7-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-8-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-9-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-10-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-11-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        1.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-12-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-13-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-14-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-15-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-16-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-17-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        2.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-18-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-19-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-20-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-21-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-22-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-23-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        3.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-24-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-25-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-26-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-27-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-28-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-29-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        4.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-30-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -2.6,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-31-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -1.56,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-32-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        -0.52,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-33-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        0.52,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-34-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        1.56,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "crate",
+      "name": "Деревянный ящик",
+      "material": "wood",
+      "scale": 1,
+      "mass": 1.2,
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "w": 1
+      },
+      "id": "comparison-crate-wall-35-0",
+      "generatorId": "comparison-crate-wall",
+      "position": [
+        2.6,
+        5.48,
+        -1
+      ],
+      "fixed": false,
+      "velocity": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "comparison-hero-ball",
+      "name": "Стальной шар",
+      "asset": "ball",
+      "material": "metal",
+      "color": "#B4C7C9",
+      "scale": 1.05,
+      "mass": 12,
+      "position": [
+        0,
+        0.55,
+        3.7
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "velocity": [
+        0,
+        0,
+        0
+      ],
+      "fixed": false
+    }
+  ]
+}

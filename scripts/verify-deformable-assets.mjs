@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import path from 'node:path';
+import {initializePhysics} from '../src/physics.js';
+import {assetSurface} from '../src/asset-surfaces.js';
+import {buildSoftAsset,validateClosedSurface,validateDeformableSpec,DEFORMABLE_LIMITS} from '../src/deformable-assets.js';
+const R=await initializePhysics(),DT=1/120,report={api:'Rapier 0.21 SoftBodyDesc.volumetric with original skinned collision surface; SoftBodySolver.Fem / Corotational material',limits:DEFORMABLE_LIMITS,cases:[]};
+const range=(p,axis=1)=>{let lo=Infinity,hi=-Infinity;for(let i=axis;i<p.length;i+=3){lo=Math.min(lo,p[i]);hi=Math.max(hi,p[i]);}return{lo,hi,height:hi-lo};};
+function finiteBody(body){const p=body.particlePositions(),skin=body.meshVertices(0);assert(Array.from(p).every(Number.isFinite));assert(Array.from(skin).every(Number.isFinite));assert(Math.max(...p.map(Math.abs))<5,'No particle explosion');return{particles:range(p),skin:range(skin)};}
+function world(){const w=new R.World({x:0,y:-9.81,z:0});w.timestep=DT;w.integrationParameters.numSolverIterations=10;const floor=w.createRigidBody(R.RigidBodyDesc.fixed().setTranslation(0,-.1,0));w.createCollider(R.ColliderDesc.cuboid(2,.1,2).setFriction(.6),floor);return w;}
+for(const asset of ['banana','ball','ellipsoid']){
+ const spec={asset,position:[0,1,0],mass:.3,material:'jelly',appearance:{color:'#ff3c8b',roughness:.35,metalness:.2}},before=structuredClone(spec),built=buildSoftAsset(spec),w=world(),body=w.createSoftBody(built.descriptor);assert.deepEqual(spec,before,'Meshing must not mutate the saved object');assert(body.numParticles()<=DEFORMABLE_LIMITS.gridPoints);assert(body.numCells()<=DEFORMABLE_LIMITS.estimatedTetrahedra);assert.equal(body.meshVertices(0).length/3,built.metadata.originalSurfaceVertices,'Original single skin is retained');assert.equal(built.render.color,'#ff3c8b');
+ let minSkinY=Infinity;for(let n=0;n<180;n++){w.step();const state=finiteBody(body);minSkinY=Math.min(minSkinY,state.skin.lo);}const last=finiteBody(body);assert(last.skin.lo>-.06,'Real rigid floor contacts support the visible skin');report.cases.push({asset,particles:body.numParticles(),tetrahedra:body.numCells(),skinVertices:body.meshVertices(0).length/3,originalColor:built.metadata.originalColor,appearancePreserved:true,skinCollision:body.meshCollisionEnabled(0),minSkinY,finalVisibleBounds:last.skin,finite:true});w.free();
+}
+const materials=[];
+for(const plastic of [false,true]){
+ const w=world(),press=w.createRigidBody(R.RigidBodyDesc.kinematicPositionBased().setTranslation(0,.85,0));w.createCollider(R.ColliderDesc.cuboid(.7,.04,.7).setFriction(.6),press);
+ const spec={asset:'ellipsoid',radii:[.3,.3,.3],position:[0,.34,0],mass:.3,deformable:{cellSize:.15,young:1800,poisson:.3,plasticYield:plastic?.02:0,plasticCreep:plastic?8:0,plasticMax:.9}},built=buildSoftAsset(spec),body=w.createSoftBody(built.descriptor),original=range(body.meshVertices(0)).height;let minimum=original;const samples=[];
+ for(let n=0;n<=600;n++){
+  const t=n*DT;let y=.85;if(t>.4&&t<1.5)y=.85-(t-.4)/1.1*.48;else if(t>=1.5&&t<2)y=.37;else if(t>=2&&t<2.8)y=.37+(t-2)/.8*.48;press.setNextKinematicTranslation({x:0,y,z:0});w.step();const state=finiteBody(body);minimum=Math.min(minimum,state.skin.height);if(n%60===0)samples.push({time:t,visibleHeight:state.skin.height});
+ }
+ const recovered=range(body.meshVertices(0)).height;assert(minimum<original*.75,'The real press must visibly squash the body');materials.push({plastic,originalVisibleHeight:original,minimumVisibleHeight:minimum,finalVisibleHeight:recovered,recoveryRatio:recovered/original,samples});w.free();
+}
+assert(materials[0].recoveryRatio>.85,'Elastic FEM material recovers its original visible shape');assert(materials[1].recoveryRatio<materials[0].recoveryRatio-.15,'Plastic FEM rest-shape flow retains a meaningful permanent deformation');report.materialComparison=materials;
+const banana=assetSurface('banana'),authored={asset:'custom',material:'foam',deformable:{surface:{positions:banana.positions,indices:banana.indices,color:banana.color},cellSize:.16},position:[0,1,0],mass:.3},roundtrip=JSON.parse(JSON.stringify(authored));validateDeformableSpec(roundtrip);const custom=buildSoftAsset(roundtrip);assert.equal(custom.metadata.source,'authored-closed-surface');assert.equal(custom.metadata.originalColor,banana.color);assert.throws(()=>buildSoftAsset({asset:'chair'}),/замкнутой оболочки/);assert.throws(()=>buildSoftAsset({asset:'apple'}),/замкнутой оболочки/);assert.throws(()=>buildSoftAsset({asset:'ball',deformable:{cellSize:.001}}),/мелкая сетка/);assert.throws(()=>validateClosedSurface({...banana,indices:banana.indices.slice(3)}),/замкнутой/);assert.throws(()=>validateDeformableSpec({asset:'ball',deformable:{young:-1}}));assert.throws(()=>validateDeformableSpec({asset:'ball',deformable:{fakeMotion:true}}));
+report.persistence='Plain spec.deformable survives JSON; explicit connected closed surfaces accepted; unsupported overlapping compounds, open meshes, invalid material fields and over-fine grids rejected before simulation.';
+report.limitations=custom.metadata.limitations;const output=process.argv.find(arg=>arg.startsWith('--report='))?.slice(9);if(output){const file=path.resolve(output);await mkdir(path.dirname(file),{recursive:true});await writeFile(file,JSON.stringify(report,null,2));}console.log(JSON.stringify(report,null,2));

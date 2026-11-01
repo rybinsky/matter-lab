@@ -1,0 +1,152 @@
+.spatial-studio .workspace-rail button>span{font-size:11px;line-height:1.2}
+.spatial-studio .workspace-rail .studio-workflow-button>span{font-size:12px}
+.spatial-studio .studio-toolrack .scene-tools{min-width:0;overflow-x:auto;scrollbar-width:thin;flex-wrap:nowrap;max-width:100%}
+.spatial-studio .studio-toolrack .scene-tools button{flex-shrink:0;font-size:12px}
+.spatial-studio .workspace-story-button{font-size:12px;flex-shrink:0;white-space:nowrap}
+.spatial-studio .rehearsal-open{font-size:12px;flex-shrink:0;white-space:nowrap}
+.spatial-studio .scene-info{min-width:0}.spatial-studio .scene-select{max-width:100%;text-overflow:ellipsis}
+.spatial-studio .section-heading{line-height:1.4;align-items:center}
+.spatial-studio .section-heading .right{white-space:nowrap;flex:0 0 auto}
+.spatial-studio .camera-studio-bar{flex-wrap:wrap;gap:8px 12px;min-height:50px}
+.spatial-studio .camera-mode-switch button,.spatial-studio .camera-btn{font-size:12px;min-height:32px}
+.spatial-studio .camera-studio-brand,.spatial-studio .camera-auto-note{font-size:11px}
+.spatial-studio .workspace[data-workflow=build] .camera-studio-bar{display:none}
+.spatial-studio .workspace[data-workflow=shoot] .preset-strip,.spatial-studio .workspace[data-workflow=shoot] .studio-toolrack{display:none}
+.spatial-studio .workspace[data-workflow=shoot] .viewport-label,.spatial-studio .workspace[data-workflow=shoot] .view-controls,.spatial-studio .workspace[data-workflow=shoot] .camera-director{display:none}
+.authored-kit .experiment-art{display:flex;align-items:center;justify-content:center;isolation:isolate;background:radial-gradient(ellipse at 50% 65%,color-mix(in srgb,var(--concept-color) 25%,#151724),#151724 80%)}
+.authored-kit .experiment-art img.kit-item{position:relative;inset:auto;width:37%;height:110px;object-fit:contain;filter:drop-shadow(0 12px 10px #0005)}
+.authored-kit .kit-item-0{z-index:3;transform:translate(14px,-4px) rotate(-12deg) scale(1.1)}
+.authored-kit .kit-item-1{z-index:2;transform:translate(0,10px) rotate(7deg)}
+.authored-kit .kit-item-2{z-index:1;transform:translate(-12px,-4px) rotate(12deg)}
+.camera-recording .library,.camera-recording .inspector,.camera-recording .scene-tools,.camera-recording .preset-strip{opacity:.45}
+@media(max-width:900px){.spatial-studio .camera-studio-live-tools{width:100%;margin-left:0;justify-content:flex-start}.spatial-studio .camera-mode-switch{margin-right:auto}.spatial-studio .camera-auto-note{display:none}}
+@media(max-width:650px){.spatial-studio .workspace-story-button span{display:none}.spatial-studio .studio-toolrack .studio-tool-label{display:none}.spatial-studio .camera-btn,.spatial-studio .camera-mode-switch button{font-size:12px}.spatial-studio .camera-lens input{width:44px}.spatial-studio .camera-studio-live-tools{gap:5px}}
+@media(max-width:650px){.spatial-studio .app-shell{grid-template-columns:76px minmax(0,1fr)}.spatial-studio .workspace-rail button>span{font-size:11px}.spatial-studio .workspace-rail .studio-workflow-button>span{font-size:11px}}
+
+/* Every selector reserves its own arrow gutter, including native WebKit. */
+.spatial-studio select:not([multiple]):not([size]){
+ appearance:none;-webkit-appearance:none;min-width:0;max-width:100%;
+ padding-inline-end:32px!important;text-align:start;text-align-last:start;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='m2 3.5 3 3 3-3' fill='none' stroke='%23a2acc1' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+ background-repeat:no-repeat;background-position:right 12px center;background-size:10px 10px;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;
+}
+.spatial-studio:not(.dark-lab) select:not([multiple]):not([size]){
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='m2 3.5 3 3 3-3' fill='none' stroke='%235d6b87' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.spatial-studio .speed-select{padding-inline-end:22px!important;background-position:right 7px center}
+.spatial-studio #export-dialog .property-row{display:grid;grid-template-columns:minmax(125px,1fr) minmax(0,240px);gap:16px;align-items:center;margin:14px 0}
+.spatial-studio #export-dialog .property-row>.field{width:100%!important;min-width:0;height:40px;padding:9px 12px;font-size:12px}
+.spatial-studio #export-dialog .property-row>label{min-width:0;line-height:1.5}
+.spatial-studio dialog[open]{max-height:calc(100dvh - 24px)}
+.spatial-studio #export-dialog{width:min(600px,calc(100% - 24px));max-width:600px}
+.spatial-studio :is(#music-dialog,#experiments-dialog,#help-dialog)[open]{display:flex;flex-direction:column;overflow:hidden}
+.spatial-studio :is(#music-dialog,#experiments-dialog,#help-dialog) :is(.dialog-head,.dialog-actions,.music-intro,.music-filters){flex-shrink:0}
+.spatial-studio :is(#music-dialog .music-list,#experiments-dialog .experiment-cards,#help-dialog .dialog-body){min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+.spatial-studio .music-filters{flex-wrap:wrap}
+.spatial-studio .music-play{flex-shrink:0}
+.spatial-studio #export-dialog[open],.spatial-studio #connection-dialog[open],.spatial-studio #emitter-dialog[open]{display:flex;flex-direction:column;overflow:hidden}
+.spatial-studio :is(#export-dialog,#connection-dialog,#emitter-dialog) :is(.dialog-head,.dialog-actions){flex-shrink:0}
+.spatial-studio :is(#export-dialog,#connection-dialog,#emitter-dialog) .dialog-body{min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+@media(max-width:520px){
+ .spatial-studio #export-dialog .property-row{grid-template-columns:1fr;gap:6px;margin:16px 0}
+ .spatial-studio #export-dialog .dialog-body{padding:16px}
+ .spatial-studio #export-dialog .dialog-head{padding:18px 16px}
+ .spatial-studio #export-dialog .dialog-actions{padding:13px 16px}
+ .spatial-studio .music-dots,.spatial-studio #music-dialog .dialog-actions .material-hint{display:none}
+ .spatial-studio .music-title strong{font-size:13px;line-height:1.4}
+ .spatial-studio .music-title span{font-size:11px}
+ .spatial-studio .music-row{gap:8px}
+ .spatial-studio .music-row .toolbar-button{padding-inline:8px;font-size:12px;flex-shrink:0}
+}
+@media(max-width:650px){
+ .spatial-studio .story-preview-note{display:none}
+}
+@media(max-height:450px){
+ .spatial-studio .app-shell{grid-template-rows:56px minmax(0,1fr);min-height:0}
+ .spatial-studio .topbar{height:56px;min-height:56px;flex-wrap:nowrap;padding:6px 12px}
+ .spatial-studio .scene-toolbar{height:48px;min-height:48px}
+ .spatial-studio .studio-workflow-indicator{display:none}
+ .spatial-studio .viewport-wrap{min-height:96px;flex:1 1 96px}
+ .spatial-studio .stage-column{overflow:hidden}
+ .spatial-studio .playback{height:65px;min-height:65px;padding:7px 10px}
+ .spatial-studio .playback-bottom{margin-top:5px}
+ .spatial-studio .camera-studio-bar{padding-block:5px;gap:5px 8px}
+ .spatial-studio .camera-mode-switch button,.spatial-studio .camera-btn{min-height:28px}
+}
+@media(max-height:450px) and (max-width:650px){
+ .spatial-studio .mode-nav{display:none}
+ .spatial-studio .camera-mode-switch button{padding-block:4px}
+}
+.spatial-studio .stage-column{container-type:inline-size}
+.spatial-studio .viewport-wrap:has(.physics-note:not([hidden])) .selected-label{display:none}
+@container(max-width:450px){
+ .spatial-studio .camera-studio-brand{display:none}
+ .spatial-studio .camera-mode-switch{flex:1;justify-content:space-between}
+ .spatial-studio .camera-studio-live-tools{display:grid;grid-template-columns:minmax(0,1fr) 32px 32px;width:100%;margin:0;gap:5px}
+ .spatial-studio .camera-lens{grid-column:1;grid-row:1;min-width:0}
+ .spatial-studio #camera-physics{grid-column:2;grid-row:1;width:32px;padding:5px}
+ .spatial-studio #camera-physics span{display:none}
+ .spatial-studio #camera-look{grid-column:3;grid-row:1;width:32px}
+ .spatial-studio #camera-action{grid-column:1/3;grid-row:2;min-width:0}
+ .spatial-studio #camera-montage{grid-column:3;grid-row:2;width:32px;padding:5px;font-size:0}
+ .spatial-studio #camera-montage span{display:none}
+ .spatial-studio .playback{height:100px;min-height:100px;padding:7px 10px}
+ .spatial-studio .playback-top{flex-wrap:wrap;gap:5px}
+ .spatial-studio .play-button{width:32px;height:32px;flex:0 0 32px}
+ .spatial-studio .playback .small-button{width:25px;height:25px;flex:0 0 25px}
+ .spatial-studio .time-display{flex:1;min-width:40px;font-size:12px}
+ .spatial-studio .speed-select{flex:0 0 50px;width:50px;min-width:50px;max-width:50px}
+ .spatial-studio .timeline{order:1;flex:1 1 calc(100% - 70px);min-width:40px}
+ .spatial-studio #sound,.spatial-studio #screenshot{order:1}
+ .spatial-studio .playback-bottom{margin-top:6px}
+ .spatial-studio .playback-bottom .fps-label{display:none}
+ .spatial-studio .scene-toolbar>.rehearsal-open{font-size:0;width:32px;min-width:32px;height:32px;padding:0;gap:0}
+ .spatial-studio .scene-toolbar>.rehearsal-open svg{width:15px;height:15px}
+ .spatial-studio .viewport-label{display:none}
+}
+@media(max-width:360px){.spatial-studio .brand-name{display:none}}
+
+/* Property edits preserve an unobscured preview at compact widths. */
+.spatial-studio .workspace-rail{scrollbar-width:thin;scrollbar-color:#747b88 transparent}
+.spatial-studio .workspace-rail::-webkit-scrollbar{width:4px}
+.spatial-studio .workspace-rail::-webkit-scrollbar-thumb{background:#747b8880;border-radius:4px}
+.spatial-studio .premium-inspector-close>svg{display:none}
+.spatial-studio .premium-inspector-close:after{content:'';display:block;width:17px;height:17px;background:currentColor;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m5 5 10 10M15 5 5 15' stroke='black' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat}
+@media(max-width:900px){
+ .spatial-studio .workspace.inspector-open{grid-template-rows:minmax(160px,1.1fr) minmax(180px,.9fr);gap:8px}
+ .spatial-studio .workspace.inspector-open>.stage-column{grid-column:1;grid-row:1;min-height:0;overflow:hidden}
+ .spatial-studio .workspace.inspector-open>.inspector{position:relative;grid-column:1;grid-row:2;inset:auto;width:100%;max-width:none;height:auto;min-height:0;max-height:none;border:1px solid var(--border);border-radius:10px;box-shadow:none}
+ .spatial-studio .workspace.inspector-open .inspector-scroll{min-height:0}
+ .spatial-studio .workspace.inspector-open .scene-toolbar{height:52px;min-height:52px;padding:0 12px}
+ .spatial-studio .workspace.inspector-open :is(.preset-strip,.studio-toolrack,.camera-studio-bar){display:none}
+ .spatial-studio .workspace.inspector-open .viewport-wrap{min-height:90px;flex:1 1 90px}
+ .spatial-studio .workspace.inspector-open :is(.view-controls,.camera-director,.stage-bottom,.viewport-label,.physics-note,.selected-label){display:none}
+ .spatial-studio .workspace.inspector-open .playback{height:84px;min-height:84px;padding:8px}
+ .spatial-studio .workspace.inspector-open .playback-bottom{display:none}
+ .spatial-studio .workspace.inspector-open .inspector-header{height:44px;min-height:44px;padding:6px 12px}
+ .spatial-studio .premium-inspector-close{width:32px;height:32px;flex:0 0 32px;margin-left:8px;border:1px solid var(--border);border-radius:6px;background:var(--control);color:var(--ink)}
+}
+@media(max-height:450px){
+ .spatial-studio .viewport-wrap :is(.view-controls,.camera-director,.stage-bottom,.viewport-label,.physics-note,.selected-label){display:none}
+ .spatial-studio .preset-strip{display:none}
+ .spatial-studio .studio-toolrack{min-height:36px;padding:3px 8px}
+ .spatial-studio .playback-bottom{display:none}
+}
+@media(max-height:450px) and (min-width:600px){.spatial-studio .playback{height:50px;min-height:50px;padding:8px}}
+@media(max-height:450px) and (min-width:600px) and (max-width:900px){
+ .spatial-studio .workspace.inspector-open{grid-template-columns:minmax(0,1fr) minmax(230px,.9fr);grid-template-rows:minmax(0,1fr)}
+ .spatial-studio .workspace.inspector-open>.inspector{grid-column:2;grid-row:1}
+}
+
+/* Long editor forms scroll independently of their primary actions. */
+.spatial-studio dialog.context-view-dialog[open],.spatial-studio dialog.interaction-editor[open]{display:flex;flex-direction:column;overflow:hidden}
+.spatial-studio dialog.context-view-dialog>form,.spatial-studio dialog.interaction-editor>form{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+.spatial-studio .context-view-dialog :is(.dialog-head,.dialog-actions),.spatial-studio .interaction-editor :is(.ie-header,.ie-footer){flex-shrink:0}
+.spatial-studio .context-view-dialog .dialog-body{flex:1;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+.spatial-studio .context-view-dialog .property-label{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:16px 0;font-size:12px}
+.spatial-studio .context-view-dialog .property-label>.field{width:100%;min-width:0;text-align:left}
+.spatial-studio .context-view-dialog [data-camera]{margin-top:10px}
+.spatial-studio .interaction-editor .ie-workspace{height:auto;min-height:0;flex:1}
+.spatial-studio .interaction-editor .ie-content{min-height:0;overscroll-behavior:contain}
+@media(max-height:450px){.spatial-studio .interaction-editor .ie-header{padding-top:14px;padding-bottom:14px}.spatial-studio .interaction-editor .ie-header p{display:none}}

@@ -1,0 +1,30 @@
+services:
+  studio:
+    image: ${MATTER_LAB_IMAGE:-matter-lab-web:0.4.0}
+    pull_policy: never
+    init: true
+    user: "${MATTER_LAB_RUN_UID:-1000}:${MATTER_LAB_RUN_GID:-1000}"
+    read_only: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${MATTER_LAB_WEB_PORT:-4315}:4310"
+    environment:
+      NODE_ENV: production
+      MATTER_LAB_DEV: "0"
+      MATTER_LAB_HOST: 0.0.0.0
+      MATTER_LAB_PORT: "4310"
+      MATTER_LAB_DATA_DIR: /data
+      MATTER_LAB_MEDIA_DIR: /data/videos
+      MATTER_LAB_CACHE_DIR: /data/cache
+      MATTER_LAB_PROJECTS_DIR: /data/projects
+      MATTER_LAB_RENDER_WORKER_URL: http://host.docker.internal:${MATTER_LAB_WORKER_PORT:-4316}
+      MATTER_LAB_RENDER_WORKER_TOKEN: ${MATTER_LAB_RENDER_WORKER_TOKEN:?Start the release launcher to create a private worker token}
+    volumes:
+      - type: bind
+        source: ${MATTER_LAB_RELEASE_DATA_DIR:-./data}
+        target: /data
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=256m
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    stop_grace_period: 15s

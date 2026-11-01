@@ -1,0 +1,6798 @@
+{
+  "version": 1,
+  "name": "1000 °C против метра льда",
+  "settings": {
+    "experiment": "blank",
+    "variant": 0,
+    "gravity": 9.81,
+    "speed": 4,
+    "azimuth": 180,
+    "elevation": 0,
+    "material": "rubber",
+    "mass": 12,
+    "friction": 0.5,
+    "restitution": 0.4,
+    "slope": 18,
+    "gap": 0.38,
+    "angle": 55,
+    "depth": 0.9,
+    "slowMotion": 1,
+    "showGrid": false,
+    "showTrails": false,
+    "background": "studio",
+    "theme": "day",
+    "seed": 42,
+    "temperature": 1000,
+    "iceTemperature": -10,
+    "iceHeight": 0.7,
+    "contactH": 1000,
+    "thermalTimeScale": 40,
+    "planet": "moon",
+    "altitude": 100000,
+    "timeScale": 1000,
+    "orbitAsset": "brick",
+    "windSpeed": 0,
+    "cameraMode": "manual",
+    "renderStyle": "cinematic",
+    "audioPreset": "pulse",
+    "dropHeight": 2.4,
+    "connections": [],
+    "emitters": [],
+    "story": {
+      "enabled": true,
+      "duration": 4,
+      "title": "",
+      "hook": "",
+      "question": "",
+      "takeaway": "",
+      "parameterLabel": "",
+      "heroId": "shot",
+      "metric": "none",
+      "camera": "manual",
+      "theme": "minimal",
+      "accent": "#FFD13D",
+      "captionMode": "authored",
+      "autoTrim": false,
+      "tempo": "normal",
+      "cues": [
+        {
+          "start": 0,
+          "end": 4,
+          "text": "Снаряд раскалён до 1000 °C. Пройдёт метр льда?",
+          "label": "Сталь · 10 г · 150 м/с · разрез",
+          "hideMetric": true,
+          "fade": 0.12
+        }
+      ],
+      "labels": {
+        "setup": "",
+        "action": "",
+        "result": ""
+      },
+      "effects": {
+        "slowMotion": false,
+        "heroOutline": false,
+        "eventPulse": false,
+        "trail": false,
+        "reference": false
+      }
+    },
+    "label": "Мягкий бросок",
+    "detail": "4 м/с · резиновый шар",
+    "autoLaunch": false,
+    "exportFps": 60,
+    "simulationDuration": 20,
+    "environment": {
+      "id": "arena",
+      "background": "#10233E",
+      "floor": "#17324A",
+      "keyColor": "#FFF0DB",
+      "fillColor": "#8BD9E9",
+      "exposure": 0.14
+    },
+    "soundDesign": {
+      "musicGain": 0.32,
+      "effectsGain": 0,
+      "ambience": "off"
+    },
+    "cameraRig": {
+      "version": 1,
+      "mode": "keys",
+      "anchorId": "",
+      "interpolation": "linear",
+      "points": [
+        {
+          "time": 0,
+          "sourceTime": 0,
+          "position": [
+            0.85,
+            0.9,
+            2.85
+          ],
+          "target": [
+            0,
+            0.55,
+            -0.2
+          ],
+          "fov": 38,
+          "cut": false
+        },
+        {
+          "time": 0.9998333333333334,
+          "sourceTime": 0,
+          "position": [
+            0.85,
+            0.9,
+            2.85
+          ],
+          "target": [
+            0,
+            0.55,
+            -0.2
+          ],
+          "fov": 38,
+          "cut": false
+        },
+        {
+          "time": 1,
+          "sourceTime": 0,
+          "position": [
+            0.052,
+            1.12,
+            0.22
+          ],
+          "target": [
+            0,
+            1.095,
+            0
+          ],
+          "fov": 35,
+          "cut": true
+        },
+        {
+          "time": 4,
+          "sourceTime": 2.4,
+          "position": [
+            0.052,
+            1.12,
+            0.22
+          ],
+          "target": [
+            0,
+            1.095,
+            0
+          ],
+          "fov": 35,
+          "cut": false
+        }
+      ]
+    },
+    "musicTrack": "lfm-after-party",
+    "contextView": {
+      "enabled": false,
+      "position": [
+        0.85,
+        0.9,
+        2.85
+      ],
+      "target": [
+        0,
+        0.55,
+        -0.2
+      ],
+      "fov": 38,
+      "size": 0.36,
+      "corner": "bottom-right",
+      "label": "Весь образец · 1 м"
+    },
+    "annotations": [
+      {
+        "id": "scale-0",
+        "text": "0 см",
+        "position": [
+          0.155,
+          1.05,
+          0.02
+        ],
+        "color": "#F2FAFF",
+        "size": 28
+      },
+      {
+        "id": "scale-25",
+        "text": "25 см",
+        "position": [
+          0.155,
+          0.8,
+          0.02
+        ],
+        "color": "#F2FAFF",
+        "size": 28
+      },
+      {
+        "id": "scale-50",
+        "text": "50 см",
+        "position": [
+          0.155,
+          0.55,
+          0.02
+        ],
+        "color": "#F2FAFF",
+        "size": 28
+      },
+      {
+        "id": "scale-75",
+        "text": "75 см",
+        "position": [
+          0.155,
+          0.30000000000000004,
+          0.02
+        ],
+        "color": "#F2FAFF",
+        "size": 28
+      },
+      {
+        "id": "scale-100",
+        "text": "100 см",
+        "position": [
+          0.155,
+          0.050000000000000044,
+          0.02
+        ],
+        "color": "#F2FAFF",
+        "size": 28
+      }
+    ],
+    "focusId": "shot",
+    "penetration": {
+      "projectileId": "shot",
+      "targetId": "sample",
+      "axis": [
+        0,
+        -1,
+        0
+      ],
+      "entry": [
+        0,
+        1.05,
+        0
+      ],
+      "leadDistance": 0.05,
+      "clock": [
+        {
+          "time": 0,
+          "elapsed": 0
+        },
+        {
+          "time": 2,
+          "elapsed": 0.0003333333333333334
+        },
+        {
+          "time": 9,
+          "elapsed": 0.007
+        },
+        {
+          "time": 10,
+          "elapsed": 0.02
+        },
+        {
+          "time": 20,
+          "elapsed": 600
+        }
+      ],
+      "parameters": {
+        "projectile": {
+          "mass": 0.01,
+          "radius": 0.004,
+          "length": 0.025,
+          "specificHeat": 500,
+          "temperature": 1000
+        },
+        "target": {
+          "thickness": 1,
+          "density": 917,
+          "temperature": -10,
+          "strength": 3000000,
+          "drag": 1,
+          "heatTransfer": 300,
+          "sideHeatTransfer": 20
+        },
+        "initialSpeed": 150
+      }
+    }
+  },
+  "objects": [
+    {
+      "id": "shot",
+      "name": "Стальной снаряд",
+      "asset": "custom",
+      "parts": [
+        {
+          "shape": "cylinder",
+          "d": [
+            0.004,
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "position": [
+        0,
+        1.1125,
+        0
+      ],
+      "mass": 0.01,
+      "material": "metal",
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "sample",
+      "name": "Ледяной образец",
+      "asset": "cube",
+      "position": [
+        0,
+        0.55,
+        -0.25
+      ],
+      "scale": 1,
+      "fixed": true,
+      "material": "ice"
+    },
+    {
+      "id": "plinth",
+      "name": "plinth",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0,
+        0.04,
+        -0.25
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            1.15,
+            0.08,
+            0.62
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#163750"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.4,
+        "metalness": 0.45
+      }
+    },
+    {
+      "id": "ruler",
+      "name": "ruler",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.115,
+        0.55,
+        0.009
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.035,
+            1.04,
+            0.008
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#DCEAF1"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.6,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-0",
+      "name": "tick-0",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        1.05,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-1",
+      "name": "tick-1",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        1,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-2",
+      "name": "tick-2",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.9500000000000001,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-3",
+      "name": "tick-3",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.9,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-4",
+      "name": "tick-4",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.8500000000000001,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-5",
+      "name": "tick-5",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.8,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-6",
+      "name": "tick-6",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.75,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-7",
+      "name": "tick-7",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.7,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-8",
+      "name": "tick-8",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.65,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-9",
+      "name": "tick-9",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.6000000000000001,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-10",
+      "name": "tick-10",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.55,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-11",
+      "name": "tick-11",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.5,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-12",
+      "name": "tick-12",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.44999999999999996,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-13",
+      "name": "tick-13",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.4,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-14",
+      "name": "tick-14",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.35,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-15",
+      "name": "tick-15",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.30000000000000004,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-16",
+      "name": "tick-16",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.25,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-17",
+      "name": "tick-17",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.19999999999999996,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-18",
+      "name": "tick-18",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.15000000000000002,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-19",
+      "name": "tick-19",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.09999999999999998,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.012,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#7291A3"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    },
+    {
+      "id": "tick-20",
+      "name": "tick-20",
+      "asset": "custom",
+      "fixed": true,
+      "material": "metal",
+      "friction": 0.35,
+      "restitution": 0,
+      "position": [
+        0.113,
+        0.050000000000000044,
+        0.014
+      ],
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.025,
+            0.0012,
+            0.001
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#204969"
+        }
+      ],
+      "appearance": {
+        "roughness": 0.7,
+        "metalness": 0
+      }
+    }
+  ],
+  "edits": {},
+  "film": {
+    "version": 1,
+    "enabled": true,
+    "title": "1000 °C против метра льда",
+    "clips": [
+      {
+        "id": "question",
+        "label": "1000 °C и 150 м/с",
+        "project": {
+          "version": 1,
+          "name": "1000 °C и 150 м/с",
+          "objects": [
+            {
+              "id": "shot",
+              "name": "Стальной снаряд",
+              "asset": "custom",
+              "parts": [
+                {
+                  "shape": "cylinder",
+                  "d": [
+                    0.004,
+                    0.025
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "position": [
+                0,
+                1.1125,
+                0
+              ],
+              "mass": 0.01,
+              "material": "metal",
+              "linearDamping": 0,
+              "angularDamping": 0
+            },
+            {
+              "id": "sample",
+              "name": "Ледяной образец",
+              "asset": "cube",
+              "position": [
+                0,
+                0.55,
+                -0.25
+              ],
+              "scale": 1,
+              "fixed": true,
+              "material": "ice"
+            },
+            {
+              "id": "plinth",
+              "name": "plinth",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0,
+                0.04,
+                -0.25
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    1.15,
+                    0.08,
+                    0.62
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#163750"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.4,
+                "metalness": 0.45
+              }
+            },
+            {
+              "id": "ruler",
+              "name": "ruler",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.115,
+                0.55,
+                0.009
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.035,
+                    1.04,
+                    0.008
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#DCEAF1"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.6,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-0",
+              "name": "tick-0",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1.05,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-1",
+              "name": "tick-1",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-2",
+              "name": "tick-2",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-3",
+              "name": "tick-3",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-4",
+              "name": "tick-4",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-5",
+              "name": "tick-5",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-6",
+              "name": "tick-6",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.75,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-7",
+              "name": "tick-7",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.7,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-8",
+              "name": "tick-8",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.65,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-9",
+              "name": "tick-9",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.6000000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-10",
+              "name": "tick-10",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.55,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-11",
+              "name": "tick-11",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.5,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-12",
+              "name": "tick-12",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.44999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-13",
+              "name": "tick-13",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.4,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-14",
+              "name": "tick-14",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.35,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-15",
+              "name": "tick-15",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.30000000000000004,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-16",
+              "name": "tick-16",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.25,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-17",
+              "name": "tick-17",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.19999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-18",
+              "name": "tick-18",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.15000000000000002,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-19",
+              "name": "tick-19",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.09999999999999998,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-20",
+              "name": "tick-20",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.050000000000000044,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            }
+          ],
+          "edits": {},
+          "series": false,
+          "height": 1080,
+          "settings": {
+            "experiment": "blank",
+            "variant": 0,
+            "gravity": 9.81,
+            "speed": 4,
+            "azimuth": 180,
+            "elevation": 0,
+            "material": "rubber",
+            "mass": 12,
+            "friction": 0.5,
+            "restitution": 0.4,
+            "slope": 18,
+            "gap": 0.38,
+            "angle": 55,
+            "depth": 0.9,
+            "slowMotion": 1,
+            "showGrid": false,
+            "showTrails": false,
+            "background": "studio",
+            "theme": "day",
+            "seed": 42,
+            "temperature": 1000,
+            "iceTemperature": -10,
+            "iceHeight": 0.7,
+            "contactH": 1000,
+            "thermalTimeScale": 40,
+            "planet": "moon",
+            "altitude": 100000,
+            "timeScale": 1000,
+            "orbitAsset": "brick",
+            "windSpeed": 0,
+            "cameraMode": "manual",
+            "renderStyle": "cinematic",
+            "audioPreset": "pulse",
+            "dropHeight": 2.4,
+            "connections": [],
+            "emitters": [],
+            "story": {
+              "enabled": true,
+              "duration": 4,
+              "title": "",
+              "hook": "",
+              "question": "",
+              "takeaway": "",
+              "parameterLabel": "",
+              "heroId": "shot",
+              "metric": "none",
+              "camera": "manual",
+              "theme": "minimal",
+              "accent": "#FFD13D",
+              "captionMode": "authored",
+              "autoTrim": false,
+              "tempo": "normal",
+              "cues": [
+                {
+                  "start": 0,
+                  "end": 4,
+                  "text": "Снаряд раскалён до 1000 °C. Пройдёт метр льда?",
+                  "label": "Сталь · 10 г · 150 м/с · разрез",
+                  "hideMetric": true,
+                  "fade": 0.12
+                }
+              ],
+              "labels": {
+                "setup": "",
+                "action": "",
+                "result": ""
+              },
+              "effects": {
+                "slowMotion": false,
+                "heroOutline": false,
+                "eventPulse": false,
+                "trail": false,
+                "reference": false
+              }
+            },
+            "label": "Мягкий бросок",
+            "detail": "4 м/с · резиновый шар",
+            "autoLaunch": false,
+            "exportFps": 60,
+            "simulationDuration": 20,
+            "environment": {
+              "id": "arena",
+              "background": "#10233E",
+              "floor": "#17324A",
+              "keyColor": "#FFF0DB",
+              "fillColor": "#8BD9E9",
+              "exposure": 0.14
+            },
+            "soundDesign": {
+              "musicGain": 0.32,
+              "effectsGain": 0,
+              "ambience": "off"
+            },
+            "cameraRig": {
+              "version": 1,
+              "mode": "keys",
+              "anchorId": "",
+              "interpolation": "linear",
+              "points": [
+                {
+                  "time": 0,
+                  "sourceTime": 0,
+                  "position": [
+                    0.85,
+                    0.9,
+                    2.85
+                  ],
+                  "target": [
+                    0,
+                    0.55,
+                    -0.2
+                  ],
+                  "fov": 38,
+                  "cut": false
+                },
+                {
+                  "time": 0.9998333333333334,
+                  "sourceTime": 0,
+                  "position": [
+                    0.85,
+                    0.9,
+                    2.85
+                  ],
+                  "target": [
+                    0,
+                    0.55,
+                    -0.2
+                  ],
+                  "fov": 38,
+                  "cut": false
+                },
+                {
+                  "time": 1,
+                  "sourceTime": 0,
+                  "position": [
+                    0.052,
+                    1.12,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    1.095,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": true
+                },
+                {
+                  "time": 4,
+                  "sourceTime": 2.4,
+                  "position": [
+                    0.052,
+                    1.12,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    1.095,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                }
+              ]
+            },
+            "musicTrack": "lfm-after-party",
+            "contextView": {
+              "enabled": false,
+              "position": [
+                0.85,
+                0.9,
+                2.85
+              ],
+              "target": [
+                0,
+                0.55,
+                -0.2
+              ],
+              "fov": 38,
+              "size": 0.36,
+              "corner": "bottom-right",
+              "label": "Весь образец · 1 м"
+            },
+            "annotations": [
+              {
+                "id": "scale-0",
+                "text": "0 см",
+                "position": [
+                  0.155,
+                  1.05,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-25",
+                "text": "25 см",
+                "position": [
+                  0.155,
+                  0.8,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-50",
+                "text": "50 см",
+                "position": [
+                  0.155,
+                  0.55,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-75",
+                "text": "75 см",
+                "position": [
+                  0.155,
+                  0.30000000000000004,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-100",
+                "text": "100 см",
+                "position": [
+                  0.155,
+                  0.050000000000000044,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              }
+            ],
+            "focusId": "shot",
+            "penetration": {
+              "projectileId": "shot",
+              "targetId": "sample",
+              "axis": [
+                0,
+                -1,
+                0
+              ],
+              "entry": [
+                0,
+                1.05,
+                0
+              ],
+              "leadDistance": 0.05,
+              "clock": [
+                {
+                  "time": 0,
+                  "elapsed": 0
+                },
+                {
+                  "time": 2,
+                  "elapsed": 0.0003333333333333334
+                },
+                {
+                  "time": 9,
+                  "elapsed": 0.007
+                },
+                {
+                  "time": 10,
+                  "elapsed": 0.02
+                },
+                {
+                  "time": 20,
+                  "elapsed": 600
+                }
+              ],
+              "parameters": {
+                "projectile": {
+                  "mass": 0.01,
+                  "radius": 0.004,
+                  "length": 0.025,
+                  "specificHeat": 500,
+                  "temperature": 1000
+                },
+                "target": {
+                  "thickness": 1,
+                  "density": 917,
+                  "temperature": -10,
+                  "strength": 3000000,
+                  "drag": 1,
+                  "heatTransfer": 300,
+                  "sideHeatTransfer": 20
+                },
+                "initialSpeed": 150
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "impact",
+        "label": "Удар — миллисекунды",
+        "project": {
+          "version": 1,
+          "name": "Удар — миллисекунды",
+          "objects": [
+            {
+              "id": "shot",
+              "name": "Стальной снаряд",
+              "asset": "custom",
+              "parts": [
+                {
+                  "shape": "cylinder",
+                  "d": [
+                    0.004,
+                    0.025
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "position": [
+                0,
+                1.1125,
+                0
+              ],
+              "mass": 0.01,
+              "material": "metal",
+              "linearDamping": 0,
+              "angularDamping": 0
+            },
+            {
+              "id": "sample",
+              "name": "Ледяной образец",
+              "asset": "cube",
+              "position": [
+                0,
+                0.55,
+                -0.25
+              ],
+              "scale": 1,
+              "fixed": true,
+              "material": "ice"
+            },
+            {
+              "id": "plinth",
+              "name": "plinth",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0,
+                0.04,
+                -0.25
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    1.15,
+                    0.08,
+                    0.62
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#163750"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.4,
+                "metalness": 0.45
+              }
+            },
+            {
+              "id": "ruler",
+              "name": "ruler",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.115,
+                0.55,
+                0.009
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.035,
+                    1.04,
+                    0.008
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#DCEAF1"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.6,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-0",
+              "name": "tick-0",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1.05,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-1",
+              "name": "tick-1",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-2",
+              "name": "tick-2",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-3",
+              "name": "tick-3",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-4",
+              "name": "tick-4",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-5",
+              "name": "tick-5",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-6",
+              "name": "tick-6",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.75,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-7",
+              "name": "tick-7",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.7,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-8",
+              "name": "tick-8",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.65,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-9",
+              "name": "tick-9",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.6000000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-10",
+              "name": "tick-10",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.55,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-11",
+              "name": "tick-11",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.5,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-12",
+              "name": "tick-12",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.44999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-13",
+              "name": "tick-13",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.4,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-14",
+              "name": "tick-14",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.35,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-15",
+              "name": "tick-15",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.30000000000000004,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-16",
+              "name": "tick-16",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.25,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-17",
+              "name": "tick-17",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.19999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-18",
+              "name": "tick-18",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.15000000000000002,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-19",
+              "name": "tick-19",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.09999999999999998,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-20",
+              "name": "tick-20",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.050000000000000044,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            }
+          ],
+          "edits": {},
+          "series": false,
+          "height": 1080,
+          "settings": {
+            "experiment": "blank",
+            "variant": 0,
+            "gravity": 9.81,
+            "speed": 4,
+            "azimuth": 180,
+            "elevation": 0,
+            "material": "rubber",
+            "mass": 12,
+            "friction": 0.5,
+            "restitution": 0.4,
+            "slope": 18,
+            "gap": 0.38,
+            "angle": 55,
+            "depth": 0.9,
+            "slowMotion": 1,
+            "showGrid": false,
+            "showTrails": false,
+            "background": "studio",
+            "theme": "day",
+            "seed": 42,
+            "temperature": 1000,
+            "iceTemperature": -10,
+            "iceHeight": 0.7,
+            "contactH": 1000,
+            "thermalTimeScale": 40,
+            "planet": "moon",
+            "altitude": 100000,
+            "timeScale": 1000,
+            "orbitAsset": "brick",
+            "windSpeed": 0,
+            "cameraMode": "manual",
+            "renderStyle": "cinematic",
+            "audioPreset": "pulse",
+            "dropHeight": 2.4,
+            "connections": [],
+            "emitters": [],
+            "story": {
+              "enabled": true,
+              "duration": 14,
+              "title": "",
+              "hook": "",
+              "question": "",
+              "takeaway": "",
+              "parameterLabel": "",
+              "heroId": "shot",
+              "metric": "none",
+              "camera": "manual",
+              "theme": "minimal",
+              "accent": "#FFD13D",
+              "captionMode": "authored",
+              "autoTrim": false,
+              "tempo": "normal",
+              "cues": [
+                {
+                  "start": 0,
+                  "end": 3.4,
+                  "text": "Сначала — выстрел",
+                  "label": "{physicalMilliseconds} мс · {modelSpeed} м/с · замедлено",
+                  "hideMetric": true,
+                  "fade": 0.12
+                },
+                {
+                  "start": 3.8,
+                  "end": 9.5,
+                  "text": "Лёд тормозит снаряд",
+                  "label": "{physicalMilliseconds} мс · {modelSpeed} м/с · осевая модель",
+                  "hideMetric": true,
+                  "fade": 0.12
+                },
+                {
+                  "start": 9.9,
+                  "end": 13.9,
+                  "text": "После удара: 32,3 см",
+                  "label": "{physicalMilliseconds} мс · {temperature} °C · расчёт",
+                  "hideMetric": true,
+                  "fade": 0.12
+                }
+              ],
+              "labels": {
+                "setup": "",
+                "action": "",
+                "result": ""
+              },
+              "effects": {
+                "slowMotion": false,
+                "heroOutline": false,
+                "eventPulse": false,
+                "trail": false,
+                "reference": false
+              }
+            },
+            "label": "Мягкий бросок",
+            "detail": "4 м/с · резиновый шар",
+            "autoLaunch": false,
+            "exportFps": 60,
+            "simulationDuration": 20,
+            "environment": {
+              "id": "arena",
+              "background": "#10233E",
+              "floor": "#17324A",
+              "keyColor": "#FFF0DB",
+              "fillColor": "#8BD9E9",
+              "exposure": 0.14
+            },
+            "soundDesign": {
+              "musicGain": 0.32,
+              "effectsGain": 0,
+              "ambience": "off"
+            },
+            "cameraRig": {
+              "version": 1,
+              "mode": "keys",
+              "anchorId": "",
+              "interpolation": "linear",
+              "points": [
+                {
+                  "time": 0,
+                  "sourceTime": 0,
+                  "position": [
+                    0.052,
+                    1.12,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    1.095,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 2,
+                  "sourceTime": 2,
+                  "position": [
+                    0.052,
+                    1.12,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    1.095,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 5,
+                  "sourceTime": 4,
+                  "position": [
+                    0.16,
+                    0.92,
+                    0.5
+                  ],
+                  "target": [
+                    0,
+                    0.88,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 10,
+                  "sourceTime": 9,
+                  "position": [
+                    0.08,
+                    0.79,
+                    0.25
+                  ],
+                  "target": [
+                    0,
+                    0.735,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 14,
+                  "sourceTime": 10,
+                  "position": [
+                    0.08,
+                    0.79,
+                    0.25
+                  ],
+                  "target": [
+                    0,
+                    0.735,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                }
+              ]
+            },
+            "musicTrack": "lfm-after-party",
+            "contextView": {
+              "enabled": false,
+              "position": [
+                0.85,
+                0.9,
+                2.85
+              ],
+              "target": [
+                0,
+                0.55,
+                -0.2
+              ],
+              "fov": 38,
+              "size": 0.36,
+              "corner": "bottom-right",
+              "label": "Весь образец · 1 м"
+            },
+            "annotations": [
+              {
+                "id": "scale-0",
+                "text": "0 см",
+                "position": [
+                  0.155,
+                  1.05,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-25",
+                "text": "25 см",
+                "position": [
+                  0.155,
+                  0.8,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-50",
+                "text": "50 см",
+                "position": [
+                  0.155,
+                  0.55,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-75",
+                "text": "75 см",
+                "position": [
+                  0.155,
+                  0.30000000000000004,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-100",
+                "text": "100 см",
+                "position": [
+                  0.155,
+                  0.050000000000000044,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              }
+            ],
+            "focusId": "shot",
+            "penetration": {
+              "projectileId": "shot",
+              "targetId": "sample",
+              "axis": [
+                0,
+                -1,
+                0
+              ],
+              "entry": [
+                0,
+                1.05,
+                0
+              ],
+              "leadDistance": 0.05,
+              "clock": [
+                {
+                  "time": 0,
+                  "elapsed": 0
+                },
+                {
+                  "time": 2,
+                  "elapsed": 0.0003333333333333334
+                },
+                {
+                  "time": 9,
+                  "elapsed": 0.007
+                },
+                {
+                  "time": 10,
+                  "elapsed": 0.02
+                },
+                {
+                  "time": 20,
+                  "elapsed": 600
+                }
+              ],
+              "parameters": {
+                "projectile": {
+                  "mass": 0.01,
+                  "radius": 0.004,
+                  "length": 0.025,
+                  "specificHeat": 500,
+                  "temperature": 1000
+                },
+                "target": {
+                  "thickness": 1,
+                  "density": 917,
+                  "temperature": -10,
+                  "strength": 3000000,
+                  "drag": 1,
+                  "heatTransfer": 300,
+                  "sideHeatTransfer": 20
+                },
+                "initialSpeed": 150
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "cold-control",
+        "label": "Контроль без нагрева",
+        "project": {
+          "version": 1,
+          "name": "Контроль без нагрева",
+          "objects": [
+            {
+              "id": "shot",
+              "name": "Стальной снаряд",
+              "asset": "custom",
+              "parts": [
+                {
+                  "shape": "cylinder",
+                  "d": [
+                    0.004,
+                    0.025
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "position": [
+                0,
+                1.1125,
+                0
+              ],
+              "mass": 0.01,
+              "material": "metal",
+              "linearDamping": 0,
+              "angularDamping": 0
+            },
+            {
+              "id": "sample",
+              "name": "Ледяной образец",
+              "asset": "cube",
+              "position": [
+                0,
+                0.55,
+                -0.25
+              ],
+              "scale": 1,
+              "fixed": true,
+              "material": "ice"
+            },
+            {
+              "id": "plinth",
+              "name": "plinth",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0,
+                0.04,
+                -0.25
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    1.15,
+                    0.08,
+                    0.62
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#163750"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.4,
+                "metalness": 0.45
+              }
+            },
+            {
+              "id": "ruler",
+              "name": "ruler",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.115,
+                0.55,
+                0.009
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.035,
+                    1.04,
+                    0.008
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#DCEAF1"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.6,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-0",
+              "name": "tick-0",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1.05,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-1",
+              "name": "tick-1",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-2",
+              "name": "tick-2",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-3",
+              "name": "tick-3",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-4",
+              "name": "tick-4",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-5",
+              "name": "tick-5",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-6",
+              "name": "tick-6",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.75,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-7",
+              "name": "tick-7",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.7,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-8",
+              "name": "tick-8",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.65,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-9",
+              "name": "tick-9",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.6000000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-10",
+              "name": "tick-10",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.55,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-11",
+              "name": "tick-11",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.5,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-12",
+              "name": "tick-12",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.44999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-13",
+              "name": "tick-13",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.4,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-14",
+              "name": "tick-14",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.35,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-15",
+              "name": "tick-15",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.30000000000000004,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-16",
+              "name": "tick-16",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.25,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-17",
+              "name": "tick-17",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.19999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-18",
+              "name": "tick-18",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.15000000000000002,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-19",
+              "name": "tick-19",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.09999999999999998,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-20",
+              "name": "tick-20",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.050000000000000044,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            }
+          ],
+          "edits": {},
+          "series": false,
+          "height": 1080,
+          "settings": {
+            "experiment": "blank",
+            "variant": 0,
+            "gravity": 9.81,
+            "speed": 4,
+            "azimuth": 180,
+            "elevation": 0,
+            "material": "rubber",
+            "mass": 12,
+            "friction": 0.5,
+            "restitution": 0.4,
+            "slope": 18,
+            "gap": 0.38,
+            "angle": 55,
+            "depth": 0.9,
+            "slowMotion": 1,
+            "showGrid": false,
+            "showTrails": false,
+            "background": "studio",
+            "theme": "day",
+            "seed": 42,
+            "temperature": 1000,
+            "iceTemperature": -10,
+            "iceHeight": 0.7,
+            "contactH": 1000,
+            "thermalTimeScale": 40,
+            "planet": "moon",
+            "altitude": 100000,
+            "timeScale": 1000,
+            "orbitAsset": "brick",
+            "windSpeed": 0,
+            "cameraMode": "manual",
+            "renderStyle": "cinematic",
+            "audioPreset": "pulse",
+            "dropHeight": 2.4,
+            "connections": [],
+            "emitters": [],
+            "story": {
+              "enabled": true,
+              "duration": 6,
+              "title": "",
+              "hook": "",
+              "question": "",
+              "takeaway": "",
+              "parameterLabel": "",
+              "heroId": "shot",
+              "metric": "none",
+              "camera": "manual",
+              "theme": "minimal",
+              "accent": "#FFD13D",
+              "captionMode": "authored",
+              "autoTrim": false,
+              "tempo": "normal",
+              "cues": [
+                {
+                  "start": 0,
+                  "end": 3.8,
+                  "text": "Та же скорость. Нагрев убрали.",
+                  "label": "0 °C · масса и размеры прежние",
+                  "hideMetric": true,
+                  "fade": 0.12
+                },
+                {
+                  "start": 4.3,
+                  "end": 5.9,
+                  "text": "Холодный остановился на 32,3 см",
+                  "label": "Здесь сопротивление льда не зависит от температуры",
+                  "hideMetric": true,
+                  "fade": 0.12
+                }
+              ],
+              "labels": {
+                "setup": "",
+                "action": "",
+                "result": ""
+              },
+              "effects": {
+                "slowMotion": false,
+                "heroOutline": false,
+                "eventPulse": false,
+                "trail": false,
+                "reference": false
+              }
+            },
+            "label": "Мягкий бросок",
+            "detail": "4 м/с · резиновый шар",
+            "autoLaunch": false,
+            "exportFps": 60,
+            "simulationDuration": 20,
+            "environment": {
+              "id": "arena",
+              "background": "#10233E",
+              "floor": "#17324A",
+              "keyColor": "#FFF0DB",
+              "fillColor": "#8BD9E9",
+              "exposure": 0.14
+            },
+            "soundDesign": {
+              "musicGain": 0.32,
+              "effectsGain": 0,
+              "ambience": "off"
+            },
+            "cameraRig": {
+              "version": 1,
+              "mode": "keys",
+              "anchorId": "shot",
+              "interpolation": "linear",
+              "points": [
+                {
+                  "time": 0,
+                  "sourceTime": 0,
+                  "position": [
+                    0.052,
+                    0.007500000000000062,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    -0.01750000000000007,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 6,
+                  "sourceTime": 10,
+                  "position": [
+                    0.052,
+                    0.007500000000000062,
+                    0.22
+                  ],
+                  "target": [
+                    0,
+                    -0.01750000000000007,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                }
+              ]
+            },
+            "musicTrack": "lfm-after-party",
+            "contextView": {
+              "enabled": false,
+              "position": [
+                0.85,
+                0.9,
+                2.85
+              ],
+              "target": [
+                0,
+                0.55,
+                -0.2
+              ],
+              "fov": 38,
+              "size": 0.36,
+              "corner": "bottom-right",
+              "label": "Весь образец · 1 м"
+            },
+            "annotations": [
+              {
+                "id": "scale-0",
+                "text": "0 см",
+                "position": [
+                  0.155,
+                  1.05,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-25",
+                "text": "25 см",
+                "position": [
+                  0.155,
+                  0.8,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-50",
+                "text": "50 см",
+                "position": [
+                  0.155,
+                  0.55,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-75",
+                "text": "75 см",
+                "position": [
+                  0.155,
+                  0.30000000000000004,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-100",
+                "text": "100 см",
+                "position": [
+                  0.155,
+                  0.050000000000000044,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              }
+            ],
+            "focusId": "shot",
+            "penetration": {
+              "projectileId": "shot",
+              "targetId": "sample",
+              "axis": [
+                0,
+                -1,
+                0
+              ],
+              "entry": [
+                0,
+                1.05,
+                0
+              ],
+              "leadDistance": 0.05,
+              "clock": [
+                {
+                  "time": 0,
+                  "elapsed": 0
+                },
+                {
+                  "time": 2,
+                  "elapsed": 0.0003333333333333334
+                },
+                {
+                  "time": 9,
+                  "elapsed": 0.007
+                },
+                {
+                  "time": 10,
+                  "elapsed": 0.02
+                },
+                {
+                  "time": 20,
+                  "elapsed": 600
+                }
+              ],
+              "parameters": {
+                "projectile": {
+                  "mass": 0.01,
+                  "radius": 0.004,
+                  "length": 0.025,
+                  "specificHeat": 500,
+                  "temperature": 0
+                },
+                "target": {
+                  "thickness": 1,
+                  "density": 917,
+                  "temperature": -10,
+                  "strength": 3000000,
+                  "drag": 1,
+                  "heatTransfer": 300,
+                  "sideHeatTransfer": 20
+                },
+                "initialSpeed": 150
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "thermal",
+        "label": "После остановки",
+        "project": {
+          "version": 1,
+          "name": "После остановки",
+          "objects": [
+            {
+              "id": "shot",
+              "name": "Стальной снаряд",
+              "asset": "custom",
+              "parts": [
+                {
+                  "shape": "cylinder",
+                  "d": [
+                    0.004,
+                    0.025
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "position": [
+                0,
+                1.1125,
+                0
+              ],
+              "mass": 0.01,
+              "material": "metal",
+              "linearDamping": 0,
+              "angularDamping": 0
+            },
+            {
+              "id": "sample",
+              "name": "Ледяной образец",
+              "asset": "cube",
+              "position": [
+                0,
+                0.55,
+                -0.25
+              ],
+              "scale": 1,
+              "fixed": true,
+              "material": "ice"
+            },
+            {
+              "id": "plinth",
+              "name": "plinth",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0,
+                0.04,
+                -0.25
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    1.15,
+                    0.08,
+                    0.62
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#163750"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.4,
+                "metalness": 0.45
+              }
+            },
+            {
+              "id": "ruler",
+              "name": "ruler",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.115,
+                0.55,
+                0.009
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.035,
+                    1.04,
+                    0.008
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#DCEAF1"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.6,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-0",
+              "name": "tick-0",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1.05,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-1",
+              "name": "tick-1",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-2",
+              "name": "tick-2",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-3",
+              "name": "tick-3",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-4",
+              "name": "tick-4",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-5",
+              "name": "tick-5",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-6",
+              "name": "tick-6",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.75,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-7",
+              "name": "tick-7",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.7,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-8",
+              "name": "tick-8",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.65,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-9",
+              "name": "tick-9",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.6000000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-10",
+              "name": "tick-10",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.55,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-11",
+              "name": "tick-11",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.5,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-12",
+              "name": "tick-12",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.44999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-13",
+              "name": "tick-13",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.4,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-14",
+              "name": "tick-14",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.35,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-15",
+              "name": "tick-15",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.30000000000000004,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-16",
+              "name": "tick-16",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.25,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-17",
+              "name": "tick-17",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.19999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-18",
+              "name": "tick-18",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.15000000000000002,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-19",
+              "name": "tick-19",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.09999999999999998,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-20",
+              "name": "tick-20",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.050000000000000044,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            }
+          ],
+          "edits": {},
+          "series": false,
+          "height": 1080,
+          "settings": {
+            "experiment": "blank",
+            "variant": 0,
+            "gravity": 9.81,
+            "speed": 4,
+            "azimuth": 180,
+            "elevation": 0,
+            "material": "rubber",
+            "mass": 12,
+            "friction": 0.5,
+            "restitution": 0.4,
+            "slope": 18,
+            "gap": 0.38,
+            "angle": 55,
+            "depth": 0.9,
+            "slowMotion": 1,
+            "showGrid": false,
+            "showTrails": false,
+            "background": "studio",
+            "theme": "day",
+            "seed": 42,
+            "temperature": 1000,
+            "iceTemperature": -10,
+            "iceHeight": 0.7,
+            "contactH": 1000,
+            "thermalTimeScale": 40,
+            "planet": "moon",
+            "altitude": 100000,
+            "timeScale": 1000,
+            "orbitAsset": "brick",
+            "windSpeed": 0,
+            "cameraMode": "manual",
+            "renderStyle": "cinematic",
+            "audioPreset": "pulse",
+            "dropHeight": 2.4,
+            "connections": [],
+            "emitters": [],
+            "story": {
+              "enabled": true,
+              "duration": 17,
+              "title": "",
+              "hook": "",
+              "question": "",
+              "takeaway": "",
+              "parameterLabel": "",
+              "heroId": "shot",
+              "metric": "none",
+              "camera": "manual",
+              "theme": "minimal",
+              "accent": "#FFD13D",
+              "captionMode": "authored",
+              "autoTrim": false,
+              "tempo": "normal",
+              "cues": [
+                {
+                  "start": 0,
+                  "end": 4.6,
+                  "text": "Удар закончился. Запас тепла остался.",
+                  "label": "{physicalMinutes} мин · {temperature} °C · глубина {depthCm} см",
+                  "hideMetric": true,
+                  "fade": 0.12
+                },
+                {
+                  "start": 5,
+                  "end": 12.1,
+                  "text": "Лёд плавится. Снаряд опускается под своим весом.",
+                  "label": "{physicalMinutes} мин · {temperature} °C · глубина {depthCm} см",
+                  "hideMetric": true,
+                  "fade": 0.12
+                },
+                {
+                  "start": 12.5,
+                  "end": 16.9,
+                  "text": "Через 10 минут: 48,4 см",
+                  "label": "{physicalMinutes} мин · {temperature} °C · глубина {depthCm} см",
+                  "hideMetric": true,
+                  "fade": 0.12
+                }
+              ],
+              "labels": {
+                "setup": "",
+                "action": "",
+                "result": ""
+              },
+              "effects": {
+                "slowMotion": false,
+                "heroOutline": false,
+                "eventPulse": false,
+                "trail": false,
+                "reference": false
+              }
+            },
+            "label": "Мягкий бросок",
+            "detail": "4 м/с · резиновый шар",
+            "autoLaunch": false,
+            "exportFps": 60,
+            "simulationDuration": 20,
+            "environment": {
+              "id": "arena",
+              "background": "#10233E",
+              "floor": "#17324A",
+              "keyColor": "#FFF0DB",
+              "fillColor": "#8BD9E9",
+              "exposure": 0.14
+            },
+            "soundDesign": {
+              "musicGain": 0.32,
+              "effectsGain": 0,
+              "ambience": "off"
+            },
+            "cameraRig": {
+              "version": 1,
+              "mode": "keys",
+              "anchorId": "",
+              "interpolation": "linear",
+              "points": [
+                {
+                  "time": 0,
+                  "sourceTime": 10,
+                  "position": [
+                    0.085,
+                    0.74,
+                    0.48
+                  ],
+                  "target": [
+                    0.045,
+                    0.675,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 12,
+                  "sourceTime": 20,
+                  "position": [
+                    0.085,
+                    0.74,
+                    0.48
+                  ],
+                  "target": [
+                    0.045,
+                    0.675,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 17,
+                  "sourceTime": 20,
+                  "position": [
+                    0.085,
+                    0.74,
+                    0.48
+                  ],
+                  "target": [
+                    0.045,
+                    0.675,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                }
+              ]
+            },
+            "musicTrack": "lfm-after-party",
+            "contextView": {
+              "enabled": false,
+              "position": [
+                0.85,
+                0.9,
+                2.85
+              ],
+              "target": [
+                0,
+                0.55,
+                -0.2
+              ],
+              "fov": 38,
+              "size": 0.36,
+              "corner": "bottom-right",
+              "label": "Весь образец · 1 м"
+            },
+            "annotations": [
+              {
+                "id": "scale-0",
+                "text": "0 см",
+                "position": [
+                  0.155,
+                  1.05,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-25",
+                "text": "25 см",
+                "position": [
+                  0.155,
+                  0.8,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-50",
+                "text": "50 см",
+                "position": [
+                  0.155,
+                  0.55,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-75",
+                "text": "75 см",
+                "position": [
+                  0.155,
+                  0.30000000000000004,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-100",
+                "text": "100 см",
+                "position": [
+                  0.155,
+                  0.050000000000000044,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "stop-marker",
+                "text": "32,3 см · после удара",
+                "position": [
+                  0.025,
+                  0.726540583619657,
+                  0.02
+                ],
+                "color": "#FFE087",
+                "size": 26
+              }
+            ],
+            "focusId": "shot",
+            "penetration": {
+              "projectileId": "shot",
+              "targetId": "sample",
+              "axis": [
+                0,
+                -1,
+                0
+              ],
+              "entry": [
+                0,
+                1.05,
+                0
+              ],
+              "leadDistance": 0.05,
+              "clock": [
+                {
+                  "time": 0,
+                  "elapsed": 0
+                },
+                {
+                  "time": 2,
+                  "elapsed": 0.0003333333333333334
+                },
+                {
+                  "time": 9,
+                  "elapsed": 0.007
+                },
+                {
+                  "time": 10,
+                  "elapsed": 0.02
+                },
+                {
+                  "time": 20,
+                  "elapsed": 600
+                }
+              ],
+              "parameters": {
+                "projectile": {
+                  "mass": 0.01,
+                  "radius": 0.004,
+                  "length": 0.025,
+                  "specificHeat": 500,
+                  "temperature": 1000
+                },
+                "target": {
+                  "thickness": 1,
+                  "density": 917,
+                  "temperature": -10,
+                  "strength": 3000000,
+                  "drag": 1,
+                  "heatTransfer": 300,
+                  "sideHeatTransfer": 20
+                },
+                "initialSpeed": 150
+              }
+            }
+          }
+        }
+      },
+      {
+        "id": "result",
+        "label": "Через 10 минут",
+        "project": {
+          "version": 1,
+          "name": "Через 10 минут",
+          "objects": [
+            {
+              "id": "shot",
+              "name": "Стальной снаряд",
+              "asset": "custom",
+              "parts": [
+                {
+                  "shape": "cylinder",
+                  "d": [
+                    0.004,
+                    0.025
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ]
+                }
+              ],
+              "position": [
+                0,
+                1.1125,
+                0
+              ],
+              "mass": 0.01,
+              "material": "metal",
+              "linearDamping": 0,
+              "angularDamping": 0
+            },
+            {
+              "id": "sample",
+              "name": "Ледяной образец",
+              "asset": "cube",
+              "position": [
+                0,
+                0.55,
+                -0.25
+              ],
+              "scale": 1,
+              "fixed": true,
+              "material": "ice"
+            },
+            {
+              "id": "plinth",
+              "name": "plinth",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0,
+                0.04,
+                -0.25
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    1.15,
+                    0.08,
+                    0.62
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#163750"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.4,
+                "metalness": 0.45
+              }
+            },
+            {
+              "id": "ruler",
+              "name": "ruler",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.115,
+                0.55,
+                0.009
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.035,
+                    1.04,
+                    0.008
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#DCEAF1"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.6,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-0",
+              "name": "tick-0",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1.05,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-1",
+              "name": "tick-1",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                1,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-2",
+              "name": "tick-2",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-3",
+              "name": "tick-3",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.9,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-4",
+              "name": "tick-4",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8500000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-5",
+              "name": "tick-5",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.8,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-6",
+              "name": "tick-6",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.75,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-7",
+              "name": "tick-7",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.7,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-8",
+              "name": "tick-8",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.65,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-9",
+              "name": "tick-9",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.6000000000000001,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-10",
+              "name": "tick-10",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.55,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-11",
+              "name": "tick-11",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.5,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-12",
+              "name": "tick-12",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.44999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-13",
+              "name": "tick-13",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.4,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-14",
+              "name": "tick-14",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.35,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-15",
+              "name": "tick-15",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.30000000000000004,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-16",
+              "name": "tick-16",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.25,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-17",
+              "name": "tick-17",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.19999999999999996,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-18",
+              "name": "tick-18",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.15000000000000002,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-19",
+              "name": "tick-19",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.09999999999999998,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.012,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#7291A3"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            },
+            {
+              "id": "tick-20",
+              "name": "tick-20",
+              "asset": "custom",
+              "fixed": true,
+              "material": "metal",
+              "friction": 0.35,
+              "restitution": 0,
+              "position": [
+                0.113,
+                0.050000000000000044,
+                0.014
+              ],
+              "parts": [
+                {
+                  "shape": "box",
+                  "d": [
+                    0.025,
+                    0.0012,
+                    0.001
+                  ],
+                  "p": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "color": "#204969"
+                }
+              ],
+              "appearance": {
+                "roughness": 0.7,
+                "metalness": 0
+              }
+            }
+          ],
+          "edits": {},
+          "series": false,
+          "height": 1080,
+          "settings": {
+            "experiment": "blank",
+            "variant": 0,
+            "gravity": 9.81,
+            "speed": 4,
+            "azimuth": 180,
+            "elevation": 0,
+            "material": "rubber",
+            "mass": 12,
+            "friction": 0.5,
+            "restitution": 0.4,
+            "slope": 18,
+            "gap": 0.38,
+            "angle": 55,
+            "depth": 0.9,
+            "slowMotion": 1,
+            "showGrid": false,
+            "showTrails": false,
+            "background": "studio",
+            "theme": "day",
+            "seed": 42,
+            "temperature": 1000,
+            "iceTemperature": -10,
+            "iceHeight": 0.7,
+            "contactH": 1000,
+            "thermalTimeScale": 40,
+            "planet": "moon",
+            "altitude": 100000,
+            "timeScale": 1000,
+            "orbitAsset": "brick",
+            "windSpeed": 0,
+            "cameraMode": "manual",
+            "renderStyle": "cinematic",
+            "audioPreset": "pulse",
+            "dropHeight": 2.4,
+            "connections": [],
+            "emitters": [],
+            "story": {
+              "enabled": true,
+              "duration": 4,
+              "title": "",
+              "hook": "",
+              "question": "",
+              "takeaway": "",
+              "parameterLabel": "",
+              "heroId": "shot",
+              "metric": "none",
+              "camera": "manual",
+              "theme": "minimal",
+              "accent": "#FFD13D",
+              "captionMode": "authored",
+              "autoTrim": false,
+              "tempo": "normal",
+              "cues": [
+                {
+                  "start": 0,
+                  "end": 4,
+                  "text": "В модели за 10 минут метр льда не пройден",
+                  "label": "Расчёт при выбранных коэффициентах · без трёхмерных трещин и пара",
+                  "hideMetric": true,
+                  "fade": 0.12
+                }
+              ],
+              "labels": {
+                "setup": "",
+                "action": "",
+                "result": ""
+              },
+              "effects": {
+                "slowMotion": false,
+                "heroOutline": false,
+                "eventPulse": false,
+                "trail": false,
+                "reference": false
+              }
+            },
+            "label": "Мягкий бросок",
+            "detail": "4 м/с · резиновый шар",
+            "autoLaunch": false,
+            "exportFps": 60,
+            "simulationDuration": 20,
+            "environment": {
+              "id": "arena",
+              "background": "#10233E",
+              "floor": "#17324A",
+              "keyColor": "#FFF0DB",
+              "fillColor": "#8BD9E9",
+              "exposure": 0.14
+            },
+            "soundDesign": {
+              "musicGain": 0.32,
+              "effectsGain": 0,
+              "ambience": "off"
+            },
+            "cameraRig": {
+              "version": 1,
+              "mode": "keys",
+              "anchorId": "",
+              "interpolation": "linear",
+              "points": [
+                {
+                  "time": 0,
+                  "sourceTime": 20,
+                  "position": [
+                    0.085,
+                    0.74,
+                    0.48
+                  ],
+                  "target": [
+                    0.045,
+                    0.675,
+                    0
+                  ],
+                  "fov": 35,
+                  "cut": false
+                },
+                {
+                  "time": 2,
+                  "sourceTime": 20,
+                  "position": [
+                    0.85,
+                    0.9,
+                    2.85
+                  ],
+                  "target": [
+                    0,
+                    0.55,
+                    -0.2
+                  ],
+                  "fov": 38,
+                  "cut": false
+                },
+                {
+                  "time": 4,
+                  "sourceTime": 20,
+                  "position": [
+                    0.85,
+                    0.9,
+                    2.85
+                  ],
+                  "target": [
+                    0,
+                    0.55,
+                    -0.2
+                  ],
+                  "fov": 38,
+                  "cut": false
+                }
+              ]
+            },
+            "musicTrack": "lfm-after-party",
+            "contextView": null,
+            "annotations": [
+              {
+                "id": "scale-0",
+                "text": "0 см",
+                "position": [
+                  0.155,
+                  1.05,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-25",
+                "text": "25 см",
+                "position": [
+                  0.155,
+                  0.8,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-50",
+                "text": "50 см",
+                "position": [
+                  0.155,
+                  0.55,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-75",
+                "text": "75 см",
+                "position": [
+                  0.155,
+                  0.30000000000000004,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              },
+              {
+                "id": "scale-100",
+                "text": "100 см",
+                "position": [
+                  0.155,
+                  0.050000000000000044,
+                  0.02
+                ],
+                "color": "#F2FAFF",
+                "size": 28
+              }
+            ],
+            "focusId": "shot",
+            "penetration": {
+              "projectileId": "shot",
+              "targetId": "sample",
+              "axis": [
+                0,
+                -1,
+                0
+              ],
+              "entry": [
+                0,
+                1.05,
+                0
+              ],
+              "leadDistance": 0.05,
+              "clock": [
+                {
+                  "time": 0,
+                  "elapsed": 0
+                },
+                {
+                  "time": 2,
+                  "elapsed": 0.0003333333333333334
+                },
+                {
+                  "time": 9,
+                  "elapsed": 0.007
+                },
+                {
+                  "time": 10,
+                  "elapsed": 0.02
+                },
+                {
+                  "time": 20,
+                  "elapsed": 600
+                }
+              ],
+              "parameters": {
+                "projectile": {
+                  "mass": 0.01,
+                  "radius": 0.004,
+                  "length": 0.025,
+                  "specificHeat": 500,
+                  "temperature": 1000
+                },
+                "target": {
+                  "thickness": 1,
+                  "density": 917,
+                  "temperature": -10,
+                  "strength": 3000000,
+                  "drag": 1,
+                  "heatTransfer": 300,
+                  "sideHeatTransfer": 20
+                },
+                "initialSpeed": 150
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

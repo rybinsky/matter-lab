@@ -1,0 +1,23 @@
+node_modules/
+dist/
+.cache/
+.DS_Store
+data/
+work/
+runtime/
+release/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+*.mp4
+*.wav
+*.zip
+*.tar
+*.tar.gz
+*.dylib
+*.tmp
+
+# Curated offline recordings are source assets, not producer exports.
+!public/music/recordings/*.wav

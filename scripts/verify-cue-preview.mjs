@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {cuePreviewTime,firstCuePreviewTime} from '../src/timed-captions.js';
+import {editorialFrame} from '../src/storyboard.js';
+const cue={start:0,end:3.8,text:'Главный вопрос уже виден',label:'Условия опыта',fade:.12};
+const time=firstCuePreviewTime([cue],7),frame=editorialFrame({story:{cues:[cue]},time,duration:7});
+assert(time>cue.start+cue.fade&&time<cue.end);assert.equal(frame.caption,cue.text);assert.equal(frame.captionOpacity,1);
+assert.equal(cuePreviewTime({start:2,end:2.1,fade:1},5),2.05);
+assert.equal(cuePreviewTime({start:3,end:2},5),null);
+assert.equal(cuePreviewTime({start:5,end:6},4),null);
+assert(firstCuePreviewTime([{start:7,end:8,fade:.2},{start:1,end:3,fade:.5}],10)<2);
+assert.equal(firstCuePreviewTime([],10),0);
+const original=structuredClone(cue);firstCuePreviewTime([cue],7);assert.deepEqual(cue,original);
+console.log('Cue preview passed: first visible authored caption, fades, short spans, duration bounds, sorting and immutable source cues.');

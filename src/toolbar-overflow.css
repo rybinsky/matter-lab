@@ -1,0 +1,18 @@
+.spatial-studio .studio-toolrack.toolbar-overflow-host{gap:7px}
+.spatial-studio .studio-toolrack.toolbar-overflow-host .scene-tools{flex:1 1 0;width:0;overflow:hidden}
+.spatial-studio .scene-tools>.toolbar-overflow-hidden{display:none!important}
+.toolbar-overflow-trigger{display:inline-flex;align-items:center;justify-content:center;gap:5px;flex:0 0 auto;min-height:32px;padding:6px 9px;background:var(--control);color:var(--ink);border:1px solid var(--border);border-radius:6px;font:inherit;font-size:12px;font-weight:550;line-height:1.2;white-space:nowrap;cursor:pointer}
+.toolbar-overflow-trigger:hover{background:var(--control-hover)}
+.toolbar-overflow-trigger[hidden]{display:none}
+.toolbar-overflow-trigger>svg{width:15px;height:15px}
+.toolbar-overflow-trigger[aria-expanded=true]>svg{transform:rotate(180deg)}
+.toolbar-overflow-menu{position:fixed;z-index:115;display:grid;gap:3px;overflow:auto;overscroll-behavior:contain;padding:8px;min-width:0;background:var(--panel);color:var(--ink);border:1px solid var(--border);border-radius:11px;box-shadow:0 18px 60px #0007;scrollbar-width:thin}
+.toolbar-overflow-menu[hidden]{display:none}
+.toolbar-overflow-item{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:9px 11px;border:0;border-radius:6px;color:var(--sub);background:transparent;font:inherit;font-size:13px;line-height:1.4;text-align:left;cursor:pointer}
+.toolbar-overflow-item>svg{width:17px;height:17px;flex:0 0 17px}
+.toolbar-overflow-item>span{min-width:0;overflow-wrap:anywhere}
+.toolbar-overflow-item:hover,.toolbar-overflow-item:focus-visible{color:var(--ink);background:var(--control)}
+.toolbar-overflow-item.active{color:var(--accent-text);background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.workspace-scroll-cue{position:fixed;z-index:45;display:grid;place-items:center;pointer-events:none;height:25px;background:linear-gradient(transparent,var(--page) 45%);color:var(--accent-text)}
+.workspace-scroll-cue[hidden]{display:none}
+.workspace-scroll-cue svg{width:17px;height:17px;filter:drop-shadow(0 1px 2px #0008)}

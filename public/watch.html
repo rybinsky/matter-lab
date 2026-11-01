@@ -1,0 +1,8 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0d0f12"><title>Matter Lab — просмотр</title>
+<style>html,body{margin:0;width:100%;height:100%;background:#0d0f12;color:#eaecef;font:13px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body{display:grid;grid-template-rows:48px minmax(0,1fr)}header{display:flex;align-items:center;gap:18px;padding:0 20px}a{color:#f2967a;text-decoration:none}h1{font-size:12px;font-weight:500;color:#b9bdc4;margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}main{display:grid;place-items:center;min-height:0;overflow:hidden;padding:0 12px 12px;box-sizing:border-box}video{height:100%;width:100%;max-height:calc(100dvh - 60px);object-fit:contain;outline:0}#error{color:#b9bdc4}</style>
+<header><a href="/">matterlab</a><h1 id="title">Просмотр ролика</h1></header><main><video id="film" controls playsinline muted autoplay></video><p id="error" hidden>Ролик не найден.</p></main>
+<script type="module">
+const file=new URLSearchParams(location.search).get('v')||'',player=document.getElementById('film');
+if(!/^[a-zA-Z0-9_-]{1,90}\.mp4$/.test(file)){player.hidden=true;document.getElementById('error').hidden=false;}
+else{player.src='/media/'+encodeURIComponent(file);player.addEventListener('error',()=>{player.hidden=true;document.getElementById('error').hidden=false;});fetch('/api/reels').then(r=>r.json()).then(reels=>{const item=reels.find(r=>r.name===file);if(item?.title){document.title=item.title+' — Matter Lab';document.getElementById('title').textContent=item.title;}}).catch(()=>{});}
+</script></html>
