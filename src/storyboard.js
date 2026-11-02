@@ -1,5 +1,5 @@
 import {READOUT_VARIABLES} from './measurement-readouts.js';
-import {normalizeGraphicsStyle,graphicsStyleTokens} from './graphics-style.js';
+import {normalizeGraphicsStyle,normalizeCueGraphics,resolveGraphicsStyle,graphicsStyleTokens,CUE_ENTRANCES} from './graphics-style.js';
 // Editorial metadata is independent of the phenomenon and the renderer.
 // It labels observations supplied by the simulation; it never invents a result.
 const finite=(value,fallback=0)=>Number.isFinite(Number(value))?Number(value):fallback;
@@ -47,7 +47,7 @@ export function normalizedStory(input={}){
   metric:choose(s.metric,STORY_METRICS.map(m=>m.id),'auto'),
   metricStart:clamp(finite(s.metricStart,0),0,120),
   captionMode:'authored',
-  cues:(Array.isArray(s.cues)?s.cues:[]).filter(c=>c&&typeof c==='object').slice(0,24).map(c=>({start:clamp(finite(c.start),0,120),end:clamp(finite(c.end),0,120),text:clean(c.text,96),...(typeof c.label==='string'?{label:clean(c.label,120)}:{}),...(typeof c.hideMetric==='boolean'?{hideMetric:c.hideMetric}:{}),fade:clamp(finite(c.fade,.15),0,1)})).filter(c=>c.end>c.start&&c.text).sort((a,b)=>a.start-b.start),
+  cues:(Array.isArray(s.cues)?s.cues:[]).filter(c=>c&&typeof c==='object').slice(0,24).map(c=>({start:clamp(finite(c.start),0,120),end:clamp(finite(c.end),0,120),text:clean(c.text,96),...(typeof c.label==='string'?{label:clean(c.label,120)}:{}),...(typeof c.hideMetric==='boolean'?{hideMetric:c.hideMetric}:{}),...(c.graphics&&typeof c.graphics==='object'&&!Array.isArray(c.graphics)?{graphics:normalizeCueGraphics(c.graphics)}:{}),...(CUE_ENTRANCES.includes(c.entrance)?{entrance:c.entrance}:{}),fade:clamp(finite(c.fade,.15),0,1)})).filter(c=>c.end>c.start&&c.text).sort((a,b)=>a.start-b.start),
   autoTrim:s.autoTrim!==false,
   movementThreshold:clamp(movementThreshold,.01,2),
   labels:{setup:clean(s.labels?.setup,58),action:clean(s.labels?.action,58),result:clean(s.labels?.result,58)},
@@ -119,8 +119,13 @@ export function editorialFrame({story:input={},time=0,duration,stats={},hero={},
  };
  if(story.cues.length){
   const cue=story.cues.find(c=>t>=c.start&&t<c.end),fade=cue?Math.min(cue.fade,(cue.end-cue.start)/2):0;
-  const opacity=!cue?0:fade>0?Math.max(0,Math.min(1,(t-cue.start)/fade,(cue.end-t)/fade)):1;
-  return{...metadata,phase:'action',phaseLabel:'',hook:'',question:'',takeaway:'',caption:cue?expand(cue.text,values):'',cue:!!cue,captionOpacity:opacity,...(cue?.label!==undefined?{takeLabel:expand(cue.label,values)}:{}),...(cue?.hideMetric!==undefined?{hideMetric:cue.hideMetric}:{})};
+  const entrance=cue?.entrance||'fade',opacity=!cue?0:entrance==='cut'?1:fade>0?Math.max(0,Math.min(1,(t-cue.start)/fade,(cue.end-t)/fade)):1;
+  const graphics=resolveGraphicsStyle(story.graphics,cue?.graphics),graphicsLayout=graphicsStyleTokens(graphics);
+  // Reserve the incoming rise at the bottom edge; the complete moving block
+  // stays in the same 1080×1920 safe region as the settled caption.
+  if(entrance==='rise'&&graphics.position==='bottom')graphicsLayout.anchorY-=32;
+  const entry=cue&&fade>0?clamp((t-cue.start)/fade,0,1):1,captionOffsetY=cue&&entrance==='rise'?32*(1-entry)**3:0;
+  return{...metadata,graphics,graphicsLayout,phase:'action',phaseLabel:'',hook:'',question:'',takeaway:'',caption:cue?expand(cue.text,values):'',cue:!!cue,captionOpacity:opacity,captionOffsetY,captionEntrance:entrance,...(cue?.label!==undefined?{takeLabel:expand(cue.label,values)}:{}),...(cue?.hideMetric!==undefined?{hideMetric:cue.hideMetric}:{})};
  }
  return metadata;
 }

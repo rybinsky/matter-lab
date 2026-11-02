@@ -10,6 +10,8 @@ import { UniformAtmosphere, normalizeBuoyancy } from './atmosphere.js';
 import { modelReadouts } from './measurement-readouts.js';
 import { SurfaceMotionScene } from './surface-motion-scene.js';
 import { createMotionRig } from './motion-rig.js';
+import {ContactSensors} from './contact-sensors.js';
+import {ElasticCables} from './elastic-cables.js';
 
 let initialization;
 export async function initializePhysics() {
@@ -67,7 +69,7 @@ export class LabWorld {
     this.world.timestep=1/120;
     this.world.integrationParameters.numSolverIterations=10;
     this.events=new RAPIER.EventQueue(true);
-    this.entities=[]; this.softs=[]; this.impacts=[]; this.time=0;this.colliderEntities=new Map();this.lastContact=new Map();this.measurementOrigins=new Map();this.measured=new Map();
+    this.entities=[]; this.softs=[]; this.impacts=[]; this.time=0;this.colliderEntities=new Map();this.lastContact=new Map();this.measurementOrigins=new Map();this.measurementComOrigins=new Map();this.measured=new Map();
     this.serial=0; this.actions=[]; this.added=objects;this.surfaces=[];this.orbiters=[];this.connections=[];
     this.addRigid({id:'ground',name:'Пол студии',parts:[{shape:'box',d:[2000,.24,2000],p:[0,0,0]}],position:[0,-.15,0],fixed:true,material:'ceramic',color:'#e7e5dc',floor:true});
     this.build();
@@ -82,6 +84,9 @@ export class LabWorld {
     this.surfaceMotion=settings.surfaceMotion?new SurfaceMotionScene(this,settings.surfaceMotion):null;
     this.motionRigs=[];
     for(const entity of [...this.entities])if(entity.spec?.visualRig){const rig=createMotionRig(this,entity,entity.spec.visualRig);this.motionRigs.push(rig);rig.update(0,this.surfaceMotion?.entity===entity?this.surfaceMotion.snapshot():{phase:'dynamic'});}
+    this.elasticCables=settings.elasticCables?.length?new ElasticCables({world:this.world,getEntity:id=>this.find(id),cables:settings.elasticCables}):null;
+    if(this.elasticCables)for(const entry of this.elasticCables.entries){const spec=entry.spec,aEntity=this.find(spec.a),bEntity=spec.b==='world'?{body:{isValid:()=>true,translation:()=>({x:0,y:0,z:0}),rotation:()=>({x:0,y:0,z:0,w:1})}}:this.find(spec.b),surface=createConnectionSurface({id:'elastic-'+spec.id,type:'rope',visual:spec.visual,aEntity,bEntity,localA:spec.anchorA,localB:spec.anchorB,get broken(){return entry.status!=='active';}});if(surface)this.surfaces.push(surface);}
+    this.contactSensors=settings.contactSensors?.length?new ContactSensors({world:this.world,getEntity:id=>this.find(id),sensors:settings.contactSensors}):null;
     this.resetMeasurements();
     }catch(error){this.dispose();throw error;}
   }
@@ -239,12 +244,12 @@ export class LabWorld {
   moveSoft(id,position){const e=this.find(id),p=this.position(id);if(!e?.soft||!p)return;const a=e.soft.particlePositions().slice();for(let i=0;i<a.length;i+=3){e.soft.setParticlePosition(i/3,{x:a[i]+position.x-p.x,y:a[i+1]+position.y-p.y,z:a[i+2]+position.z-p.z});e.soft.setParticleVelocity(i/3,{x:0,y:0,z:0});}e.spec.position=[position.x,position.y,position.z];}
   remove(id) {
     const e=this.find(id); if(!e||id==='ground') return false;
-    this.breakables?.retireBody(id);
+    this.breakables?.retireBody(id);this.elasticCables?.retireBody(id,this.time);
     if(e.soft) {for(const c of e.colliders||[])this.colliderEntities.delete(c.handle);this.world.removeSoftBody(e.soft); this.softs=this.softs.filter(x=>x.id!==id); }
     else {for(const c of e.colliders)this.colliderEntities.delete(c.handle);this.world.removeRigidBody(e.body); this.entities=this.entities.filter(x=>x.id!==id);}
     for(const c of this.connections)if(c.aEntity.id===id||c.bEntity.id===id)c.broken=true;
     this.connections=this.connections.filter(c=>c.aEntity.id!==id&&c.bEntity.id!==id);
-    this.measurementOrigins.delete(id);this.measured.delete(id);
+    this.measurementOrigins.delete(id);this.measurementComOrigins.delete(id);this.measured.delete(id);
     return true;
   }
   launch(id='projectile',settings=this.settings) {
@@ -366,6 +371,7 @@ export class LabWorld {
       this.press.body.setNextKinematicTranslation({x:0,y,z:0});
     }
     this.world.timestep=dt;
+    if(this.elasticCables){try{this.elasticCables.beforeStep(dt,this.time-dt);}catch(error){this.time-=dt;throw error;}}
     this.surfaceMotion?.beforeStep(dt);
     this.atmosphere?.setLegacyWindSpeed(this.settings.windSpeed||0);
     if(this.settings.windSpeed&&this.settings.experiment!=='orbit')for(const e of this.entities)if(!e.fixed&&!e.kinematic&&e.body.isEnabled()&&!this.atmosphere?.ownsAerodynamics(e)){
@@ -378,8 +384,10 @@ export class LabWorld {
     // The separate drag half-impulses also enter its approximate load ledger.
     const graphLoads=loads=>{if(this.breakables)for(const[id,force]of loads||[]){const old=this.breakables.baseLoads.get(id);if(old)this.breakables.baseLoads.set(id,old.map((v,i)=>v+force[i]));}};
     const contactLoads=this.breakables?[]:null;
+    if(this.elasticCables){const loads=new Map();for(const c of this.elasticCables.snapshot().cables)for(const[id,force]of[[c.a,c.forceA],[c.b,c.forceB]])if(id!=='world')loads.set(id,force.map((v,i)=>v+(loads.get(id)?.[i]||0)));graphLoads(loads);}
     this.world.step(this.events);
     this.surfaceMotion?.afterStep();
+    this.contactSensors?.afterStep(dt,this.time);
     this.events.drainContactForceEvents(event=>{
       if(contactLoads)contactLoads.push(copyContactForceEvent(event));
       const a=this.colliderEntities.get(event.collider1()),b=this.colliderEntities.get(event.collider2()),force=event.totalForceMagnitude();
@@ -403,8 +411,8 @@ export class LabWorld {
     for(const rig of this.motionRigs||[])rig.update(dt,this.surfaceMotion?.entity===rig.entity?this.surfaceMotion.snapshot():{phase:'dynamic'});
   }
   resetMeasurements(focusId=(this.settings.comparison?.enabled===true?this.settings.comparison.targetId:'')||this.settings.focusId||'',threshold=this.settings.story?.movementThreshold??.2){
-    this.measurementFocus=focusId;this.measurementThreshold=Number.isFinite(threshold)?Math.max(.01,Math.min(2,threshold)):.2;this.measured.clear();this.measurementOrigins.clear();
-    for(const e of this.entities)if(!e.internal){const p=e.body.translation();this.measurementOrigins.set(e.id,[p.x,p.y,p.z]);}
+    this.measurementFocus=focusId;this.measurementThreshold=Number.isFinite(threshold)?Math.max(.01,Math.min(2,threshold)):.2;this.measured.clear();this.measurementOrigins.clear();this.measurementComOrigins.clear();
+    for(const e of this.entities)if(!e.internal){const p=e.body.translation();this.measurementOrigins.set(e.id,[p.x,p.y,p.z]);const c=e.body.worldCom();this.measurementComOrigins.set(e.id,[c.x,c.y,c.z]);}
   }
   measuredChanges(){return[...this.measured].filter(([id,t])=>this.time-t<.35).map(([id])=>id);}
   stats() {
@@ -416,7 +424,7 @@ export class LabWorld {
     return {...(breakage?{breakage,breakEvents:this.fractureEvents.filter(e=>this.time-e.time<.1).map(e=>({...e}))}:{}),time:this.time,objects:this.entities.filter(e=>!e.internal).length-1+this.softs.length,moving,energy,particles:this.fluid?.particles.length||0,apex:this.payloadApex,movedObjects,readouts:modelReadouts(this),...(this.atmosphere?.settings.enabled?{atmosphere:this.atmosphere.snapshot()}: {}),...(this.surfaceMotion?{surfaceMotion:this.surfaceMotion.snapshot()}: {})};
   }
   assemblyState(){return this.breakables?.snapshot()||null;}
-  dispose(){const world=this.world,events=this.events;try{for(const rig of this.motionRigs||[])rig.dispose();this.motionRigs=[];this.breakables?.dispose();}finally{this.breakables=null;this.world=null;this.events=null;try{world?.free();}finally{events?.free();}}}
+  dispose(){const world=this.world,events=this.events;try{for(const rig of this.motionRigs||[])rig.dispose();this.motionRigs=[];this.elasticCables?.dispose();this.contactSensors?.dispose();this.breakables?.dispose();}finally{this.breakables=null;this.world=null;this.events=null;try{world?.free();}finally{events?.free();}}}
 }
 
 function rotate(v,q) {

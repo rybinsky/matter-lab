@@ -604,3 +604,29 @@
     font-size: 15px;
   }
 }
+
+/* Playback controls belong to the editor, outside the film's visual language. */
+.rehearsal-toolbar { align-items:center;gap:8px;flex-wrap:wrap; }
+.rehearsal-status-tag { min-height:36px;padding:8px 10px;font-size:12px;line-height:1.4;letter-spacing:0;font-weight:550;color:#e4edf3;background:#141b26ed;border-color:#ffffff24; }
+.rehearsal-status-tag:before { background:#efad7e;box-shadow:none; }
+.rehearsal-toolbar .toolbar-button { min-height:36px;height:36px;padding:0 11px;font-size:12px;line-height:1.4;background:#141b26ed;color:#e4edf3;border:1px solid #ffffff24;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;gap:7px; }
+.rehearsal-toolbar .toolbar-button svg { width:16px;height:16px;flex:none; }
+.rehearsal-toolbar .toolbar-button:hover { background:#2c3748;border-color:#ffffff40; }
+.rehearsal-toolbar .rehearsal-close { width:36px;min-width:36px;padding:0; }
+.rehearsal-toolbar .rehearsal-report-button[data-warning=true] { color:#ffc590;border-color:#d6a47370; }
+.rehearsal-toolbar button:focus-visible,.rehearsal-report button:focus-visible { outline:2px solid #efad7e;outline-offset:3px; }
+.rehearsal-report { top:57px;max-height:calc(100% - 74px);background:#151e2bf5;color:#d8e4ed;border-color:#ffffff24;padding:18px; }
+.rehearsal-report-header strong { font-size:14px;line-height:1.4; }
+.rehearsal-report-header button { width:32px;height:32px;flex:none;border-radius:5px;color:#c9d8e4; }
+.rehearsal-report-header button:hover { background:#ffffff10; }
+.rehearsal-report-intro { color:#b3c1cf;font-size:13px;line-height:1.65; }
+.rehearsal-report li { font-size:13px;line-height:1.65;padding:12px;background:#202d3d;border-color:#ffffff1c; }
+.rehearsal-report-empty { font-size:13px;line-height:1.65;color:#cfdfdf; }
+.rehearsal-loading p,.rehearsal-loading-detail { font-size:13px;line-height:1.65;color:#bdceda; }
+@media(max-width:500px){
+ .rehearsal-toolbar { gap:5px; }
+ .rehearsal-status-tag { min-height:34px;padding:7px;font-size:11px; }
+ .rehearsal-toolbar .toolbar-button { min-height:34px;height:34px;padding-inline:8px;font-size:11px; }
+ .rehearsal-toolbar .rehearsal-close { width:34px;min-width:34px;padding:0; }
+ .rehearsal-report { left:8px;right:8px;top:51px;padding:14px; }
+}

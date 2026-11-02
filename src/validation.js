@@ -9,6 +9,8 @@ import {normalizeContextView} from './context-view.js';
 import {normalizeConnectionVisual} from './connection-visuals.js';
 import {normalizeAtmosphere,normalizeBuoyancy} from './atmosphere.js';
 import {normalizeSceneAnnotations} from './scene-annotations.js';
+import {normalizeElasticCables} from './elastic-cables.js';
+import {normalizeContactSensors} from './contact-sensors.js';
 import {normalizeSurfaceMotionScene} from './surface-motion-scene.js';
 
 const assets = new Set(CATALOG.map(a => a.id));
@@ -106,15 +108,24 @@ function launch(spec, where) {
   optionalNumber(spec.delay, `${where}, задержка`, 0, 3600);
 }
 
+function validateGraphics(value,where,partial=false){
+ if(!present(value))return;object(value,where);
+ const allowed=partial?['preset','position','align','scale','labelScale','metricScale']:['version','preset','position','align','scale','labelScale','metricScale','tone','backdrop','showCounter','showProgress'];
+ if(Object.keys(value).some(key=>!allowed.includes(key)))fail(where,'неизвестный параметр оформления');
+ for(const[key,items]of Object.entries({preset:['studio','poster','technical'],position:['top','center','bottom'],align:['left','center'],...(!partial?{tone:['auto','light','dark'],backdrop:['auto','none','soft']}: {})}))if(present(value[key])&&!items.includes(value[key]))fail(where,`неизвестное значение «${key}»`);
+ optionalNumber(value.scale,`${where}, масштаб`,.8,1.5);optionalNumber(value.labelScale,`${where}, масштаб условий`,.85,1.6);optionalNumber(value.metricScale,`${where}, масштаб измерения`,.8,1.5);
+ if(!partial){optionalNumber(value.version,`${where}, версия`,1,1);boolean(value.showCounter,`${where}, счётчик дублей`);boolean(value.showProgress,`${where}, прогресс`);}
+}
 function validateStory(story) {
   if (!present(story)) return;
   object(story, 'история ролика');
   boolean(story.enabled, 'история, включение');
   optionalNumber(story.duration, 'история, длительность', .1, 600);
   optionalNumber(story.metricStart, 'история, появление показателя', 0, 120);
+  validateGraphics(story.graphics,'оформление ролика');
   if(present(story.cues)){
    const cues=list(story.cues,'дорожка пояснений',24).slice();
-   for(const cue of cues){object(cue,'пояснение');number(cue.start,'начало пояснения',0,120);number(cue.end,'конец пояснения',0,120);if(cue.end<=cue.start)fail('пояснение','конец должен быть позже начала');text(cue.text,'текст пояснения',96);if(present(cue.label))text(cue.label,'условия пояснения',120,true);boolean(cue.hideMetric,'скрытие показателя');optionalNumber(cue.fade,'плавность появления пояснения',0,1);}
+   for(const cue of cues){object(cue,'пояснение');number(cue.start,'начало пояснения',0,120);number(cue.end,'конец пояснения',0,120);if(cue.end<=cue.start)fail('пояснение','конец должен быть позже начала');text(typeof cue.text==='string'?cue.text.replace(/\r?\n/g,' '):cue.text,'текст пояснения',96);if(present(cue.label))text(cue.label,'условия пояснения',120,true);boolean(cue.hideMetric,'скрытие показателя');optionalNumber(cue.fade,'плавность появления пояснения',0,1);validateGraphics(cue.graphics,'оформление пояснения',true);if(present(cue.entrance)&&!['fade','cut','rise'].includes(cue.entrance))fail('появление пояснения','выберите fade, cut или rise');}
    cues.sort((a,b)=>a.start-b.start);for(let i=1;i<cues.length;i++)if(cues[i].start<cues[i-1].end)fail('дорожка пояснений','интервалы не должны пересекаться');
   }
   if (present(story.heroId)) text(story.heroId, 'история, главный предмет', 160, true);
@@ -283,13 +294,16 @@ export function validateProject(project) {
   optionalNumber(settings.gravity, 'ускорение свободного падения', 0, 1e6);
   try{normalizeAtmosphere(settings.atmosphere);}catch(error){fail('атмосфера',error.message);}
   try{normalizeSceneAnnotations(settings.annotations);}catch(error){fail('подписи в сцене',error.message);}
+  try{normalizeElasticCables(settings.elasticCables);}catch(error){fail('упругие тросы',error.message);}
+  try{normalizeContactSensors(settings.contactSensors);}catch(error){fail('датчики нагрузки',error.message);}
+  if(present(settings.contactSensorId)){text(settings.contactSensorId,'активный датчик нагрузки');if(!(settings.contactSensors||[]).some(s=>s.id===settings.contactSensorId))fail('активный датчик нагрузки','датчик отсутствует');}
   if(settings.surfaceMotion!==undefined){
     let motion;try{motion=normalizeSurfaceMotionScene(settings.surfaceMotion);}catch(error){fail('движение по поверхности',error.message);}
     const source=project.objects.find(o=>o.id===motion.body),target=source?{...source,...project.edits?.[source.id]}:null;
     if(!target||target.deleted||target.fixed||target.kinematic||target.renderOnly||target.asset==='softcube'||target.deformable&&target.deformable.enabled!==false)fail('движение по поверхности','выберите свободный твёрдый предмет');
     if(settings.experiment!=='blank')fail('движение по поверхности','нужна свободная сцена');
     if(settings.windSpeed||settings.atmosphere?.enabled)fail('движение по поверхности','отключите ветер и атмосферу');
-    if((settings.connections||[]).some(c=>c.a===motion.body||c.b===motion.body)||(settings.assemblies||[]).some(a=>a.bonds?.some(b=>b.a===motion.body||b.b===motion.body)))fail('движение по поверхности','снимите связи выбранного предмета');
+    if((settings.elasticCables||[]).some(c=>c.a===motion.body||c.b===motion.body)||(settings.connections||[]).some(c=>c.a===motion.body||c.b===motion.body)||(settings.assemblies||[]).some(a=>a.bonds?.some(b=>b.a===motion.body||b.b===motion.body)))fail('движение по поверхности','снимите связи выбранного предмета');
     if(target.angularVelocity?.some(v=>Math.abs(v)>1e-9)||target.launch||project.edits?.[motion.body]?.launch)fail('движение по поверхности','старт задаётся параметрами поверхности');
   }
   launch(settings, 'начальное движение');

@@ -3,3 +3,6 @@ dialog.track-builder-editor,.spatial-studio dialog.track-builder-editor,.dark-la
 dialog.track-builder-editor[open]{display:flex;flex-direction:column}
 .track-builder-editor .tb-header,.track-builder-editor .tb-footer{flex:none}
 .track-builder-editor .tb-workspace{flex:1 1 auto;min-height:0}
+
+#track-builder-dialog #tb-preview-plan{display:block;width:100%;height:auto;min-height:130px;margin:12px 0;border:1px solid var(--tb-border);border-radius:9px;color:var(--tb-sub)}
+#track-builder-dialog #tb-preview-plan[hidden]{display:none}

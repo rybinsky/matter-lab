@@ -414,14 +414,14 @@ var graphicsDiagnosticKeys=Set<String>()
 func graphicsOverlay(_ art:[String:Any])->(NSColor,NSColor,NSColor,Bool){
  let config=(art["graphics"] as? [String:Any]) ?? ((doc["story"] as? [String:Any])?["graphics"] as? [String:Any]) ?? [:]
  let resolved=art["graphicsLayout"] as? [String:Any] ?? [:]
- let preset=config["preset"] as? String ?? "studio",position=config["position"] as? String ?? "top",centered=config["align"] as? String == "center",factor=bounded(num(config["scale"],1),0.8,1.2)
+ let preset=config["preset"] as? String ?? "studio",position=config["position"] as? String ?? "top",centered=config["align"] as? String == "center",factor=bounded(num(config["scale"],1),0.8,1.5),labelFactor=bounded(num(config["labelScale"],1),0.85,1.6),metricFactor=bounded(num(config["metricScale"],1),0.8,1.5)
  func token(_ key:String,_ fallback:Double)->CGFloat{CGFloat(num(resolved[key],fallback))}
  let tone=config["tone"] as? String ?? "auto",darkInk=tone=="dark" || tone=="auto" && (studio?.light == true || art["theme"] as? String == "editorial")
  let ink=color(darkInk ? "#162B3A" : "#F7FAFC"),subtle=color(darkInk ? "#425D6B" : "#C5D2DB"),accentColor=color(art["accent"] as? String ?? "#D8FF5F"),shade=color(darkInk ? "#F1F5F6" : "#071321")
  let backdrop=config["backdrop"] as? String ?? "auto",soft=backdrop=="soft" || backdrop=="auto" && !darkInk
  let x=token("left",84),maxWidth=token("width",900),maximum=token("headlineSize",(preset=="poster" ? 98 : preset=="technical" ? 72 : 84)*factor),minimum=token("minimumSize",60*factor),leading=token("lineHeight",preset=="poster" ? 1.03 : preset=="technical" ? 1.14 : 1.08),tracking=token("tracking",preset=="poster" ? -0.04 : preset=="technical" ? -0.025 : -0.035)
  let headlineWeight:NSFont.Weight=preset=="poster" ? .heavy : preset=="technical" ? .semibold : .bold
- let labelSize=token("labelSize",36*factor),labelGap=token("labelGap",20),ruleGap=token("ruleGap",22),anchor=token("anchor",position=="bottom" ? 1 : position=="center" ? 0.5 : 0),anchorY=token("anchorY",position=="bottom" ? 1656 : position=="center" ? 940 : 144)
+ let labelSize=token("labelSize",36*factor*labelFactor),labelGap=token("labelGap",20),ruleGap=token("ruleGap",22),anchor=token("anchor",position=="bottom" ? 1 : position=="center" ? 0.5 : 0),anchorY=token("anchorY",position=="bottom" ? 1656 : position=="center" ? 940 : 144)
  func clean(_ value:Any?)->String{(value as? String ?? "").trimmingCharacters(in:.whitespacesAndNewlines)}
  func attrs(_ size:CGFloat,_ tint:NSColor,_ weight:NSFont.Weight,_ spacing:CGFloat,_ lineHeight:CGFloat,_ aligned:Bool=false,_ digits:Bool=false)->[NSAttributedString.Key:Any]{
   let paragraph=NSMutableParagraphStyle();paragraph.lineSpacing=0;paragraph.lineBreakMode = .byWordWrapping;paragraph.minimumLineHeight=size*lineHeight*scale;paragraph.maximumLineHeight=size*lineHeight*scale;paragraph.alignment=aligned ? .center : .left
@@ -462,24 +462,26 @@ func graphicsOverlay(_ art:[String:Any])->(NSColor,NSColor,NSColor,Bool){
  let labelBounds=extent(label,labelSize,.medium,-0.01,1.3),hasTitle = !headline.isEmpty || !label.isEmpty
  let ruleHeight:CGFloat=preset=="technical" ? 1.5 : preset=="poster" ? 6 : 5,sideRule=preset=="poster" && !centered
  let titleInset:CGFloat=sideRule ? 0 : ruleHeight+ruleGap,labelInset:CGFloat=headline.isEmpty || label.isEmpty ? 0 : labelGap
- let blockHeight=hasTitle ? titleInset+headlineBounds.height+labelInset+labelBounds.height : 0,titleTop=anchorY-blockHeight*anchor
+ let blockHeight=hasTitle ? titleInset+headlineBounds.height+labelInset+labelBounds.height : 0,captionOffset=CGFloat(bounded(num(art["captionOffsetY"]),0,32)),titleTop=anchorY-blockHeight*anchor+captionOffset
  let metric=clean(art["metric"]),summary=(art["summary"] as? [[String:Any]] ?? []).count>0,showMetric=art["hideMetric"] as? Bool != true && !metric.isEmpty && !summary
- let unit=clean(art["metricUnit"]),metricLabel=clean(art["metricLabel"]),valueSize=token("metricSize",112*factor)*(metric.count>8 ? 0.8 : 1),unitSize=token("metricUnitSize",34*factor),metricLabelSize=token("metricLabelSize",27*factor)
+ let unit=clean(art["metricUnit"]),metricLabel=clean(art["metricLabel"]),valueSize=token("metricSize",112*factor*metricFactor)*(metric.count>8 ? 0.8 : 1),unitSize=token("metricUnitSize",34*factor*metricFactor),metricLabelSize=token("metricLabelSize",27*factor*metricFactor)
  let metricLabelBounds=extent(metricLabel,metricLabelSize,.medium,-0.01,1.25)
  let metricLine=NSMutableAttributedString(string:metric,attributes:attrs(valueSize,ink,.semibold,-0.035,1.06,false,true))
  if !unit.isEmpty{metricLine.append(NSAttributedString(string:" "+unit,attributes:attrs(unitSize,subtle,.medium,-0.015,1.06)))}
  let metricBounds=metricLine.boundingRect(with:CGSize(width:maxWidth*scale,height:10000*scale),options:[.usesLineFragmentOrigin,.usesFontLeading]),metricRowHeight=ceil(metricBounds.height/scale)
  let metricGap:CGFloat=metricLabel.isEmpty ? 0 : 12,metricHeight=metricLabelBounds.height+metricGap+metricRowHeight,metricAnchor=token("metricAnchor",position=="bottom" ? 0 : 1),metricAnchorY=token("metricAnchorY",position=="bottom" ? 144 : 1656),metricTop=metricAnchorY-metricHeight*metricAnchor
  if hasTitle{
+  bitmap.saveGState();bitmap.setAlpha(opacity)
   backdropBlock(titleTop,titleTop+blockHeight,position,position=="center" ? 0.65 : 0.88)
   bitmap.setFillColor(accentColor.cgColor)
   if sideRule{bitmap.fill(CGRect(x:(x-24)*scale,y:CGFloat(height)-(titleTop+76)*scale,width:6*scale,height:76*scale))}
   else{let ruleWidth:CGFloat=preset=="technical" ? maxWidth : preset=="poster" ? 72 : 48,ruleX=centered ? x+(maxWidth-ruleWidth)/2 : x;bitmap.fill(CGRect(x:ruleX*scale,y:CGFloat(height)-(titleTop+ruleHeight)*scale,width:ruleWidth*scale,height:ruleHeight*scale))}
-  bitmap.saveGState();bitmap.setAlpha(opacity);draw(headline,titleTop+titleInset,size,ink,headlineWeight,tracking,leading,headlineBounds.height);bitmap.restoreGState()
+  draw(headline,titleTop+titleInset,size,ink,headlineWeight,tracking,leading,headlineBounds.height)
   draw(label,titleTop+titleInset+headlineBounds.height+labelInset,labelSize,subtle,.medium,-0.01,1.3,labelBounds.height)
+  bitmap.restoreGState()
  }
  if showMetric{
-  backdropBlock(metricTop,metricTop+metricHeight,position=="bottom" ? "top" : "bottom",0.78,100)
+  backdropBlock(metricTop,metricTop+metricHeight,metricAnchor==0 ? "top" : "bottom",0.78,100)
   draw(metricLabel,metricTop,metricLabelSize,subtle,.medium,-0.01,1.25,metricLabelBounds.height,false)
   metricLine.draw(with:CGRect(x:x*scale,y:CGFloat(height)-(metricTop+metricHeight)*scale,width:maxWidth*scale,height:metricRowHeight*scale),options:[.usesLineFragmentOrigin,.usesFontLeading])
  }
@@ -489,8 +491,8 @@ func graphicsOverlay(_ art:[String:Any])->(NSColor,NSColor,NSColor,Bool){
   (value as NSString).draw(in:CGRect(x:x*scale,y:CGFloat(height)-128*scale,width:maxWidth*scale,height:36*scale),withAttributes:attributes)
  }
  if graphicsDiagnosticPath != nil{
-  let key="\(preset)|\(position)|\(centered)|\(maximum)|\(headline)|\(label)|\(metric)"
-  if !graphicsDiagnosticKeys.contains(key){graphicsDiagnosticKeys.insert(key);graphicsDiagnostics.append(["preset":preset,"position":position,"headline":headline,"condition":label,"headlineSize":size,"minimumSize":minimum,"headlineHeight":headlineBounds.height,"preferredTwoLines":headlineBounds.height<=size*leading*2+1,"withinThreeLines":headlineBounds.height<=size*leading*3+1,"titleRect":[x,titleTop,maxWidth,blockHeight],"metricRect":showMetric ? [x,metricTop,maxWidth,metricHeight] : [],"titleSafe": !hasTitle || titleTop>=112 && titleTop+blockHeight<=1660,"metricSafe": !showMetric || metricTop>=112 && metricTop+metricHeight<=1660])}
+  let key="\(preset)|\(position)|\(centered)|\(maximum)|\(labelSize)|\(valueSize)|\(opacity)|\(captionOffset)|\(headline)|\(label)|\(metric)"
+  if !graphicsDiagnosticKeys.contains(key){graphicsDiagnosticKeys.insert(key);graphicsDiagnostics.append(["preset":preset,"position":position,"headline":headline,"condition":label,"headlineSize":size,"minimumSize":minimum,"labelSize":labelSize,"metricSize":valueSize,"captionOpacity":opacity,"captionOffsetY":captionOffset,"headlineHeight":headlineBounds.height,"preferredTwoLines":headlineBounds.height<=size*leading*2+1,"withinThreeLines":headlineBounds.height<=size*leading*3+1,"titleRect":[x,titleTop,maxWidth,blockHeight],"metricRect":showMetric ? [x,metricTop,maxWidth,metricHeight] : [],"titleSafe": !hasTitle || titleTop>=112 && titleTop+blockHeight<=1660,"metricSafe": !showMetric || metricTop>=112 && metricTop+metricHeight<=1660])}
  }
  return(ink,subtle,accentColor,darkInk)
 }

@@ -12,11 +12,11 @@ assert.deepEqual(frame.graphics,story.graphics);assert.deepEqual(frame.graphicsL
 assert.equal(frame.graphicsLayout.metricAnchor,0,'Bottom captions move the measurement to the opposite edge');
 assert.equal(frame.graphicsLayout.anchor,1);
 assert.deepEqual(normalizeGraphicsStyle({scale:Infinity,preset:'invented',position:[],showCounter:'true'}),normalizeGraphicsStyle());
-assert.equal(normalizeGraphicsStyle({scale:50}).scale,1.2);assert.equal(normalizeGraphicsStyle({scale:-2}).scale,.8);
+assert.equal(normalizeGraphicsStyle({scale:50}).scale,1.5);assert.equal(normalizeGraphicsStyle({scale:-2}).scale,.8);
 assert.equal(graphicsPalette({}, {light:true}).darkInk,true);assert.equal(graphicsPalette({tone:'light'}, {light:true}).darkInk,false);
 assert.equal(graphicsPalette({backdrop:'none'}, {light:false}).backdrop,'none');
 let combinations=0;
-for(const {id} of GRAPHICS_PRESETS)for(const position of ['top','center','bottom'])for(const align of ['left','center'])for(const scale of [.8,1,1.2]){
+for(const {id} of GRAPHICS_PRESETS)for(const position of ['top','center','bottom'])for(const align of ['left','center'])for(const scale of [.8,1,1.2,1.5]){
  const g={preset:id,position,align,scale},tokens=graphicsStyleTokens(g),variables=graphicsStyleVariables(g);
  assert(tokens.left>=72&&tokens.left+tokens.width<=1008);assert(tokens.anchorY>=112&&tokens.anchorY<=1660);assert(tokens.metricAnchorY>=112&&tokens.metricAnchorY<=1660);
  assert(tokens.headlineSize>=tokens.minimumSize);assert(!Object.values(variables).some(v=>/NaN|Infinity/.test(v)));

@@ -2,6 +2,18 @@
   "version": 1,
   "templates": [
     {
+      "id": "double-cone-uphill",
+      "title": "Вверх. Без мотора?",
+      "teaser": "Обычные рельсы, расходящиеся и более крутой подъём. Три проверки и измеренное снижение центра масс.",
+      "tags": [
+        "24 секунды",
+        "Контактная геометрия",
+        "Центр масс"
+      ],
+      "projectUrl": "/projects/double-cone-uphill.project.json",
+      "posterUrl": "/projects/posters/double-cone-uphill.jpg"
+    },
+    {
       "id": "funnel-escape",
       "title": "Можно выбежать по стенке?",
       "teaser": "Три режима разгона на одной поверхности. Скорость, сцепление и выход на край.",
@@ -132,6 +144,36 @@
       ],
       "projectUrl": "/projects/pendulum-wave.project.json",
       "posterUrl": "/projects/posters/pendulum-wave.jpg"
+    },
+    {
+      "id": "elastic-deep",
+      "title": "100 кг · глубокий подвес",
+      "teaser": "Тот же закон упругого троса и порог разрыва; другое положение креплений и нагрузка.",
+      "tags": [
+        "Редактируемая сцена",
+        "Упругие тросы"
+      ],
+      "projectUrl": "/projects/elastic-deep.project.json"
+    },
+    {
+      "id": "elastic-shallow",
+      "title": "10 кг · почти горизонтальный подвес",
+      "teaser": "Тот же закон упругого троса и порог разрыва; другое положение креплений и нагрузка.",
+      "tags": [
+        "Редактируемая сцена",
+        "Упругие тросы"
+      ],
+      "projectUrl": "/projects/elastic-shallow.project.json"
+    },
+    {
+      "id": "chain-load-cell",
+      "title": "Цепь и контактная нагрузка",
+      "teaser": "Связанная цепь и усредняющий датчик нормальной контактной силы.",
+      "tags": [
+        "Редактируемая сцена",
+        "Датчик нагрузки"
+      ],
+      "projectUrl": "/projects/chain-load-cell.project.json"
     }
   ]
 }

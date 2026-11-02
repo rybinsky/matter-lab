@@ -1,17 +1,19 @@
 /** Authoring-only planar cubic track. Output is ordinary fixed Rapier boxes. */
 export const TRACK_LIMITS=Object.freeze({segmentsMin:8,segmentsMax:64,partsMax:200,coordinate:1000,origin:10000,widthMin:.08,widthMax:8,wallHeightMin:.03,wallHeightMax:3,thicknessMin:.005,thicknessMax:.5,maxTurnDegrees:60});
-export const DEFAULT_TRACK_PARAMETERS=Object.freeze({version:1,name:'Кривой желоб',points:Object.freeze([[0,2],[.8,1.8],[2.8,.25],[4,.25]].map(Object.freeze)),origin:Object.freeze([0,0,0]),yaw:0,segments:32,width:.38,wallHeight:.24,thickness:.035,friction:.45,color:'#28B8C3'});
+export const DEFAULT_TRACK_PARAMETERS=Object.freeze({version:1,name:'Кривой желоб',profile:'channel',endWidth:null,points:Object.freeze([[0,2],[.8,1.8],[2.8,.25],[4,.25]].map(Object.freeze)),origin:Object.freeze([0,0,0]),yaw:0,segments:32,width:.38,wallHeight:.24,thickness:.035,friction:.45,color:'#28B8C3'});
 const record=v=>v!==null&&typeof v==='object'&&!Array.isArray(v),fail=message=>{throw Error('Желоб: '+message);};
 const number=(v,label,min,max)=>{if(typeof v!=='number'||!Number.isFinite(v)||v<min||v>max)fail(`${label}: от ${min} до ${max}.`);return v;};
 const vector=(value,length,label,limit)=>{if(!Array.isArray(value)||value.length!==length||![...Array(length).keys()].every(i=>typeof value[i]==='number'&&Number.isFinite(value[i])&&Math.abs(value[i])<=limit))fail(label+': нужны конечные координаты в допустимых пределах.');return value.slice();};
+const eulerXYZ=({x,y,z,w})=>{const m13=2*(x*z+y*w),pitch=Math.asin(Math.max(-1,Math.min(1,m13)));return Math.abs(m13)<.9999999?[Math.atan2(2*(x*w-y*z),1-2*(x*x+y*y)),pitch,Math.atan2(2*(z*w-x*y),1-2*(y*y+z*z))]:[Math.atan2(2*(y*z+x*w),1-2*(x*x+z*z)),pitch,0];};
 export function normalizeTrackParameters(input={}){
  if(!record(input)||Object.keys(input).some(k=>!Object.hasOwn(DEFAULT_TRACK_PARAMETERS,k)))fail('неизвестные параметры.');
  const p={...DEFAULT_TRACK_PARAMETERS,...input};if(p.version!==1)fail('поддерживается версия 1.');
+ if(!['channel','rails'].includes(p.profile))fail('выберите желоб или пару рельсов.');
  if(typeof p.name!=='string'||!p.name.trim()||p.name.length>120||/[\u0000-\u001f\u007f]/.test(p.name))fail('название — от 1 до 120 символов без переносов.');
  if(!Array.isArray(p.points)||p.points.length!==4||![0,1,2,3].every(i=>Array.isArray(p.points[i])))fail('задайте четыре точки X/Y.');
  const segments=number(p.segments,'число сегментов',8,64);if(!Number.isInteger(segments))fail('число сегментов должно быть целым.');
  if(typeof p.color!=='string'||!/^#[a-f0-9]{6}$/i.test(p.color))fail('цвет должен иметь формат #RRGGBB.');
- return{version:1,name:p.name.trim(),points:p.points.map(v=>vector(v,2,'Точка',TRACK_LIMITS.coordinate)),origin:vector(p.origin,3,'Положение',TRACK_LIMITS.origin),yaw:number(p.yaw,'азимут, °',-3600,3600),segments,width:number(p.width,'внутренняя ширина, м',.08,8),wallHeight:number(p.wallHeight,'высота стенок, м',.03,3),thickness:number(p.thickness,'толщина, м',.005,.5),friction:number(p.friction,'трение',0,2),color:p.color.toUpperCase()};
+ return{version:1,name:p.name.trim(),profile:p.profile,endWidth:p.endWidth===null?null:number(p.endWidth,'ширина у финиша, м',.08,8),points:p.points.map(v=>vector(v,2,'Точка',TRACK_LIMITS.coordinate)),origin:vector(p.origin,3,'Положение',TRACK_LIMITS.origin),yaw:number(p.yaw,'азимут, °',-3600,3600),segments,width:number(p.width,'внутренняя ширина, м',.08,8),wallHeight:number(p.wallHeight,'высота стенок, м',.03,3),thickness:number(p.thickness,'толщина, м',.005,.5),friction:number(p.friction,'трение',0,2),color:p.color.toUpperCase()};
 }
 export function bezierPoint(points,t){const a=1-t;return[0,1].map(i=>a*a*a*points[0][i]+3*a*a*t*points[1][i]+3*a*t*t*points[2][i]+t*t*t*points[3][i]);}
 export function bezierTangent(points,t){const a=1-t;return[0,1].map(i=>3*a*a*(points[1][i]-points[0][i])+6*a*t*(points[2][i]-points[1][i])+3*t*t*(points[3][i]-points[2][i]));}
@@ -32,6 +34,20 @@ export function buildTrack(input={}, {id='track'}={}){
  const {parameters:p,segments,turns,normalSign}=sampleTrack(input),parts=[];
  for(const[s,segment]of segments.entries()){
   const {a,b,length,angle}=segment,n=[-Math.sin(angle)*normalSign,Math.cos(angle)*normalSign],mid=[(a[0]+b[0])/2,(a[1]+b[1])/2];
+  if(p.profile==='rails'){
+   // A pair of real square rails with linearly varying separation. The
+   // centreline remains the same authored cubic; no object motion is imposed.
+   const end=p.endWidth??p.width,wa=p.width+(end-p.width)*s/p.segments,wb=p.width+(end-p.width)*(s+1)/p.segments;
+   for(const side of[-1,1]){
+    const aa=[a[0]-n[0]*p.thickness/2,a[1]-n[1]*p.thickness/2,side*(wa+p.thickness)/2],bb=[b[0]-n[0]*p.thickness/2,b[1]-n[1]*p.thickness/2,side*(wb+p.thickness)/2],delta=bb.map((v,i)=>v-aa[i]),distance=Math.hypot(...delta),u=delta.map(v=>v/distance);
+    // Quaternion rotates local X along the 3D segment. Up remains continuous
+    // in this monotone planar-track domain, including reverse-X paths.
+    let r;if(u[0]<-1+1e-10)r={x:0,y:1,z:0,w:0};else{const k=Math.sqrt(2*(1+u[0]));r={x:0,y:-u[2]/k,z:u[1]/k,w:k/2};}
+    const turn=Math.max(Math.abs(turns[s-1]||0),Math.abs(turns[s]||0)),overlap=2*p.thickness*Math.tan(turn/2)+p.thickness*.2;
+    parts.push({shape:'box',d:[distance+overlap,p.thickness,p.thickness],p:aa.map((v,i)=>(v+bb[i])/2),r:eulerXYZ(r),color:p.color});
+   }
+   continue;
+  }
   // Overlap covers the miter wedge up to the full wall height. Merely adding
   // a fixed tiny seam allowance leaves holes at curved joints.
   const turn=Math.max(Math.abs(turns[s-1]||0),Math.abs(turns[s]||0)),overlap=2*Math.max(p.wallHeight,p.thickness)*Math.tan(turn/2)+p.thickness*.2;
@@ -55,7 +71,7 @@ export function trackParametersFromSpec(spec){
   const length=Math.hypot(rotation.x,rotation.y,rotation.z,rotation.w);if(length<1e-12)fail('неверный поворот предмета.');const{x,y,z,w}=Object.fromEntries(['x','y','z','w'].map(k=>[k,rotation[k]/length]));
   if(Math.abs(2*(x*y-w*z))>1e-8||Math.abs(2*(y*z+w*x))>1e-8||1-2*(x*x+z*z)<1-1e-8)fail('редактор поддерживает азимут без наклона X/Z.');yaw=Math.atan2(2*(w*y-x*z),1-2*(y*y+z*z));
  }
- return normalizeTrackParameters({...p,name:spec.name??p.name,points:p.points.map(v=>v.map(x=>x*scale)),origin:spec.position??p.origin,yaw:yaw*180/Math.PI,width:p.width*scale,wallHeight:p.wallHeight*scale,thickness:p.thickness*scale,friction:spec.friction??p.friction,color:spec.appearance?.color??p.color});
+ return normalizeTrackParameters({...p,name:spec.name??p.name,points:p.points.map(v=>v.map(x=>x*scale)),origin:spec.position??p.origin,yaw:yaw*180/Math.PI,width:p.width*scale,endWidth:p.endWidth===null?null:p.endWidth*scale,wallHeight:p.wallHeight*scale,thickness:p.thickness*scale,friction:spec.friction??p.friction,color:spec.appearance?.color??p.color});
 }
 export function trackObjects(project){return(project?.objects||[]).map(o=>({...structuredClone(o),...structuredClone(project.edits?.[o.id]||{})})).filter(o=>!o.deleted&&o.track);}
 export function compileTrackDraft(project,input,{id}={}){

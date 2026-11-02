@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "name": "100 кг · глубокий подвес",
+  "settings": {
+    "experiment": "blank",
+    "variant": 0,
+    "gravity": 9.81,
+    "speed": 4,
+    "azimuth": 180,
+    "elevation": 0,
+    "material": "rubber",
+    "mass": 12,
+    "friction": 0.5,
+    "restitution": 0.4,
+    "slope": 18,
+    "gap": 0.38,
+    "angle": 55,
+    "depth": 0.9,
+    "slowMotion": 1,
+    "showGrid": true,
+    "showTrails": true,
+    "background": "studio",
+    "theme": "day",
+    "seed": 42,
+    "temperature": 1000,
+    "iceTemperature": -10,
+    "iceHeight": 0.7,
+    "contactH": 1000,
+    "thermalTimeScale": 40,
+    "planet": "moon",
+    "altitude": 100000,
+    "timeScale": 1000,
+    "orbitAsset": "brick",
+    "windSpeed": 0,
+    "cameraMode": "dolly",
+    "renderStyle": "cinematic",
+    "audioPreset": "auto",
+    "dropHeight": 2.4,
+    "connections": [],
+    "emitters": [],
+    "story": {
+      "enabled": false
+    },
+    "label": "Мягкий бросок",
+    "detail": "4 м/с · резиновый шар",
+    "focusId": "load",
+    "autoLaunch": false,
+    "elasticCables": [
+      {
+        "id": "cable--1",
+        "a": "load",
+        "b": "world",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          -0.8,
+          4.5,
+          0
+        ],
+        "restLength": 3.1048349392520045,
+        "stiffness": 200000,
+        "damping": 300,
+        "breakForce": 981,
+        "visual": {
+          "enabled": true,
+          "color": "#C39659",
+          "radius": 0.015,
+          "coils": 8
+        }
+      },
+      {
+        "id": "cable-1",
+        "a": "load",
+        "b": "world",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0.8,
+          4.5,
+          0
+        ],
+        "restLength": 3.1048349392520045,
+        "stiffness": 200000,
+        "damping": 300,
+        "breakForce": 981,
+        "visual": {
+          "enabled": true,
+          "color": "#C39659",
+          "radius": 0.015,
+          "coils": 8
+        }
+      }
+    ]
+  },
+  "objects": [
+    {
+      "id": "load",
+      "name": "Груз 100 кг",
+      "asset": "custom",
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            0.4,
+            0.4,
+            0.4
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#EE875B"
+        }
+      ],
+      "position": [
+        0,
+        1.5,
+        0
+      ],
+      "mass": 100,
+      "material": "metal",
+      "linearDamping": 0,
+      "angularDamping": 0
+    }
+  ],
+  "edits": {},
+  "id": "elastic-deep"
+}

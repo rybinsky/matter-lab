@@ -62,7 +62,7 @@ export function mountProjectLibrary({ getState, applyProject, notify = () => {},
     saving = (async () => {
       $('save').disabled = true;
       try {
-        const project = structuredClone(getState()), id = options.id ?? project.id;
+        const project = structuredClone(getState()), id = options.id ?? (validId(project.id) ? project.id : undefined);
         const payload = await request('/api/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ project, ...(id === undefined ? {} : { id }) }) });
         const saved = payload.metadata || payload;
         if (!validId(saved.id)) throw new Error('Сервер не вернул идентификатор проекта.');

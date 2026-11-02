@@ -94,6 +94,8 @@ export async function capture(project,cachePath,onProgress=()=>{}){
    if(lab.thermal)frame.thermal=lab.thermal.snapshot();if(lab.orbit)frame.orbit=lab.orbit.snapshot();
    if(lab.penetration)frame.penetration=lab.penetration.snapshot();
    if(lab.breakables)frame.assemblies=lab.assemblyState();
+   if(lab.elasticCables)frame.elasticCables=lab.elasticCables.snapshot();
+   if(lab.contactSensors)frame.contactSensors=lab.contactSensors.snapshot(lab.settings.gravity);
    frame.hero=chooseHero(objects,focus);if(!focus&&frame.hero)focus=frame.hero.id;
    if(!receiver&&frame.hero){receiver=frame.hero.id;lab.resetMeasurements(receiver,story.movementThreshold);}
    stats.heroSpeed=frame.orbit?.speed||Math.hypot(...(frame.hero?.velocity||[0,0,0]));stats.heroHeight=frame.hero?.position[1];stats.displacement=frame.hero?.distance||0;stats.metric=modelMetric(lab,stats);

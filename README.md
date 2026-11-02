@@ -118,3 +118,24 @@ npm run package:source
 - [NIST: железо](https://webbook.nist.gov/cgi/cbook.cgi?ID=C7439896&Mask=63)
 - [Clavet et al.: Particle-based Viscoelastic Fluid Simulation](https://doi.org/10.1145/1073368.1073400)
 - [OpenStax: центростремительная сила и наклонный вираж](https://openstax.org/books/university-physics-volume-1/pages/6-3-centripetal-force)
+
+### Version 0.7: authoring and measurements
+
+Each timed title can inherit the film style or override its position, headline,
+condition and measurement sizes, and entrance (cut, fade or rise). The title
+preview follows the selected cue; a fixed-size preview and safe-area guides are
+available alongside the editing track. Explicit title line breaks are preserved.
+
+The track builder supports a gutter or two rails with different start/end gaps.
+These produce ordinary static collision geometry. Centre-of-mass measurements
+come from the actual rigid body; the supplied uphill double-cone film compares
+three rail configurations without prescribed object motion.
+
+**Тросы и датчики** opens editable tension-only elastic cables and passive
+normal-contact load cells. Cables have local anchors, stiffness, damping and an
+optional break force. They are massless elastic links, not calibrated real ropes;
+rupture removes the link and stored elastic energy without modelling recoil or
+fragments. Excessive axial stiffness for the chosen physical step is rejected.
+Load cells average compressive normal contact impulses over a physical-time
+window; tangential friction and joint forces are excluded. Equivalent kilograms
+mean measured force divided by the current positive gravity.

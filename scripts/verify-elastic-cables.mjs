@@ -1,0 +1,74 @@
+import assert from 'node:assert/strict';
+import RAPIER from '@dimforge/rapier3d-compat';
+import {initializePhysics} from '../src/physics.js';
+import {ElasticCables,normalizeElasticCables,elasticCableResponse} from '../src/elastic-cables.js';
+await initializePhysics();
+const near=(a,b,tol=1e-6,label='value')=>assert.ok(Math.abs(a-b)<=tol,`${label}: ${a} / ${b}`),arr=v=>[v.x,v.y,v.z],norm=a=>Math.hypot(...a),dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0),sub=(a,b)=>a.map((v,i)=>v-b[i]),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],vec=a=>({x:a[0],y:a[1],z:a[2]});
+const rotate=(v,q)=>{const u=[q.x,q.y,q.z],a=cross(u,v),b=cross(u,a);return v.map((x,i)=>x+2*(q.w*a[i]+b[i]));};
+const qmul=(a,b)=>({x:a.w*b.x+a.x*b.w+a.y*b.z-a.z*b.y,y:a.w*b.y-a.x*b.z+a.y*b.w+a.z*b.x,z:a.w*b.z+a.x*b.y-a.y*b.x+a.z*b.w,w:a.w*b.w-a.x*b.x-a.y*b.y-a.z*b.z});
+const vectorNear=(a,b,tol=1e-6)=>a.forEach((v,i)=>near(v,b[i],tol,`vector[${i}]`));
+const spec=(id='link',a='a',b='b',extra={})=>({id,a,b,anchorA:[0,0,0],anchorB:[0,0,0],restLength:1,stiffness:100,damping:0,...extra});
+let checks=0;const report=[];
+function check(label,fn){const result=fn();checks++;if(result)report.push({label,...result});console.log(`PASS ${label}`);}
+function world(gravity=0){const w=new RAPIER.World({x:0,y:-gravity,z:0}),entities=new Map();return{w,entities,body(id,mass,position,{fixed=false,kinematic=false,box=[.2,.2,.2],offset=[0,0,0],rotation,velocity=[0,0,0],omega=[0,0,0],locked=false}={}){
+ const d=fixed?RAPIER.RigidBodyDesc.fixed():kinematic?RAPIER.RigidBodyDesc.kinematicVelocityBased():RAPIER.RigidBodyDesc.dynamic();d.setTranslation(...position).setLinearDamping(0).setAngularDamping(0);if(rotation)d.setRotation(rotation);const body=w.createRigidBody(d),collider=w.createCollider(RAPIER.ColliderDesc.cuboid(...box.map(x=>x/2)).setTranslation(...offset).setMass(mass).setCollisionGroups(0),body);body.setLinvel(vec(velocity),true);body.setAngvel(vec(omega),true);if(locked)body.lockTranslations(true,true);const e={id,body,colliders:[collider]};entities.set(id,e);return body;
+ },cables(cables,dt=1/120){return new ElasticCables({world:w,getEntity:id=>entities.get(id),cables,stepSeconds:dt});},step(module,dt=1/120,time){module.beforeStep(dt,time);w.timestep=dt;w.step();},dispose(){w.free();}};}
+function kinetic(body){const v=arr(body.linvel()),omega=arr(body.angvel()),q=qmul(body.rotation(),body.principalInertiaLocalFrame()),I=arr(body.principalInertia()),axes=[0,1,2].map(i=>rotate([0,1,2].map(j=>j===i?1:0),q));return .5*body.mass()*dot(v,v)+.5*axes.reduce((s,a,i)=>s+I[i]*dot(a,omega)**2,0);}
+function momentum(body){return arr(body.linvel()).map(v=>v*body.mass());}
+function angularMomentum(body){const w=arr(body.angvel()),q=qmul(body.rotation(),body.principalInertiaLocalFrame()),I=arr(body.principalInertia()),axes=[0,1,2].map(i=>rotate([0,1,2].map(j=>j===i?1:0),q)),spin=[0,1,2].map(i=>axes.reduce((s,a,j)=>s+a[i]*I[j]*dot(a,w),0)),orbit=cross(arr(body.worldCom()),momentum(body));return spin.map((v,i)=>v+orbit[i]);}
+
+check('Validated64-cable schema is immutable; world is explicit and invalid inputs are rejected',()=>{
+ const input=[spec('one','a','world',{visual:{enabled:true,color:'#AABBCC',radius:.003}})],before=JSON.stringify(input),n=normalizeElasticCables(input);assert.equal(JSON.stringify(input),before);n[0].anchorA[0]=1;assert.equal(input[0].anchorA[0],0);assert.equal(normalizeElasticCables([{...spec(),b:undefined}])[0].b,'world');assert.equal(normalizeElasticCables(undefined).length,0);assert.equal(normalizeElasticCables(Array.from({length:64},(_,i)=>spec('l'+i))).length,64);
+ for(const bad of [null,{},Array.from({length:65},(_,i)=>spec('l'+i)),[spec(),spec()],[spec('world','world','b')],[spec('x','a','a')],[spec('x','a','b',{restLength:0})],[spec('x','a','b',{stiffness:-1})],[spec('x','a','b',{damping:NaN})],[spec('x','a','b',{breakForce:0})],[spec('x','a','b',{anchorA:[0,0]})],[spec('x','a','b',{surprise:true})]])assert.throws(()=>normalizeElasticCables(bad));
+});
+check('Unilateral law has no compression or slack damping and dissipates during closing',()=>{
+ const base={restLength:1,stiffness:100,damping:10};for(const speed of[-100,0,100])assert.equal(elasticCableResponse({...base,length:1,separatingSpeed:speed}).tension,0);
+ const stretch=elasticCableResponse({...base,length:1.2,separatingSpeed:2});near(stretch.tension,40);near(stretch.potentialEnergy,2);near(elasticCableResponse({...base,length:1.2,separatingSpeed:-1}).tension,10);assert.equal(elasticCableResponse({...base,length:1.2,separatingSpeed:-10}).tension,0);
+});
+check('Anchors use actual quaternion and COM angular velocity, not body-origin velocity',()=>{
+ const f=world();try{const q={x:0,y:0,z:Math.SQRT1_2,w:Math.SQRT1_2},b=f.body('a',2,[1,5,0],{offset:[.3,0,0],rotation:q,velocity:[1,2,3],omega:[0,0,2]}),local=[.7,.2,0],anchor=arr(b.translation()).map((v,i)=>v+rotate(local,b.rotation())[i]),target=anchor.map((v,i)=>v+(i===0?2:0)),m=f.cables([spec('offset','a','world',{anchorA:local,anchorB:target,restLength:1.8,stiffness:10})]),s=m.snapshot().cables[0];vectorNear(s.pointA,anchor);vectorNear(s.velocityA,arr(b.velocityAtPoint(vec(anchor))),1e-6);near(s.separatingSpeed,-s.velocityA[0]);assert.ok(Math.abs(s.velocityA[0]-b.linvel().x)>.1);m.dispose();}finally{f.dispose();}
+});
+check('Two free endpoints receive equal/opposite impulses and conserve total linear/angular momentum',()=>{
+ const f=world();try{const a=f.body('a',3,[0,5,0],{box:[1,.4,.6]}),b=f.body('b',5,[2,5,.3],{box:[.6,.7,.4]}),m=f.cables([spec('pair','a','b',{anchorA:[.1,.25,0],anchorB:[-.1,-.2,.1],stiffness:20})]),P0=momentum(a).map((v,i)=>v+momentum(b)[i]),L0=angularMomentum(a).map((v,i)=>v+angularMomentum(b)[i]);m.beforeStep(1/120,0);const s=m.snapshot().cables[0];vectorNear(s.impulseB,s.impulseA.map(x=>-x),0);vectorNear(s.forceB,s.forceA.map(x=>-x),0);vectorNear(momentum(a).map((v,i)=>v+momentum(b)[i]),P0,2e-7);vectorNear(angularMomentum(a).map((v,i)=>v+angularMomentum(b)[i]),L0,2e-6);assert.ok(norm(arr(a.angvel()))>0);assert.ok(norm(arr(b.angvel()))>0);m.dispose();}finally{f.dispose();}
+});
+check('Off-centre force produces the analytical torque impulse and uses rotational effective mass',()=>{
+ const f=world();try{const b=f.body('a',2,[0,5,0],{box:[2,.4,.6]}),m=f.cables([spec('lever','a','world',{anchorA:[0,.5,0],anchorB:[1,5.5,0],restLength:.8,stiffness:100})],.001),initial=m.snapshot().cables[0],Iz=b.principalInertia().z;m.beforeStep(.001,0);near(b.angvel().z,-.5*20*.001/Iz,2e-7);assert.ok(initial.inverseEffectiveMass>1/b.mass());near(initial.inverseEffectiveMass,1/b.mass()+.25/Iz,2e-6);m.dispose();}finally{f.dispose();}
+});
+check('Every cable samples the same pre-impulse velocities, independent of cable array order',()=>{
+ const create=reverse=>{const f=world();f.body('a',2,[0,5,0],{velocity:[.2,0,0]});f.body('b',3,[1.4,5,0],{velocity:[-.1,0,0]});f.body('c',4,[3,5,0],{velocity:[.4,0,0]});const list=[spec('ab','a','b',{stiffness:40,damping:5}),spec('bc','b','c',{stiffness:60,damping:8})];return{f,m:f.cables(reverse?list.reverse():list)};},a=create(false),b=create(true);
+ try{a.m.beforeStep(1/120,0);b.m.beforeStep(1/120,0);for(const id of ['ab','bc'])near(a.m.snapshot().cables.find(c=>c.id===id).tension,b.m.snapshot().cables.find(c=>c.id===id).tension,0);for(const id of ['a','b','c'])vectorNear(arr(a.f.entities.get(id).body.linvel()),arr(b.f.entities.get(id).body.linvel()),1e-7);}finally{a.f.dispose();b.f.dispose();}
+});
+check('Foreign persistent force/torque survive every cable step without accumulation or reset',()=>{
+ const f=world();try{const b=f.body('a',1,[2,5,0]),force=[.7,.2,-.1],torque=[.01,.02,.03];b.addForce(vec(force),true);b.addTorque(vec(torque),true);const m=f.cables([spec('force-test','a','world',{anchorB:[0,5,0],stiffness:20,damping:2})]);for(let i=0;i<240;i++){f.step(m);vectorNear(arr(b.userForce()),force,1e-7);vectorNear(arr(b.userTorque()),torque,1e-7);}assert.ok(arr(b.translation()).every(Number.isFinite));m.dispose();}finally{f.dispose();}
+});
+check('Threshold equality breaks before impulse; its actual tension is recorded once',()=>{
+ const f=world();try{const a=f.body('a',2,[0,5,0]),b=f.body('b',2,[2,5,0]),m=f.cables([spec('breaking','a','b',{stiffness:100,breakForce:100})]);m.beforeStep(1/120,0);const s=m.snapshot().cables[0];assert.equal(s.broken,true);assert.equal(s.tension,0);assert.equal(s.appliedTension,0);assert.equal(s.breakingTension,100);vectorNear(arr(a.linvel()),[0,0,0],0);vectorNear(arr(b.linvel()),[0,0,0],0);assert.equal(m.events.length,1);assert.equal(m.events[0].tension,100);assert.equal(m.events[0].elasticEnergyRemoved,50);for(let i=0;i<5;i++)f.step(m);assert.equal(m.events.length,1);const cloned=m.snapshot();cloned.cables[0].pointA[0]=999;assert.notEqual(m.snapshot().cables[0].pointA[0],999);m.dispose();}finally{f.dispose();}
+ const g=world();try{g.body('a',1,[0,5,0]);g.body('b',1,[2,5,0]);const m=g.cables([spec('not-broken','a','b',{breakForce:100.01})]);m.beforeStep(1/120,0);assert.equal(m.snapshot().cables[0].broken,false);assert.ok(m.snapshot().cables[0].appliedTension>0);}finally{g.dispose();}
+});
+check('Fixed/kinematic endpoints have actual point velocity but are never impulsed',()=>{
+ const f=world();try{const a=f.body('a',2,[0,5,0]),b=f.body('b',1,[2,5,0],{kinematic:true,velocity:[.5,0,0]}),m=f.cables([spec('kinematic','a','b',{stiffness:10,damping:4})]);m.beforeStep(1/120,0);near(m.snapshot().cables[0].separatingSpeed,.5);near(b.linvel().x,.5,0);near(a.linvel().x,12/2/120,2e-8);m.dispose();}finally{f.dispose();}
+});
+check('Removed, replaced and explicitly retired endpoints cannot keep applying hidden impulses',()=>{
+ const f=world();try{const a=f.body('a',1,[0,5,0]),b=f.body('b',1,[2,5,0]),m=f.cables([spec()]);f.w.removeRigidBody(b);f.entities.delete('b');m.beforeStep(1/120,0);assert.equal(m.snapshot().cables[0].retired,true);vectorNear(arr(a.linvel()),[0,0,0],0);assert.equal(m.events.length,1);assert.equal(m.anchors('link'),null);m.beforeStep(1/120,1/120);assert.equal(m.events.length,1);}finally{f.dispose();}
+ const g=world();try{g.body('a',1,[0,5,0]);g.body('b',1,[2,5,0]);const m=g.cables([spec()]);g.body('b',1,[3,5,0]);m.beforeStep(1/120,0);assert.equal(m.snapshot().cables[0].retired,true);m.retireBody('a',.1);assert.equal(m.events.length,1);}finally{g.dispose();}
+ const h=world();try{h.body('world',1,[0,0,0]);h.body('a',1,[1,0,0]);assert.throws(()=>h.cables([spec('x','a','world')]),/зарезервирован/);}finally{h.dispose();}
+});
+check('Stiff or overdamped steps reject atomically, including point inertia and connected cable modes',()=>{
+ const f=world();try{const a=f.body('a',1,[0,5,0]),b=f.body('b',1,[2,5,0]);assert.throws(()=>f.cables([spec('stiff','a','b',{stiffness:1e8})]),/предел/);assert.throws(()=>f.cables([spec('damped','a','b',{stiffness:1,damping:1e7})]),/предел/);const m=f.cables([spec('valid','a','b',{stiffness:1000})]);assert.throws(()=>m.beforeStep(.1,0),/предел/);vectorNear(arr(a.linvel()),[0,0,0],0);vectorNear(arr(b.linvel()),[0,0,0],0);assert.equal(m.events.length,0);m.dispose();}finally{f.dispose();}
+ const g=world();try{g.body('a',1,[0,5,0],{box:[.2,.2,.2],locked:true});assert.throws(()=>g.cables([spec('rotational','a','world',{anchorA:[0,2,0],anchorB:[2,7,0],stiffness:10000})]),/предел/);}finally{g.dispose();}
+ const h=world();try{h.body('a',1,[0,5,0]);assert.throws(()=>h.cables([spec('one','a','world',{anchorB:[2,5,0],stiffness:35000}),spec('two','a','world',{anchorB:[-2,5,0],stiffness:35000})]),/предел/);}finally{h.dispose();}
+});
+
+check('Undamped isolated motion conserves momentum and its bounded energy error converges with dt',()=>{
+ const runs=[];for(const hz of[120,240]){const f=world();try{const a=f.body('a',1,[-.7,5,0]),b=f.body('b',1,[.7,5,0]),m=f.cables([spec('energy','a','b',{stiffness:10})],1/hz),E0=elasticCableResponse({...m.specs[0],length:1.4}).potentialEnergy;let maxError=0;for(let i=0;i<2*hz;i++){f.step(m,1/hz);const length=norm(sub(arr(a.translation()),arr(b.translation()))),E=kinetic(a)+kinetic(b)+elasticCableResponse({...m.specs[0],length}).potentialEnergy;maxError=Math.max(maxError,Math.abs(E/E0-1));vectorNear(momentum(a).map((v,j)=>v+momentum(b)[j]),[0,0,0],2e-6);}runs.push({hz,maxRelativeEnergyError:maxError});m.dispose();}finally{f.dispose();}}
+ assert.ok(runs[0].maxRelativeEnergyError<.025);assert.ok(runs[1].maxRelativeEnergyError<runs[0].maxRelativeEnergyError*.65);return{runs};
+});
+check('Damping removes energy from a free cable pair instead of adding a perpetual kick',()=>{
+ const f=world();try{const a=f.body('a',1,[-.8,5,0]),b=f.body('b',1,[.8,5,0]),m=f.cables([spec('dissipation','a','b',{stiffness:10,damping:3})]),energy=()=>kinetic(a)+kinetic(b)+elasticCableResponse({...m.specs[0],length:norm(sub(arr(a.translation()),arr(b.translation())))}).potentialEnergy,E0=energy();let maximum=E0;for(let i=0;i<1200;i++){f.step(m);maximum=Math.max(maximum,energy());}assert.ok(maximum<=E0*1.03);assert.ok(energy()<E0*.2);vectorNear(momentum(a).map((v,j)=>v+momentum(b)[j]),[0,0,0],2e-6);return{initialEnergy:E0,finalEnergy:energy(),maximum};}finally{f.dispose();}
+});
+check('A symmetric10kg load settles to T=mg/(2sinθ), with timestep-convergent elastic sag',()=>{
+ const mass=10,g=9.81,halfSpan=2,rest=2,k=2000,c=60;let lo=0,hi=4;for(let i=0;i<100;i++){const h=(lo+hi)/2,l=Math.hypot(halfSpan,h),force=2*k*Math.max(0,l-rest)*h/l;if(force<mass*g)lo=h;else hi=h;}const equilibriumSag=(lo+hi)/2,runs=[];
+ for(const hz of[120,240]){const f=world(g);try{const bob=f.body('load',mass,[0,4.2,0]),list=[spec('left','load','world',{anchorB:[-halfSpan,5,0],restLength:rest,stiffness:k,damping:c}),spec('right','load','world',{anchorB:[halfSpan,5,0],restLength:rest,stiffness:k,damping:c})],m=f.cables(list,1/hz);for(let i=0;i<20*hz;i++)f.step(m,1/hz);const state=m.snapshot().cables,sag=5-bob.translation().y,sine=sag/Math.hypot(halfSpan,sag),expected=mass*g/(2*sine),T=(state[0].tension+state[1].tension)/2;near(bob.translation().x,0,1e-5);near(state[0].tension,state[1].tension,1e-5);near(T,expected,expected*.003,'Static tension balance');near(sag,equilibriumSag,.004,'Elastic equilibrium sag');assert.ok(norm(arr(bob.linvel()))<g/hz*1.1);runs.push({hz,sag,analyticElasticSag:equilibriumSag,tension:T,analyticTension:expected,relativeTensionError:Math.abs(T/expected-1),residualSpeed:norm(arr(bob.linvel()))});m.dispose();}finally{f.dispose();}}
+ assert.ok(Math.abs(runs[1].sag-equilibriumSag)<=Math.abs(runs[0].sag-equilibriumSag)+1e-5);return{runs,domain:'Finite dt before-step impulses retain an O(dt) equilibrium velocity/position bias under Rapier gravity integration; no velocity override is used.'};
+});
+console.log(JSON.stringify({passed:true,checks,report,domain:'Standalone massless tension-only elastic point-impulse model. Frozen axial stability bound is explicit; no main/physics/validation integration or real-rope calibration.'},null,2));

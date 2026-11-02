@@ -11,7 +11,8 @@
   left: var(--graphics-x);
   top: var(--graphics-y);
   width: var(--graphics-width);
-  transform: translateY(var(--graphics-anchor));
+  transform: translateY(calc(var(--graphics-anchor) + var(--graphics-cue-offset,0cqw)));
+  opacity: var(--graphics-cue-opacity,1);
   text-align: left;
   z-index: 2;
 }
@@ -144,6 +145,7 @@
 .graphics-scrim { position: absolute; left: 0; right: 0; pointer-events: none; z-index: 1; }
 [data-graphics-backdrop=none]>.graphics-scrim { display: none; }
 .graphics-title-scrim { top: 0; height: 33%; --scrim-opacity:88%; --scrim-fade-in:0%; --scrim-fade-out:80%; }
+.graphics-title-scrim { opacity:var(--graphics-cue-opacity,1); }
 [data-graphics-position=bottom]>.graphics-title-scrim { top: auto; bottom: 0; height: 37%; --scrim-fade-in:20%; --scrim-fade-out:100%; }
 [data-graphics-position=center]>.graphics-title-scrim { top: 30%; height: 36%; --scrim-opacity:74%; --scrim-fade-in:20%; --scrim-fade-out:80%; }
 .graphics-metric-scrim { bottom: 0; height: 29%; --scrim-opacity:78%; --scrim-fade-in:20%; --scrim-fade-out:100%; }

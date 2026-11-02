@@ -1,0 +1,2776 @@
+{
+  "version": 1,
+  "name": "Цепь и контактная нагрузка",
+  "height": 1080,
+  "series": false,
+  "objects": [
+    {
+      "id": "pan",
+      "asset": "custom",
+      "name": "Чаша весов · контактный датчик",
+      "fixed": true,
+      "mass": 5,
+      "position": [
+        0,
+        1,
+        0
+      ],
+      "material": "metal",
+      "friction": 0.5,
+      "restitution": 0,
+      "parts": [
+        {
+          "shape": "box",
+          "d": [
+            2.2,
+            0.08,
+            1.8
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#C5D3D7"
+        },
+        {
+          "shape": "box",
+          "d": [
+            0.08,
+            0.6,
+            1.96
+          ],
+          "p": [
+            -1.14,
+            0.26,
+            0
+          ],
+          "color": "#C5D3D7"
+        },
+        {
+          "shape": "box",
+          "d": [
+            2.2,
+            0.6,
+            0.08
+          ],
+          "p": [
+            0,
+            0.26,
+            -0.94
+          ],
+          "color": "#C5D3D7"
+        },
+        {
+          "shape": "box",
+          "d": [
+            0.08,
+            0.6,
+            1.96
+          ],
+          "p": [
+            1.14,
+            0.26,
+            0
+          ],
+          "color": "#C5D3D7"
+        },
+        {
+          "shape": "box",
+          "d": [
+            2.2,
+            0.6,
+            0.08
+          ],
+          "p": [
+            0,
+            0.26,
+            0.94
+          ],
+          "color": "#C5D3D7"
+        }
+      ]
+    },
+    {
+      "id": "bead-1",
+      "asset": "custom",
+      "name": "Звено 1",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0,
+        1.3,
+        0
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-2",
+      "asset": "custom",
+      "name": "Звено 2",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.008837171369134042,
+        1.355,
+        0.004783311935813075
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-3",
+      "asset": "custom",
+      "name": "Звено 3",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.014281355123857736,
+        1.4100000000000001,
+        0.00877374995672275
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-4",
+      "asset": "custom",
+      "name": "Звено 4",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.014242284222969456,
+        1.465,
+        0.01130986562318037
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-5",
+      "asset": "custom",
+      "name": "Звено 5",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.008734959742861228,
+        1.52,
+        0.011971276575830084
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-6",
+      "asset": "custom",
+      "name": "Звено 6",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.00012610871050722927,
+        1.5750000000000002,
+        0.010648348423600506
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-7",
+      "asset": "custom",
+      "name": "Звено 7",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.008938758357116463,
+        1.6300000000000001,
+        0.007560367559950707
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-8",
+      "asset": "custom",
+      "name": "Звено 8",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.014319416574903245,
+        1.685,
+        0.0032191926111554206
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-9",
+      "asset": "custom",
+      "name": "Звено 9",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.014202206633889134,
+        1.74,
+        -0.001655590407254722
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-10",
+      "asset": "custom",
+      "name": "Звено 10",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.008632130702928257,
+        1.795,
+        -0.006255945484252878
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-11",
+      "asset": "custom",
+      "name": "Звено 11",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.00025220850726524567,
+        1.85,
+        -0.009819325332772924
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-12",
+      "asset": "custom",
+      "name": "Звено 12",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.009039713526329584,
+        1.905,
+        -0.011755069973140403
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-13",
+      "asset": "custom",
+      "name": "Звено 13",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.014356465885806259,
+        1.96,
+        -0.011742313559293662
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-14",
+      "asset": "custom",
+      "name": "Звено 14",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.014161125189423295,
+        2.015,
+        -0.009783170573399561
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-15",
+      "asset": "custom",
+      "name": "Звено 15",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.008528691517606045,
+        2.0700000000000003,
+        -0.006202385332769155
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-16",
+      "asset": "custom",
+      "name": "Звено 16",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.0003782904771548808,
+        2.125,
+        -0.0015935029062302112
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-17",
+      "asset": "custom",
+      "name": "Звено 17",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.009140029740953412,
+        2.18,
+        0.0032795159397241485
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-18",
+      "asset": "custom",
+      "name": "Звено 18",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.014392500437808209,
+        2.2350000000000003,
+        0.007608927620390177
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-19",
+      "asset": "custom",
+      "name": "Звено 19",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.014119042793334027,
+        2.29,
+        0.010677095980204316
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-20",
+      "asset": "custom",
+      "name": "Звено 20",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.008424649498292464,
+        2.3449999999999998,
+        0.011975446480923519
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-21",
+      "asset": "custom",
+      "name": "Звено 21",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.0005043457083170504,
+        2.4000000000000004,
+        0.011288766680157278
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-22",
+      "asset": "custom",
+      "name": "Звено 22",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.009239699910331191,
+        2.455,
+        0.008730879491657517
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-23",
+      "asset": "custom",
+      "name": "Звено 23",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.014427517683876786,
+        2.51,
+        0.0047257760864458515
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-24",
+      "asset": "custom",
+      "name": "Звено 24",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.014075962420133752,
+        2.565,
+        -0.00006266418596100745
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-25",
+      "asset": "custom",
+      "name": "Звено 25",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.008320011998995526,
+        2.62,
+        -0.004840717346025235
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-26",
+      "asset": "custom",
+      "name": "Звено 26",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.0006303652907826119,
+        2.675,
+        -0.008816381164857546
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-27",
+      "asset": "custom",
+      "name": "Звено 27",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.009338716989470603,
+        2.73,
+        -0.011330656150332706
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-28",
+      "asset": "custom",
+      "name": "Звено 28",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.014461515148885998,
+        2.785,
+        -0.011966780218432773
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-29",
+      "asset": "custom",
+      "name": "Звено 29",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.014031887114874951,
+        2.84,
+        -0.010619310490456375
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-30",
+      "asset": "custom",
+      "name": "Звено 30",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.008214786415813614,
+        2.895,
+        -0.007511601331071941
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-31",
+      "asset": "custom",
+      "name": "Звено 31",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.0007563403171021683,
+        2.95,
+        -0.003158781496389632
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-32",
+      "asset": "custom",
+      "name": "Звено 32",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.009437073979541832,
+        3.005,
+        0.0017176327609384878
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-33",
+      "asset": "custom",
+      "name": "Звено 33",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.01449449042979105,
+        3.06,
+        0.006309335038406958
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-34",
+      "asset": "custom",
+      "name": "Звено 34",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.013986819992934971,
+        3.115,
+        0.009855212322760364
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-35",
+      "asset": "custom",
+      "name": "Звено 35",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.00810898018641259,
+        3.17,
+        0.011767505830557703
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-36",
+      "asset": "custom",
+      "name": "Звено 36",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.0008822618829757938,
+        3.225,
+        0.011729236936880192
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-37",
+      "asset": "custom",
+      "name": "Звено 37",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.009534763928372028,
+        3.2800000000000002,
+        0.00974674903056725
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-38",
+      "asset": "custom",
+      "name": "Звено 38",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.014526441195798285,
+        3.335,
+        0.006148656044521381
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-39",
+      "asset": "custom",
+      "name": "Звено 39",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.013940764239795738,
+        3.3899999999999997,
+        0.00153137195096825
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-40",
+      "asset": "custom",
+      "name": "Звено 40",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.00800260078950032,
+        3.4450000000000003,
+        -0.003339749837100856
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-41",
+      "asset": "custom",
+      "name": "Звено 41",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.0010081210878821237,
+        3.5,
+        -0.007657280188175369
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-42",
+      "asset": "custom",
+      "name": "Звено 42",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.009631779930937018,
+        3.5549999999999997,
+        -0.01070555237633251
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-43",
+      "asset": "custom",
+      "name": "Звено 43",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.014557365188529892,
+        3.6100000000000003,
+        -0.011979289820001298
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-44",
+      "asset": "custom",
+      "name": "Звено 44",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        0.013893723110818735,
+        3.665,
+        -0.01126735989662383
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-45",
+      "asset": "custom",
+      "name": "Звено 45",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        0.007895655744297767,
+        3.7199999999999998,
+        -0.008687770938723633
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-46",
+      "asset": "custom",
+      "name": "Звено 46",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.001133909035707871,
+        3.7750000000000004,
+        -0.0046681113669049855
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-47",
+      "asset": "custom",
+      "name": "Звено 47",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.009728115129849056,
+        3.83,
+        0.00012532666309273942
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-48",
+      "asset": "custom",
+      "name": "Звено 48",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.014587260222183497,
+        3.885,
+        0.004897990751657931
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-49",
+      "asset": "custom",
+      "name": "Звено 49",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#62B7C5"
+        }
+      ],
+      "position": [
+        -0.013845699931014737,
+        3.9400000000000004,
+        0.008858771953524547
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    },
+    {
+      "id": "bead-50",
+      "asset": "custom",
+      "name": "Звено 50",
+      "parts": [
+        {
+          "shape": "sphere",
+          "d": [
+            0.025
+          ],
+          "p": [
+            0,
+            0,
+            0
+          ],
+          "color": "#E9A45C"
+        }
+      ],
+      "position": [
+        -0.007788152610007649,
+        3.995,
+        0.011351137694664261
+      ],
+      "mass": 0.1,
+      "material": "metal",
+      "friction": 0.45,
+      "restitution": 0,
+      "linearDamping": 0,
+      "angularDamping": 0
+    }
+  ],
+  "edits": {},
+  "description": "Обычная динамическая цепь из50сфер по0.1кг и49массово-невесомых Rapier rope joints. Панель измеряет только вертикальные нормальные контактные импульсы,среднее за0.1с. Нет кинематических тел,излучателей,дополнительных сил или назначенной нагрузки.",
+  "settings": {
+    "experiment": "blank",
+    "variant": 0,
+    "gravity": 9.81,
+    "speed": 4,
+    "azimuth": 180,
+    "elevation": 0,
+    "material": "rubber",
+    "mass": 12,
+    "friction": 0.5,
+    "restitution": 0.4,
+    "slope": 18,
+    "gap": 0.38,
+    "angle": 55,
+    "depth": 0.9,
+    "slowMotion": 1,
+    "showGrid": true,
+    "showTrails": true,
+    "background": "studio",
+    "theme": "day",
+    "seed": 42,
+    "temperature": 1000,
+    "iceTemperature": -10,
+    "iceHeight": 0.7,
+    "contactH": 1000,
+    "thermalTimeScale": 40,
+    "planet": "moon",
+    "altitude": 100000,
+    "timeScale": 1000,
+    "orbitAsset": "brick",
+    "windSpeed": 0,
+    "cameraMode": "dolly",
+    "renderStyle": "cinematic",
+    "audioPreset": "auto",
+    "dropHeight": 2.4,
+    "connections": [
+      {
+        "id": "link-1",
+        "type": "rope",
+        "a": "bead-1",
+        "b": "bead-2",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05591042542212256,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-2",
+        "type": "rope",
+        "a": "bead-2",
+        "b": "bead-3",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05541265859308626,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-3",
+        "type": "rope",
+        "a": "bead-3",
+        "b": "bead-4",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05505845447530235,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-4",
+        "type": "rope",
+        "a": "bead-4",
+        "b": "bead-5",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05527900222849068,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-5",
+        "type": "rope",
+        "a": "bead-5",
+        "b": "bead-6",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055724937622497715,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-6",
+        "type": "rope",
+        "a": "bead-6",
+        "b": "bead-7",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05578708111747865,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-7",
+        "type": "rope",
+        "a": "bead-7",
+        "b": "bead-8",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055432817741773485,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-8",
+        "type": "rope",
+        "a": "bead-8",
+        "b": "bead-9",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05521573369653658,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-9",
+        "type": "rope",
+        "a": "bead-9",
+        "b": "bead-10",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055472416683529535,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-10",
+        "type": "rope",
+        "a": "bead-10",
+        "b": "bead-11",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05582677815481239,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-11",
+        "type": "rope",
+        "a": "bead-11",
+        "b": "bead-12",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.0557312062651867,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-12",
+        "type": "rope",
+        "a": "bead-12",
+        "b": "bead-13",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.0552563844128268,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-13",
+        "type": "rope",
+        "a": "bead-13",
+        "b": "bead-14",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05503522871058917,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-14",
+        "type": "rope",
+        "a": "bead-14",
+        "b": "bead-15",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055403486641248084,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-15",
+        "type": "rope",
+        "a": "bead-15",
+        "b": "bead-16",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055906852222930806,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-16",
+        "type": "rope",
+        "a": "bead-16",
+        "b": "bead-17",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05590630007074188,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-17",
+        "type": "rope",
+        "a": "bead-17",
+        "b": "bead-18",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055419601712047906,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-18",
+        "type": "rope",
+        "a": "bead-18",
+        "b": "bead-19",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.0550861909753021,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-19",
+        "type": "rope",
+        "a": "bead-19",
+        "b": "bead-20",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055309238188762835,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-20",
+        "type": "rope",
+        "a": "bead-20",
+        "b": "bead-21",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05572430784270453,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-21",
+        "type": "rope",
+        "a": "bead-21",
+        "b": "bead-22",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05574808696182952,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-22",
+        "type": "rope",
+        "a": "bead-22",
+        "b": "bead-23",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05538911722114663,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-23",
+        "type": "rope",
+        "a": "bead-23",
+        "b": "bead-24",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05520917271021086,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-24",
+        "type": "rope",
+        "a": "bead-24",
+        "b": "bead-25",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05550640284914001,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-25",
+        "type": "rope",
+        "a": "bead-25",
+        "b": "bead-26",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055865151538590826,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-26",
+        "type": "rope",
+        "a": "bead-26",
+        "b": "bead-27",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05574187804524213,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-27",
+        "type": "rope",
+        "a": "bead-27",
+        "b": "bead-28",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05524172078069386,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-28",
+        "type": "rope",
+        "a": "bead-28",
+        "b": "bead-29",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05501818113056256,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-29",
+        "type": "rope",
+        "a": "bead-29",
+        "b": "bead-30",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05539401156047791,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-30",
+        "type": "rope",
+        "a": "bead-30",
+        "b": "bead-31",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05589658446963693,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-31",
+        "type": "rope",
+        "a": "bead-31",
+        "b": "bead-32",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055893958107538375,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-32",
+        "type": "rope",
+        "a": "bead-32",
+        "b": "bead-33",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05542256932835376,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-33",
+        "type": "rope",
+        "a": "bead-33",
+        "b": "bead-34",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055116521796900145,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-34",
+        "type": "rope",
+        "a": "bead-34",
+        "b": "bead-35",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05534623625189947,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-35",
+        "type": "rope",
+        "a": "bead-35",
+        "b": "bead-36",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05573009867619633,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-36",
+        "type": "rope",
+        "a": "bead-36",
+        "b": "bead-37",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055711722733588855,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-37",
+        "type": "rope",
+        "a": "bead-37",
+        "b": "bead-38",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05534313972913301,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-38",
+        "type": "rope",
+        "a": "bead-38",
+        "b": "bead-39",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055196578969147536,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-39",
+        "type": "rope",
+        "a": "bead-39",
+        "b": "bead-40",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055533679984642585,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-40",
+        "type": "rope",
+        "a": "bead-40",
+        "b": "bead-41",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.0559002162525688,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-41",
+        "type": "rope",
+        "a": "bead-41",
+        "b": "bead-42",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05575535360101719,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-42",
+        "type": "rope",
+        "a": "bead-42",
+        "b": "bead-43",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055234806030303805,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-43",
+        "type": "rope",
+        "a": "bead-43",
+        "b": "bead-44",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05500861082615228,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-44",
+        "type": "rope",
+        "a": "bead-44",
+        "b": "bead-45",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.0553861994663383,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-45",
+        "type": "rope",
+        "a": "bead-45",
+        "b": "bead-46",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.055881040641613845,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-46",
+        "type": "rope",
+        "a": "bead-46",
+        "b": "bead-47",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05587340536011718,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-47",
+        "type": "rope",
+        "a": "bead-47",
+        "b": "bead-48",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05542011921252611,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-48",
+        "type": "rope",
+        "a": "bead-48",
+        "b": "bead-49",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05514741788510651,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      },
+      {
+        "id": "link-49",
+        "type": "rope",
+        "a": "bead-49",
+        "b": "bead-50",
+        "anchorA": [
+          0,
+          0,
+          0
+        ],
+        "anchorB": [
+          0,
+          0,
+          0
+        ],
+        "length": 0.05538867904665913,
+        "visual": {
+          "enabled": true,
+          "radius": 0.004,
+          "color": "#637A87"
+        }
+      }
+    ],
+    "emitters": [],
+    "story": {
+      "enabled": false,
+      "autoTrim": false,
+      "duration": 10
+    },
+    "label": "Мягкий бросок",
+    "detail": "4 м/с · резиновый шар",
+    "autoLaunch": false,
+    "atmosphere": {
+      "enabled": false
+    },
+    "focusId": "bead-25",
+    "contactSensors": [
+      {
+        "id": "pan-load",
+        "body": "pan",
+        "axis": [
+          0,
+          1,
+          0
+        ],
+        "window": 0.1
+      }
+    ],
+    "contactSensorId": "pan-load",
+    "cameraRig": {
+      "mode": "keys",
+      "interpolation": "linear",
+      "points": [
+        {
+          "time": 0,
+          "sourceTime": 0,
+          "position": [
+            4.8,
+            3.5,
+            6.8
+          ],
+          "target": [
+            0,
+            2.2,
+            0
+          ],
+          "fov": 38
+        },
+        {
+          "time": 10,
+          "sourceTime": 10,
+          "position": [
+            4.8,
+            3.5,
+            6.8
+          ],
+          "target": [
+            0,
+            2.2,
+            0
+          ],
+          "fov": 38
+        }
+      ]
+    }
+  },
+  "id": "chain-load-cell"
+}
