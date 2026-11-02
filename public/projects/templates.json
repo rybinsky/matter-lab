@@ -2,6 +2,30 @@
   "version": 1,
   "templates": [
     {
+      "id": "funnel-escape",
+      "title": "Можно выбежать по стенке?",
+      "teaser": "Три режима разгона на одной поверхности. Скорость, сцепление и выход на край.",
+      "tags": [
+        "49 секунд",
+        "Движение по поверхности",
+        "Сцепление"
+      ],
+      "projectUrl": "/projects/funnel-escape.project.json",
+      "posterUrl": "/projects/posters/funnel-escape.jpg"
+    },
+    {
+      "id": "dzhanibekov-wingnut",
+      "title": "Эффект Джанибекова",
+      "teaser": "Три главные оси одной гайки. Быстрое свободное вращение и самопроизвольные перевороты.",
+      "tags": [
+        "45 секунд",
+        "Свободное вращение",
+        "Главные оси"
+      ],
+      "projectUrl": "/projects/dzhanibekov-wingnut.project.json",
+      "posterUrl": "/projects/posters/dzhanibekov-wingnut.jpg"
+    },
+    {
       "id": "balloon-chair",
       "title": "Почему стул перевернулся?",
       "teaser": "Те же 80 шаров и тот же стул. Меняем точки подвеса и сравниваем устойчивость.",

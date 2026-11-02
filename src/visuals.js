@@ -38,13 +38,13 @@ function geometry(p) {
   else g=new RoundedBoxGeometry(...p.d,2,Math.min(.035,...p.d.map(n=>n*.14)));
   geometries.set(key,g); return g;
 }
-export function objectVisual(parts,materialId='ceramic',color,assetId,appearance=null) {
+export function objectVisual(parts,materialId='ceramic',color,assetId,appearance=null,surfaceOverride=null) {
   const group=new THREE.Group(),preset=MATERIALS[materialId]||MATERIALS.ceramic;
   const look=appearance||{};
-  const surface=assetSurface(assetId);
+  const surface=surfaceOverride||assetSurface(assetId);
   if(surface){
-    const key='surface:'+assetId;let g=geometries.get(key);
-    if(!g){g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(surface.positions,3));g.setIndex(surface.indices);g.computeVertexNormals();geometries.set(key,g);}
+    const key=surfaceOverride?null:'surface:'+assetId;let g=key?geometries.get(key):null;
+    if(!g){g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(surface.positions,3));g.setIndex(surface.indices);g.computeVertexNormals();if(key)geometries.set(key,g);}
     const skin=surface.finish==='skin';
     const mat=new THREE.MeshPhysicalMaterial({color:look.color??color??surface.color??preset.color,roughness:look.roughness??(skin ? .5 : preset.roughness??.5),metalness:look.metalness??(skin ? 0 : preset.metalness??0),clearcoat:skin ? .08 : 0,clearcoatRoughness:.32});
     const mesh=new THREE.Mesh(g,mat);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);
@@ -142,7 +142,7 @@ export class LabView {
     this.controls.target.copy(center);this.controls.update();
   }
   frameScene(id){
-    const models=id?[this.models.get(id)].filter(Boolean):[...this.models.values()];
+    const models=id?[...this.models.values()].filter(model=>model.userData.entityId===id):[...this.models.values()];
     const bounds=new THREE.Box3();for(const model of models){model.updateWorldMatrix(true,true);bounds.expandByObject(model,true);}
     if(bounds.isEmpty())return;
     const center=bounds.getCenter(new THREE.Vector3()),radius=Math.max(.025,bounds.getSize(new THREE.Vector3()).length()/2),halfAngle=Math.atan(Math.tan(this.camera.fov*Math.PI/360)*Math.min(1,this.camera.aspect));
@@ -196,7 +196,7 @@ export class LabView {
   add(e) {
     if(e.id==='ground'||e.renderHidden)return;
     if(e.soft){const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(e.soft.meshVertices(0).slice(),3));g.setIndex(new THREE.BufferAttribute(e.soft.meshIndices(0).slice(),1));g.computeVertexNormals();const appearance={...specimenAppearance(e.material),...e.sourceAppearance,...e.appearance},m=new THREE.MeshPhysicalMaterial({color:appearance.color||MATERIALS[e.material].color,roughness:appearance.roughness??MATERIALS[e.material].roughness,metalness:appearance.metalness??0,clearcoat:appearance.clearcoat??.25,side:THREE.DoubleSide});const mesh=new THREE.Mesh(g,m);mesh.castShadow=true;mesh.receiveShadow=true;mesh.frustumCulled=false;mesh.userData.entityId=e.id;this.models.set(e.id,mesh);this.scene.add(mesh);return;}
-    const group=objectVisual(e.visualParts||e.parts,e.material,e.color,e.asset||e.spec?.asset,e.appearance);group.scale.setScalar(e.scale);group.userData.entityId=e.id;this.models.set(e.id,group);this.scene.add(group);this.syncEntity(e);
+    const group=objectVisual(e.visualParts||e.parts,e.material,e.color,e.asset||e.spec?.asset,e.appearance,e.renderSurface);group.scale.setScalar(e.scale);group.userData.entityId=e.ownerId||e.rigOwnerId||e.id;this.models.set(e.id,group);this.scene.add(group);this.syncEntity(e);
   }
   syncEntity(e){const m=this.models.get(e.id);if(!m||!e.body||e.renderHidden)return;const p=e.body.translation(),q=e.body.rotation();m.position.set(p.x,p.y,p.z);m.quaternion.set(q.x,q.y,q.z,q.w);}
   sync(force=false){
@@ -209,10 +209,20 @@ export class LabView {
     if(this.lab.penetration)this.applyHeating(this.lab.penetration.snapshot());
     if(this.fluidMesh){const matrix=new THREE.Matrix4();this.fluidMesh.count=this.lab.fluid.particles.length;this.lab.fluid.particles.forEach((p,i)=>{matrix.makeTranslation(p.x,p.y,p.z);this.fluidMesh.setMatrixAt(i,matrix);});this.fluidMesh.instanceMatrix.needsUpdate=true;}
     this.frameCount=(this.frameCount||0)+1;
-    if(this.selected&&this.models.has(this.selected))this.outline.setFromObject(this.models.get(this.selected));
+    if(this.selected){const model=this.selectionModel(this.selected);if(model)this.outline.setFromObject(model);}
   }
   applyHeating(state){const glow=Math.max(0,Math.min(1,(state.temperature-450)/700));this.models.get(state.projectileId)?.traverse(o=>{if(o.material?.emissive){o.material.emissive.set('#f16219');o.material.emissiveIntensity=Math.pow(glow,1.7);}});}
-  select(id,editable=true){if(!this.interactionEnabled)return;this.selected=id;const model=this.models.get(id);this.transform.detach();this.outline.visible=!!model;if(model){this.outline.setFromObject(model);const e=this.lab.find(id);if(editable&&e?.body&&!e.fixed&&!e.kinematic&&!e.phenomenonRole)this.transform.attach(model);}}
+  selectionModel(id){
+    if(this.models.has(id))return this.models.get(id);
+    const owned=[...this.models.values()].filter(model=>model.userData.entityId===id);
+    if(!owned.length)return null;
+    const bounds=new THREE.Box3();for(const model of owned){model.updateWorldMatrix(true,true);bounds.expandByObject(model,true);}
+    if(bounds.isEmpty())return null;
+    this.selectionProxy||=new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
+    bounds.getCenter(this.selectionProxy.position);bounds.getSize(this.selectionProxy.scale);this.selectionProxy.updateWorldMatrix(true,false);
+    return this.selectionProxy;
+  }
+  select(id,editable=true){if(!this.interactionEnabled)return;this.selected=id;const model=this.selectionModel(id);this.transform.detach();this.outline.visible=!!model;if(model){this.outline.setFromObject(model);const e=this.lab.find(id);if(editable&&e?.body&&!e.fixed&&!e.kinematic&&!e.phenomenonRole&&this.models.has(id))this.transform.attach(model);}}
   setGrid(on){this.grid.visible=on;}
   cameraPreset(name){
     if(name==='top'){this.camera.position.set(0,19,.01);this.controls.target.set(0,0,0);}

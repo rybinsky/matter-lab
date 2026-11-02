@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import {mkdtemp,rm} from 'node:fs/promises';
+import path from 'node:path';
+import os from 'node:os';
+import {assessTake} from '../src/scene-analysis.js';
+import {capture} from './capture.mjs';
+import {settingsFor} from '../src/catalog.js';
+let checks=0;const check=(v,m)=>{assert(v,m);checks++;},near=(a,b,t,m)=>check(Math.abs(a-b)<=t,m),q=angle=>[0,Math.sin(angle/2),0,Math.cos(angle/2)];
+const frame=(t,{rotation=q(0),position=[0,3,0],angularVelocity,metric=0,stats={},id='hero'}={})=>{const hero={id,position,quaternion:rotation,velocity:[0,0,0],...(angularVelocity?{angularVelocity}:{}),fixed:false};return{stats:{time:t,displacement:0,heroSpeed:0,moving:0,movedObjects:0,metric:{value:metric},...stats},objects:[hero],hero};};
+const staticFrames=[frame(0),frame(.5),frame(1)],snapshot=structuredClone(staticFrames),stationary=assessTake(staticFrames,[],'hero');check(!stationary.ready&&stationary.warnings.length===1,'Static scene still warns about no visible change');check(!stationary.contactExpected&&!stationary.warnings.some(s=>s.includes('контакт')),'Static alone does not imply an intended collision');assert.deepEqual(staticFrames,snapshot);checks++;
+const rotating=assessTake(Array.from({length:21},(_,i)=>frame(i/20,{rotation:q(i*.3)})),[],'hero');check(rotating.ready&&rotating.hasAngularMotion,'Rotation in place is a visible change without translation');check(rotating.angularTravel>5.9&&rotating.activeRatio>.9,'Accumulated quaternion travel measures full turns');near(rotating.maxDisplacement,0,0,'No fabricated translation');
+const negated=assessTake([frame(0),frame(.5,{rotation:q(0).map(v=>-v)}),frame(1)],[],'hero');near(negated.angularTravel,0,1e-7,'q/-q is not motion');check(!negated.ready&&!negated.hasAngularMotion,'Sign-only changes keep static warning');
+const wrap=assessTake([frame(0,{rotation:q(179*Math.PI/180)}),frame(1,{rotation:q(-179*Math.PI/180)})],[],'hero');near(wrap.angularTravel,2*Math.PI/180,1e-10,'Angle wrap follows two degrees, not358');check(wrap.maxOrientationChange<.04,'Wrap is not a spurious flip');
+const jitter=assessTake([frame(0),frame(.5,{rotation:[0,0,0,2]}),frame(1,{rotation:[0,0,0,-.4]})],[],'hero');near(jitter.angularTravel,0,1e-7,'Quaternion scale and sign are normalised');
+const aliased=assessTake([frame(0,{angularVelocity:[0,2*Math.PI,0]}),frame(1,{rotation:q(2*Math.PI),angularVelocity:[0,2*Math.PI,0]})],[],'hero');check(aliased.hasAngularMotion&&aliased.maxAngularSpeed>6,'Measured angular velocity disambiguates sparse full revolution');
+const oneSpeed=assessTake([frame(0,{angularVelocity:[0,4,0]}),frame(.5,{angularVelocity:[0,0,0]}),frame(1,{angularVelocity:[0,0,0]})],[],'hero');check(!oneSpeed.hasAngularMotion,'One initial angular-speed sample is insufficient');
+const flight=[frame(0),frame(.5,{position:[.5,3,0]}),frame(1,{position:[1,3,0]})],free=assessTake(flight,[],'hero');check(free.ready&&!free.contactExpected,'Free flight without impact is not an error');
+const expected=assessTake(flight,[],'hero',{contactExpected:true});check(!expected.ready&&expected.warnings.some(s=>s.includes('ожидаемый контакт')),'A real missing expected contact is still reported');
+const setup=assessTake(flight,[],'hero',{launchConfigured:true,targetIds:['wall']});check(setup.contactExpected&&!setup.ready,'Targeted launch supplies generic collision intent');
+const disable=assessTake(flight,[],'hero',{contactExpected:false,launchConfigured:true,targetIds:['wall']});check(disable.ready,'Explicit non-contact intent takes precedence');
+const incidental=assessTake(flight,[{t:.5,participants:['hero','ground']}],'hero',{launchConfigured:true,targetIds:['wall']});check(incidental.warnings.some(s=>s.includes('контакт')),'Incidental floor contact does not substitute for chosen target');
+const contact=assessTake(flight,[{t:.5,participants:['hero','wall']}],'hero',{launchConfigured:true,targetIds:['wall']});check(contact.ready&&contact.expectedContacts===1,'Actual intended contact clears warning');
+const early=assessTake(flight,[{t:.05,participants:['hero','wall']}],'hero',{launchConfigured:true,targetIds:['wall']});check(early.ready,'Real expected early contact is not discarded as settling');
+const other=flight.map(f=>({...f,objects:[{id:'hero',position:[0,3,0],quaternion:q(0),fixed:false},{id:'other',position:[0,3,0],quaternion:q(f.stats.time*5),angularVelocity:[0,5,0],fixed:false}]}));check(!assessTake(other,[],'hero').hasAngularMotion,'Unrelated rotating object cannot satisfy stationary chosen hero');
+check(!assessTake([],[],'hero').ready,'Empty observation fails without crashing');
+const directory=await mkdtemp(path.join(os.tmpdir(),'matter-lab-angular-analysis-'));
+try{
+ const source={version:1,height:720,preview:true,previewFps:24,previewDuration:1,series:false,objects:[{id:'hero',asset:'custom',parts:[{shape:'box',d:[.6,.24,.08],p:[0,0,0],color:'#DAA65E'}],mass:1,position:[0,3,0],angularVelocity:[.02,4,.01],linearDamping:0,angularDamping:0}],edits:{},settings:{...settingsFor('blank'),gravity:0,windSpeed:0,autoLaunch:false,focusId:'hero',story:{enabled:true,duration:5,metric:'none',autoTrim:false,heroId:'hero',cues:[]},cameraRig:{mode:'keys',points:[{time:0,sourceTime:0,position:[2,4,4],target:[0,3,0],fov:43},{time:1,sourceTime:1,position:[2,4,4],target:[0,3,0],fov:43}]}}};
+ const data=await capture(source,path.join(directory,'rotating.json'));check(data.takes[0].analysis.hasAngularMotion,'Real captured rigid rotation reaches analysis');check(data.analysis.warnings.length===0,'Rehearsal/export rotating capture has no false no-motion/contact warnings');check(data.takes[0].analysis.maxAngularSpeed>3.9,'Actual body angular-speed observations reach analyzer');
+ const intended=structuredClone(source);intended.settings.analysis={expectContact:true};const missing=await capture(intended,path.join(directory,'expected.json'));check(missing.analysis.warnings.some(s=>s.includes('ожидаемый контакт')),'Explicit expected contact propagates through capture');
+}finally{await rm(directory,{recursive:true,force:true});}
+console.log(JSON.stringify({checks,rotating:{angularTravel:rotating.angularTravel,maxOrientationChange:rotating.maxOrientationChange,activeRatio:rotating.activeRatio},scope:'Quaternion sign/wrap, measured angular velocity, scoped contact intent and real capture/rehearsal payload.'}));

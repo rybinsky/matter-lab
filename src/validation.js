@@ -9,6 +9,7 @@ import {normalizeContextView} from './context-view.js';
 import {normalizeConnectionVisual} from './connection-visuals.js';
 import {normalizeAtmosphere,normalizeBuoyancy} from './atmosphere.js';
 import {normalizeSceneAnnotations} from './scene-annotations.js';
+import {normalizeSurfaceMotionScene} from './surface-motion-scene.js';
 
 const assets = new Set(CATALOG.map(a => a.id));
 const experiments = new Set([...EXPERIMENTS.map(e => e.id), 'blank']);
@@ -79,6 +80,15 @@ function transforms(spec, where) {
   material(spec.material, `${where}, материал`);
   boolean(spec.fixed, `${where}, закрепление`);
   boolean(spec.kinematic, `${where}, управляемое движение`);
+  boolean(spec.renderOnly,`${where}, декорация`);
+  if(spec.renderOnly&&(spec.kinematic||spec.deformable&&spec.deformable.enabled!==false||spec.visualRig||spec.buoyancy&&spec.buoyancy.enabled!==false))fail(where,'декорация не может участвовать в другой физической модели');
+  if(present(spec.visualRig)){
+    object(spec.visualRig,`${where}, визуальная фигура`);
+    const rig=spec.visualRig;if(rig.type!=='runner')fail(where,'неизвестная визуальная фигура');
+    optionalNumber(rig.height,`${where}, рост фигуры`,.5,3);
+    optionalNumber(rig.strideLength,`${where}, длина визуального шага`,.25,4);
+    if(present(rig.orientation)&&!['alongVelocity','body'].includes(rig.orientation))fail(where,'неизвестный поворот визуальной фигуры');
+  }
   boolean(spec.appearanceFromMaterial, `${where}, цвет материала`);
   if(present(spec.appearance)&&spec.appearance!==null){
     object(spec.appearance,`${where}, внешний вид`);
@@ -273,6 +283,15 @@ export function validateProject(project) {
   optionalNumber(settings.gravity, 'ускорение свободного падения', 0, 1e6);
   try{normalizeAtmosphere(settings.atmosphere);}catch(error){fail('атмосфера',error.message);}
   try{normalizeSceneAnnotations(settings.annotations);}catch(error){fail('подписи в сцене',error.message);}
+  if(settings.surfaceMotion!==undefined){
+    let motion;try{motion=normalizeSurfaceMotionScene(settings.surfaceMotion);}catch(error){fail('движение по поверхности',error.message);}
+    const source=project.objects.find(o=>o.id===motion.body),target=source?{...source,...project.edits?.[source.id]}:null;
+    if(!target||target.deleted||target.fixed||target.kinematic||target.renderOnly||target.asset==='softcube'||target.deformable&&target.deformable.enabled!==false)fail('движение по поверхности','выберите свободный твёрдый предмет');
+    if(settings.experiment!=='blank')fail('движение по поверхности','нужна свободная сцена');
+    if(settings.windSpeed||settings.atmosphere?.enabled)fail('движение по поверхности','отключите ветер и атмосферу');
+    if((settings.connections||[]).some(c=>c.a===motion.body||c.b===motion.body)||(settings.assemblies||[]).some(a=>a.bonds?.some(b=>b.a===motion.body||b.b===motion.body)))fail('движение по поверхности','снимите связи выбранного предмета');
+    if(target.angularVelocity?.some(v=>Math.abs(v)>1e-9)||target.launch||project.edits?.[motion.body]?.launch)fail('движение по поверхности','старт задаётся параметрами поверхности');
+  }
   launch(settings, 'начальное движение');
   optionalNumber(settings.mass, 'масса в настройках', 0, 1e6, true);
   material(settings.material, 'материал в настройках');

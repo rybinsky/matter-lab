@@ -112,11 +112,45 @@ export function salientEvent(events = [], focusId, frames = [], options = {}) {
  }
  return { time: .6, type: 'launch', position: frames[0]?.hero?.position, participants: focusId ? [focusId] : [], strength: .1 };
 }
-export function assessTake(frames,events,focusId){
- const start=frames[0],end=frames.at(-1),maxDisplacement=Math.max(...frames.map(f=>f.stats.displacement||0)),metricValues=frames.map(f=>f.stats.metric?.value).filter(Number.isFinite),metricRange=metricValues.length?Math.max(...metricValues)-Math.min(...metricValues):0;
- const relevant=events.filter(e=>e.t>.2&&(!focusId||e.participants?.includes(focusId))),warnings=[];
- const activeFrames=frames.filter(f=>(f.stats.heroSpeed||0)>.15||f.stats.moving>0).length;
- if(maxDisplacement<.05&&metricRange<.02&&end.stats.movedObjects===0)warnings.push('Почти нет видимого изменения. Добавьте движение или взаимодействие.');
- if(!relevant.length&&metricRange<.02)warnings.push('У главного предмета не найден выраженный контакт. Проверьте траекторию.');
- return{hero:focusId,duration:end.stats.time,contacts:relevant.length,maxDisplacement,metricRange,activeRatio:activeFrames/frames.length,movedObjects:end.stats.movedObjects||0,warnings,ready:warnings.length===0};
+const finiteVector = value => (Array.isArray(value) || ArrayBuffer.isView(value)) && value.length === 3 && Array.from(value).every(Number.isFinite) ? Array.from(value) : null;
+function unitQuaternion(value) {
+ const q = Array.isArray(value) || ArrayBuffer.isView(value) ? Array.from(value) : value && typeof value === 'object' ? [value.x,value.y,value.z,value.w] : null;
+ if (!q || q.length !== 4 || !q.every(Number.isFinite)) return null;
+ const length = Math.hypot(...q); return length > 1e-12 ? q.map(v => v / length) : null;
+}
+// A quaternion and its negation encode the same physical orientation. The
+// short arc also crosses the ±pi representation boundary without a false turn.
+const rotationAngle = (a,b) => 2 * Math.acos(Math.max(0,Math.min(1,Math.abs(a.reduce((sum,v,i) => sum + v*b[i],0)))));
+
+/** Physical observations only; no experiment names or guessed collision goal. */
+export function assessTake(frames = [], events = [], focusId, options = {}) {
+ const samples = frames.filter(Boolean).map((frame,index) => ({frame,time:Number.isFinite(frameTime(frame))?frameTime(frame):index})).sort((a,b)=>a.time-b.time);
+ if (!samples.length) return {hero:focusId,duration:0,contacts:0,maxDisplacement:0,metricRange:0,maxOrientationChange:0,angularTravel:0,maxAngularSpeed:0,hasAngularMotion:false,activeRatio:0,movedObjects:0,contactExpected:false,warnings:['Нет данных о движении для проверки.'],ready:false};
+ const targets = idsOf(options.targetIds); targets.delete(focusId);
+ const contactExpected = typeof options.contactExpected === 'boolean' ? options.contactExpected : options.launchConfigured === true && targets.size > 0;
+ let origin,firstQ,previousQ,previousTime,previousSpeed,maxDisplacement=0,maxOrientationChange=0,angularTravel=0,angularVelocityTravel=0,maxAngularSpeed=0,angularSpeedFrames=0,activeFrames=0;
+ const metricValues=[];
+ for (const {frame,time} of samples) {
+  const stats=frame.stats||{},objects=frameObjects(frame),hero=objects.find(o=>o.id===focusId)||(!focusId?frame.hero||objects[0]:frame.hero?.id===focusId?frame.hero:null);
+  const position=finiteVector(hero?.position);if(!origin&&position)origin=finiteVector(hero?.initialPosition)||position;
+  const distance=Number.isFinite(hero?.distance)?hero.distance:position&&origin?Math.hypot(...position.map((v,i)=>v-origin[i])):0;
+  maxDisplacement=Math.max(maxDisplacement,Number.isFinite(stats.displacement)?stats.displacement:0,distance);
+  if(Number.isFinite(stats.metric?.value))metricValues.push(stats.metric.value);
+  const q=unitQuaternion(hero?.quaternion??hero?.rotation),velocity=finiteVector(hero?.angularVelocity),angularSpeed=velocity?Math.hypot(...velocity):Number.isFinite(stats.heroAngularSpeed)&&(!frame.hero||frame.hero.id===focusId)?Math.abs(stats.heroAngularSpeed):0;
+  maxAngularSpeed=Math.max(maxAngularSpeed,angularSpeed);if(angularSpeed>.15)angularSpeedFrames++;
+  const dt=Number.isFinite(previousTime)?time-previousTime:0;let stepAngle=0;
+  if(q){firstQ??=q;maxOrientationChange=Math.max(maxOrientationChange,rotationAngle(firstQ,q));if(previousQ&&dt>0){stepAngle=rotationAngle(previousQ,q);angularTravel+=stepAngle;}previousQ=q;}
+  if(dt>0&&Number.isFinite(previousSpeed))angularVelocityTravel+=(previousSpeed+angularSpeed)*dt/2;
+  if((stats.heroSpeed||0)>.15||stats.moving>0||angularSpeed>.15||dt>0&&stepAngle/dt>.15)activeFrames++;
+  previousTime=time;previousSpeed=angularSpeed;
+ }
+ // Integrating measured angular speed disambiguates sparse full revolutions;
+ // a lone initial speed sample is not evidence of a sustained visible turn.
+ const hasAngularMotion=angularTravel>.08||maxOrientationChange>.08||angularSpeedFrames>=2&&angularVelocityTravel>.08;
+ const end=samples.at(-1),start=samples[0],metricRange=metricValues.length?Math.max(...metricValues)-Math.min(...metricValues):0,movedObjects=end.frame.stats?.movedObjects||0;
+ const relevant=events.filter(e=>e&&Number.isFinite(e.t)&&e.t>=start.time-1e-7&&e.t<=end.time+1e-7&&(!focusId||e.participants?.includes(focusId))&&(e.t>.2||contactExpected));
+ const expectedContacts=targets.size?relevant.filter(e=>e.participants?.some(id=>targets.has(id))):relevant,warnings=[];
+ if(maxDisplacement<.05&&!hasAngularMotion&&metricRange<.02&&movedObjects===0)warnings.push('Почти нет видимого изменения. Добавьте движение или взаимодействие.');
+ if(contactExpected&&!expectedContacts.length&&metricRange<.02)warnings.push('В наблюдаемом времени не найден ожидаемый контакт. Проверьте начальные условия.');
+ return{hero:focusId,duration:end.time,contacts:relevant.length,expectedContacts:expectedContacts.length,contactExpected,maxDisplacement,metricRange,maxOrientationChange,angularTravel,angularVelocityTravel,maxAngularSpeed,hasAngularMotion,activeRatio:activeFrames/samples.length,movedObjects,warnings,ready:warnings.length===0};
 }

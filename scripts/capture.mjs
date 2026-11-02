@@ -1,4 +1,5 @@
 import {writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {initializePhysics,LabWorld} from '../src/physics.js';
 import {MATERIALS,EXPERIMENTS,settingsFor} from '../src/catalog.js';
 import {normalizedStory,editorialFrame} from '../src/storyboard.js';
@@ -55,7 +56,7 @@ export async function capture(project,cachePath,onProgress=()=>{}){
   const comparisonSettings=custom[n]&&['speed','elevation','gravity'].includes(custom[n].field)?{[custom[n].field]:custom[n].value}:{};
   const settings=series?{...project.settings,...(custom.length?comparisonSettings:variants[n]),variant:n}:project.settings;
   const lab=new LabWorld(settings,project.objects||[],project.edits||{});
-  const entities=lab.entities.filter(e=>e.id!=='ground'&&!e.renderHidden),sizes=new Map(entities.map(e=>[e.id,objectBounds(e)]));
+  const entities=lab.entities.filter(e=>e.id!=='ground'&&(!e.renderHidden||e.spec?.visualRig)),sizes=new Map(entities.map(e=>[e.id,objectBounds(e)]));
   const instanceLabels=objectLabelMap([...entities,...lab.softs]);
   for(const[id,edit]of Object.entries(project.edits||{}))if(edit.position&&lab.find(id)?.soft)lab.moveSoft(id,{x:edit.position[0],y:edit.position[1],z:edit.position[2]});
   if(manual&&cameraRig.anchorId&&!lab.find(cameraRig.anchorId)){lab.dispose();throw new Error('Опора записанной камеры удалена. Выберите существующий предмет или запишите новый маршрут.');}
@@ -73,12 +74,18 @@ export async function capture(project,cachePath,onProgress=()=>{}){
   const initial=new Map(entities.map(e=>{const p=e.body.translation();return[e.id,[p.x,p.y,p.z]];}));
   const maxTime=manualTimed?Math.max(.01,...cameraRig.points.map(p=>p.sourceTime)):Math.max(1,Math.min(20,settings.simulationDuration||(lab.payloadApex!==undefined?2.9:7.5)));
   const meshes=[...lab.softs.map(e=>{const appearance={...specimenAppearance(e.material),...e.sourceAppearance,...e.appearance};return{id:e.id,material:e.material,indices:Array.from(e.soft.meshIndices(0)),color:appearance?.color||MATERIALS[e.material].color,appearance};}),...lab.surfaces.map(s=>({id:s.id,kind:s.kind,material:s.material,color:s.appearance?.color||s.color||MATERIALS[s.material].color,appearance:s.appearance,cutPlane:s.cutPlane,indices:Array.from(s.geometry().indices)}))];
-  const take={contextView:normalizeContextView(settings.contextView),label:variants[n].label||'Мой дубль',detail:variants[n].detail||'',settings,entities:entities.map(e=>{const surface=assetSurface(e.asset);if(surface)data.renderSurfaces[e.asset]=surface;return{id:e.id,asset:e.asset,name:objectLabel(e,instanceLabels),parts:e.visualParts||e.parts,scale:e.scale,material:e.material,color:e.color,...(e.appearance?{appearance:structuredClone(e.appearance)}:{}),surface:surface?e.asset:undefined};}),meshes,frames:[],impacts:[]};
+  const take={contextView:normalizeContextView(settings.contextView),label:variants[n].label||'Мой дубль',detail:variants[n].detail||'',settings,entities:entities.map(e=>{
+   const surface=e.renderSurface||assetSurface(e.asset);
+   // Content keys preserve different generated surfaces across montage clips.
+   const surfaceKey=e.renderSurface?'custom-'+createHash('sha256').update(JSON.stringify(surface)).digest('hex').slice(0,24):e.asset;
+   if(surface)data.renderSurfaces[surfaceKey]=surface;
+   return{id:e.id,asset:e.asset,name:objectLabel(e,instanceLabels),parts:e.renderHidden?[]:e.visualParts||e.parts,scale:e.scale,material:e.material,color:e.color,...(e.appearance?{appearance:structuredClone(e.appearance)}:{}),surface:surface?surfaceKey:undefined};
+  }),meshes,frames:[],impacts:[]};
   const samples=[];
   for(let f=0;f<=Math.ceil(maxTime*snapshots);f++){
    const t=f/snapshots;while(lab.time+1e-7<t)lab.step();
    const poses=[],objects=[],vertices={},stats=lab.stats();stats.readouts=modelReadouts(lab);stats.movementThreshold=story.movementThreshold||.2;
-   for(const e of entities){const p=e.body.translation(),q=e.body.rotation(),v=e.body.linvel(),start=initial.get(e.id);poses.push(p.x,p.y,p.z,q.x,q.y,q.z,q.w);if(!e.body.isEnabled())continue;const displacement=Math.hypot(p.x-start[0],p.y-start[1],p.z-start[2]);objects.push({id:e.id,name:objectLabel(e,instanceLabels),position:[p.x,p.y,p.z],quaternion:[q.x,q.y,q.z,q.w],bounds:sizes.get(e.id),velocity:[v.x,v.y,v.z],fixed:e.fixed,mass:e.body.mass(),initialPosition:start,distance:displacement});}
+   for(const e of entities){const p=e.body.translation(),q=e.body.rotation(),v=e.body.linvel(),w=e.body.angvel(),start=initial.get(e.id);poses.push(p.x,p.y,p.z,q.x,q.y,q.z,q.w);if(!e.body.isEnabled())continue;const displacement=Math.hypot(p.x-start[0],p.y-start[1],p.z-start[2]);objects.push({id:e.id,name:objectLabel(e,instanceLabels),position:[p.x,p.y,p.z],quaternion:[q.x,q.y,q.z,q.w],bounds:sizes.get(e.id),velocity:[v.x,v.y,v.z],angularVelocity:[w.x,w.y,w.z],fixed:e.fixed,mass:lab.surfaceMotion?.entity===e?lab.surfaceMotion.config.mass:e.body.mass(),initialPosition:start,distance:displacement});}
    for(const e of lab.softs){const a=e.soft.meshVertices(0),lo=[Infinity,Infinity,Infinity],hi=[-Infinity,-Infinity,-Infinity];vertices[e.id]=pack(a);for(let k=0;k<a.length;k++){const axis=k%3;lo[axis]=Math.min(lo[axis],a[k]);hi[axis]=Math.max(hi[axis],a[k]);}objects.push({id:e.id,name:objectLabel(e,instanceLabels),position:lo.map((x,k)=>(x+hi[k])/2),bounds:lo.map((x,k)=>hi[k]-x),velocity:[0,0,0],fixed:false});if(e.id==='specimen')stats.softHeight=hi[1]-lo[1];}
    for(const s of lab.surfaces)vertices[s.id]=pack(s.geometry().vertices);
    const annotationPositions=new Map([...lab.entities,...lab.softs].map(e=>[e.id,lab.position(e.id)]));
@@ -95,11 +102,17 @@ export async function capture(project,cachePath,onProgress=()=>{}){
   const event=salientEvent(lab.impacts,receiver,samples,{targetIds:settings.measurement?.objectIds});
   const contextSubjects=samples[0].objects.filter(o=>o.id!==receiver&&!o.fixed),reactionRadius=contextSubjects.length?Math.max(.5,Math.hypot(...groupSubject(contextSubjects).bounds)*2):5;
   take.reference=samples[0].hero?{position:samples[0].hero.position,bounds:samples[0].hero.bounds,quaternion:samples[0].hero.quaternion||[0,0,0,1]}:null;
-  take.analysis=assessTake(samples,lab.impacts,receiver);take.event=event;
+  const initialReceiver=samples[0]?.objects.find(o=>o.id===receiver),initialSpeed=Math.hypot(...(initialReceiver?.velocity||[0,0,0]));
+  take.analysis=assessTake(samples,lab.impacts,receiver,{
+   contactExpected:typeof settings.analysis?.expectContact==='boolean'?settings.analysis.expectContact:undefined,
+   targetIds:settings.measurement?.objectIds,
+   launchConfigured:!!(settings.autoLaunch||custom.length||project.edits?.[receiver]?.launch||initialSpeed>.15),
+  });take.event=event;
   const models={thermal:!!lab.thermal,penetration:!!lab.penetration,orbit:!!lab.orbit,press:!!lab.press,fluid:!!lab.fluid,mechanism:lab.payloadApex!==undefined};
   // Read-only provenance: preserve effective model choices before world disposal.
   take.modelProvenance=takeModelProvenance(take,{
    rigidStep:lab.world.timestep,
+   surfaceMotion:lab.surfaceMotion?{config:lab.surfaceMotion.config,handoff:lab.surfaceMotion.handoff||null}:undefined,
    penetration:lab.penetration?{parameters:lab.penetration.model.parameters,axis:lab.penetration.axis,entry:lab.penetration.entry,leadDistance:lab.penetration.lead,clock:lab.penetration.clock,geometryApproximation:lab.penetration.surface.geometryApproximation}:undefined,
    atmosphere:lab.atmosphere?.settings.enabled?{...lab.atmosphere.settings,volumes:lab.atmosphere.eligible().map(e=>({id:e.id,mass:e.body.mass(),volume:e.spec.buoyancy.volume,center:e.spec.buoyancy.center||[0,0,0],dragCoefficient:e.spec.buoyancy.dragCoefficient??0,referenceArea:e.spec.buoyancy.referenceArea??0}))}:undefined,
    softBodies:lab.softs.map(e=>{const m=e.soft.material();return{id:e.id,solver:e.deformableMetadata?'fem':'constraints',materialPreset:e.material,particles:e.soft.numParticles(),cells:e.soft.numCells(),parameters:{young:m.youngModulus,poisson:m.poissonRatio,elasticDampingRatio:m.elasticDampingRatio,plasticYield:m.plasticYield,plasticCreep:m.plasticCreep,plasticMax:m.plasticMax},...(e.deformableMetadata?{cellSize:e.deformableMetadata.cellSize,skinCollision:e.deformableMetadata.skinCollision,limitations:e.deformableMetadata.limitations}:{})};}),

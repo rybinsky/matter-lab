@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {clipTempo,setClipPlaybackSpeed} from '../src/clip-tempo.js';
+const camera={position:[0,2,6],target:[0,1,0],fov:40},p={version:1,settings:{experiment:'blank',cameraRig:{version:1,mode:'keys',interpolation:'linear',points:[{time:0,sourceTime:1,...camera},{time:8,sourceTime:3,...camera}]},story:{enabled:true,duration:8,captionMode:'authored',cues:[{start:1,end:7,text:'Author text'}]}},objects:[{id:'body',asset:'cube',mass:7,angularVelocity:[1,2,3]}],edits:{}};
+assert.equal(clipTempo(p).rate,.25);const copy=structuredClone(p),real=setClipPlaybackSpeed(p,1);assert.equal(clipTempo(real).rate,1);assert.equal(clipTempo(real).duration,2);assert.deepEqual(real.objects,p.objects);assert.deepEqual(real.edits,p.edits);assert.deepEqual(p,copy);assert.deepEqual(real.settings.cameraRig.points.map(k=>k.sourceTime),[1,3]);assert.equal(real.settings.story.cues[0].text,'Author text');
+const twice=setClipPlaybackSpeed(real,2);assert.equal(clipTempo(twice).duration,1);assert.equal(clipTempo(twice).rate,2);
+for(const speed of[0,.01,9,NaN])assert.throws(()=>setClipPlaybackSpeed(p,speed));
+const freeze=structuredClone(p);freeze.settings.cameraRig.points[1].sourceTime=1;assert.equal(clipTempo(freeze).kind,'freeze');assert.throws(()=>setClipPlaybackSpeed(freeze,1));
+const mixed=structuredClone(p);mixed.settings.cameraRig.points.splice(1,0,{time:4,sourceTime:1.1,...camera});assert.equal(clipTempo(mixed).kind,'variable');assert.throws(()=>setClipPlaybackSpeed(mixed,1));
+const reverse=structuredClone(p);reverse.settings.cameraRig.points[1].sourceTime=0;assert.equal(clipTempo(reverse).kind,'variable');
+console.log('Clip tempo passed: real-time/slow/fast clocks, unchanged physics, cue retiming, immutability, freeze/reverse/variable clocks and invalid rates.');

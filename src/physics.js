@@ -8,6 +8,8 @@ import { normalizeConnectionVisual, createConnectionSurface } from './connection
 import { PenetrationScene } from './penetration-scene.js';
 import { UniformAtmosphere, normalizeBuoyancy } from './atmosphere.js';
 import { modelReadouts } from './measurement-readouts.js';
+import { SurfaceMotionScene } from './surface-motion-scene.js';
+import { createMotionRig } from './motion-rig.js';
 
 let initialization;
 export async function initializePhysics() {
@@ -77,6 +79,9 @@ export class LabWorld {
     this.fractureEvents=this.breakables?.events||[];
     this.penetration=settings.penetration?new PenetrationScene(this,settings.penetration):null;
     this.atmosphere=new UniformAtmosphere({world:this.world,getEntities:()=>this.entities,settings:settings.atmosphere,legacyWindSpeed:settings.windSpeed||0});
+    this.surfaceMotion=settings.surfaceMotion?new SurfaceMotionScene(this,settings.surfaceMotion):null;
+    this.motionRigs=[];
+    for(const entity of [...this.entities])if(entity.spec?.visualRig){const rig=createMotionRig(this,entity,entity.spec.visualRig);this.motionRigs.push(rig);rig.update(0,this.surfaceMotion?.entity===entity?this.surfaceMotion.snapshot():{phase:'dynamic'});}
     this.resetMeasurements();
     }catch(error){this.dispose();throw error;}
   }
@@ -93,17 +98,17 @@ export class LabWorld {
     const appearance=spec.appearance?structuredClone(spec.appearance):null;
     const scale=spec.scale??1;
     const position=spec.position||[0,2,0];
-    let desc=spec.fixed ? RAPIER.RigidBodyDesc.fixed() : spec.kinematic ? RAPIER.RigidBodyDesc.kinematicPositionBased() : RAPIER.RigidBodyDesc.dynamic();
+    let desc=spec.fixed||spec.renderOnly ? RAPIER.RigidBodyDesc.fixed() : spec.kinematic ? RAPIER.RigidBodyDesc.kinematicPositionBased() : RAPIER.RigidBodyDesc.dynamic();
     desc.setTranslation(...position).setRotation(quaternion(spec.rotation));
     validateDamping(spec);
-    const dynamic=!spec.fixed&&!spec.kinematic;
+    const dynamic=!spec.fixed&&!spec.kinematic&&!spec.renderOnly;
     desc.setLinearDamping(spec.linearDamping??(dynamic ? .055 : 0)).setAngularDamping(spec.angularDamping??(dynamic ? .12 : 0));
     if(dynamic)desc.setCcdEnabled(true);
     const body=this.world.createRigidBody(desc);
     const colliders=[];
     const totalVol=parts.reduce((sum,p)=>sum+volume(p),0);
     const mass=spec.mass??asset?.mass??Math.max(.08,totalVol*scale**3*mat.density*.12);
-    for(const part of parts) {
+    for(const part of spec.renderOnly?[]:parts) {
       if(part.shape==='torus') {
         for(let i=0;i<16;i++) {
           const a=i*Math.PI/8;
@@ -126,7 +131,7 @@ export class LabWorld {
     }
     if(spec.velocity) body.setLinvel(v(spec.velocity),true);
     if(spec.angularVelocity)body.setAngvel(v(spec.angularVelocity),true);
-    const entity={id,name:spec.name||asset?.name||'Объект',asset:spec.asset||'custom',body,colliders,parts,visualParts:spec.visualParts,material:spec.material||asset?.mat||'ceramic',color:spec.color,appearance,scale,fixed:!!spec.fixed,kinematic:!!spec.kinematic,spec:{...spec,id,...(spec.appearance===undefined?{}:{appearance:structuredClone(appearance)})}};
+    const entity={id,name:spec.name||asset?.name||'Объект',asset:spec.asset||'custom',body,colliders,parts,visualParts:spec.visualParts,material:spec.material||asset?.mat||'ceramic',color:spec.color,appearance,scale,fixed:!!spec.fixed||!!spec.renderOnly,kinematic:!!spec.kinematic,renderOnly:!!spec.renderOnly,spec:{...spec,id,...(spec.appearance===undefined?{}:{appearance:structuredClone(appearance)})}};
     this.entities.push(entity);for(const c of colliders)this.colliderEntities.set(c.handle,entity);this.measurementOrigins.set(id,position.slice());
     return entity;
   }
@@ -361,6 +366,7 @@ export class LabWorld {
       this.press.body.setNextKinematicTranslation({x:0,y,z:0});
     }
     this.world.timestep=dt;
+    this.surfaceMotion?.beforeStep(dt);
     this.atmosphere?.setLegacyWindSpeed(this.settings.windSpeed||0);
     if(this.settings.windSpeed&&this.settings.experiment!=='orbit')for(const e of this.entities)if(!e.fixed&&!e.kinematic&&e.body.isEnabled()&&!this.atmosphere?.ownsAerodynamics(e)){
       const b=e.body,vel=b.linvel(),wind=this.settings.windSpeed;const dx=wind-vel.x,dy=-vel.y,dz=-vel.z,speed=Math.hypot(dx,dy,dz),area=Math.max(.03,Math.min(4,e.parts.reduce((s,p)=>s+volume(p),0)**(2/3)*e.scale*e.scale));
@@ -373,6 +379,7 @@ export class LabWorld {
     const graphLoads=loads=>{if(this.breakables)for(const[id,force]of loads||[]){const old=this.breakables.baseLoads.get(id);if(old)this.breakables.baseLoads.set(id,old.map((v,i)=>v+force[i]));}};
     const contactLoads=this.breakables?[]:null;
     this.world.step(this.events);
+    this.surfaceMotion?.afterStep();
     this.events.drainContactForceEvents(event=>{
       if(contactLoads)contactLoads.push(copyContactForceEvent(event));
       const a=this.colliderEntities.get(event.collider1()),b=this.colliderEntities.get(event.collider2()),force=event.totalForceMagnitude();
@@ -390,13 +397,14 @@ export class LabWorld {
     this.penetration?.update(this.time);
     for(const {model,entity}of this.orbiters){model.step(dt);const p=model.position();entity.body.setTranslation({x:p[0],y:p[1],z:p[2]},true);}
     if(this.payloadApex!==undefined){const payload=this.find('payload');if(payload)this.payloadApex=Math.max(this.payloadApex,payload.body.translation().y);}
-    for(const e of this.entities)if(!e.fixed&&e.id!==this.measurementFocus&&e.body.isEnabled()){
+    for(const e of this.entities)if(!e.internal&&!e.fixed&&e.id!==this.measurementFocus&&e.body.isEnabled()){
       const p=e.body.translation(),start=this.measurementOrigins.get(e.id);if(start&&!this.measured.has(e.id)&&Math.hypot(p.x-start[0],p.y-start[1],p.z-start[2])>this.measurementThreshold)this.measured.set(e.id,this.time);
     }
+    for(const rig of this.motionRigs||[])rig.update(dt,this.surfaceMotion?.entity===rig.entity?this.surfaceMotion.snapshot():{phase:'dynamic'});
   }
   resetMeasurements(focusId=(this.settings.comparison?.enabled===true?this.settings.comparison.targetId:'')||this.settings.focusId||'',threshold=this.settings.story?.movementThreshold??.2){
     this.measurementFocus=focusId;this.measurementThreshold=Number.isFinite(threshold)?Math.max(.01,Math.min(2,threshold)):.2;this.measured.clear();this.measurementOrigins.clear();
-    for(const e of this.entities){const p=e.body.translation();this.measurementOrigins.set(e.id,[p.x,p.y,p.z]);}
+    for(const e of this.entities)if(!e.internal){const p=e.body.translation();this.measurementOrigins.set(e.id,[p.x,p.y,p.z]);}
   }
   measuredChanges(){return[...this.measured].filter(([id,t])=>this.time-t<.35).map(([id])=>id);}
   stats() {
@@ -405,10 +413,10 @@ export class LabWorld {
     const scope=this.settings.measurement?.objectIds;
     const movedObjects=Array.isArray(scope)&&scope.length?scope.filter(id=>this.measured.has(id)).length:this.measured.size;
     const breakage=this.breakables?{loadModel:'contact-graph',total:this.breakables.bonds.length,broken:this.breakables.bonds.filter(b=>b.broken).length,retired:this.breakables.bonds.filter(b=>b.retired).length}:undefined;
-    return {...(breakage?{breakage,breakEvents:this.fractureEvents.filter(e=>this.time-e.time<.1).map(e=>({...e}))}:{}),time:this.time,objects:this.entities.length-1+this.softs.length,moving,energy,particles:this.fluid?.particles.length||0,apex:this.payloadApex,movedObjects,readouts:modelReadouts(this),...(this.atmosphere?.settings.enabled?{atmosphere:this.atmosphere.snapshot()}: {})};
+    return {...(breakage?{breakage,breakEvents:this.fractureEvents.filter(e=>this.time-e.time<.1).map(e=>({...e}))}:{}),time:this.time,objects:this.entities.filter(e=>!e.internal).length-1+this.softs.length,moving,energy,particles:this.fluid?.particles.length||0,apex:this.payloadApex,movedObjects,readouts:modelReadouts(this),...(this.atmosphere?.settings.enabled?{atmosphere:this.atmosphere.snapshot()}: {}),...(this.surfaceMotion?{surfaceMotion:this.surfaceMotion.snapshot()}: {})};
   }
   assemblyState(){return this.breakables?.snapshot()||null;}
-  dispose(){const world=this.world,events=this.events;try{this.breakables?.dispose();}finally{this.breakables=null;this.world=null;this.events=null;try{world?.free();}finally{events?.free();}}}
+  dispose(){const world=this.world,events=this.events;try{for(const rig of this.motionRigs||[])rig.dispose();this.motionRigs=[];this.breakables?.dispose();}finally{this.breakables=null;this.world=null;this.events=null;try{world?.free();}finally{events?.free();}}}
 }
 
 function rotate(v,q) {
